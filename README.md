@@ -10,6 +10,7 @@ Live preview: coming soon...
 * TypeScript
 * Express.js
 * React
+* Vite
 * Tailwind
 * MongoDB and Mongoose (WIP)
 * JWT auth (WIP)
