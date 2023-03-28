@@ -1,6 +1,6 @@
 # ENVS Matcher Client
 
-Client end of ENVS Matcher, a React app built to help ENVS students find their future career.
+Client end of ENVS Matcher, built with React, Tailwind, and TypeScript.
 
 # Getting Started with Create React App
 

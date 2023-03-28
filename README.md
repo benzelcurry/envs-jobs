@@ -7,8 +7,10 @@ is a feature/technology that is not yet implemented.]
 Live preview: coming soon...
 
 ## Built with
+* TypeScript
 * Express.js
 * React
+* Tailwind
 * MongoDB and Mongoose (WIP)
 * JWT auth (WIP)
 * Railway server hosting (WIP)
