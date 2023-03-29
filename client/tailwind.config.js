@@ -3,6 +3,8 @@
 const colors = require('tailwindcss/colors');
 
 export default {
+  mode: 'jit',
+  darkMode: 'class',
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
