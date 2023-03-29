@@ -5,6 +5,10 @@ import { BsFillMoonStarsFill } from 'react-icons/bs';
 import { RiSuitcaseLine } from 'react-icons/ri';
 import { RxAvatar } from 'react-icons/rx';
 
+interface ParentProps {
+  toggle: Function
+}
+
 type Props = React.HTMLAttributes<HTMLDivElement> & {
   icon: JSX.Element,
   text?: string,
@@ -12,7 +16,7 @@ type Props = React.HTMLAttributes<HTMLDivElement> & {
   onClick?: {}
 };
 
-const Sidebar = () => {
+const Sidebar = ({ toggle }: ParentProps) => {
   const [view, setView] = useState('');
 
   useEffect(() => {
@@ -22,22 +26,14 @@ const Sidebar = () => {
     };
   }, [view])
 
-  const toggleView = () => {
-    if (view === '') {
-      localStorage.setItem('view', 'light')
-    } else {
-      localStorage.removeItem('view');
-    };
-  };
-
   return (
     <div className="fixed top-0 left-0 h-screen w-16 m-0 flex flex-col 
-                  bg-gray-900 text-white shadow-lg">
+                  dark:bg-gray-900 text-white shadow-lg">
       <SidebarIcon icon={<AiFillHome size='28' />} text='Home' />
       <SidebarIcon icon={<RiSuitcaseLine size='28' />} text='Careers' />
       <SidebarIcon icon={<RxAvatar size='28' />} text='Profile' />
       <SidebarIcon icon={<BsFillMoonStarsFill size='28' />} text='Dark Mode' dark={true} 
-        onClick={() => toggleView()}
+        onClick={() => toggle()}
       />
     </div>
   );
