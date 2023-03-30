@@ -1,4 +1,6 @@
-import { useState, useEffect } from 'react'
+// Primary App component
+// Don't forget to format using Prettier before commits!
+import { useState, useEffect } from 'react';
 
 import Sidebar from './Sidebar';
 import Home from './Home';
@@ -12,18 +14,18 @@ const App = () => {
     if (viewMode) {
       setView(viewMode);
     }
-  }, [view])
+  }, [view]);
 
   const toggleView = () => {
     if (!view) {
-      localStorage.setItem('view', 'light')
+      localStorage.setItem('view', 'light');
       setView('dark');
       document.documentElement.classList.remove('dark');
     } else {
       localStorage.removeItem('view');
       setView('');
       document.documentElement.classList.add('dark');
-    };
+    }
   };
 
   return (
