@@ -18,12 +18,12 @@
 
   .sidebar-tooltip {
     @apply absolute w-auto p-2 m-2 min-w-max md:left-14 rounded-md
-           shadow-md text-white bg-gray-900 text-xs font-bold
-           transition-all duration-100 scale-0 md:origin-left top-14
-           origin-top;
+           shadow-md text-white dark:bg-gray-900 text-xs font-bold
+           transition-all duration-100 scale-0 md:origin-left md:top-0
+           origin-top top-14 bg-green-500;
   }
 }
 
-.dark {
+.view {
   margin-top: auto;
 }

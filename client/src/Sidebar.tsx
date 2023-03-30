@@ -13,7 +13,7 @@ interface ParentProps {
 type Props = React.HTMLAttributes<HTMLDivElement> & {
   icon: JSX.Element;
   text?: string;
-  dark?: boolean;
+  view?: boolean;
   onClick?: () => void;
 };
 
@@ -38,7 +38,7 @@ const Sidebar = ({ toggle }: ParentProps) => {
       <SidebarIcon
         icon={<BsFillMoonStarsFill size="28" />}
         text="Dark Mode"
-        dark={true}
+        view={true}
         onClick={() => toggle()}
       />
     </div>
@@ -48,12 +48,12 @@ const Sidebar = ({ toggle }: ParentProps) => {
 const SidebarIcon = ({
   icon,
   text = 'tooltip',
-  dark = false,
+  view = false,
   onClick
 }: Props) => {
   return (
     <div
-      className={dark ? 'sidebar-icon group dark' : 'sidebar-icon group'}
+      className={view ? 'sidebar-icon group view' : 'sidebar-icon group'}
       onClick={onClick}
     >
       {icon}
