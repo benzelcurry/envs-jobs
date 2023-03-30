@@ -27,7 +27,7 @@ const Sidebar = ({ toggle }: ParentProps) => {
   }, [view])
 
   return (
-    <div className="fixed top-0 left-0 h-screen w-16 m-0 flex flex-col 
+    <div className="fixed top-0 left-0 w-screen md:h-screen md:w-16 m-0 flex md:flex-col 
                   dark:bg-gray-900 text-white shadow-lg">
       <SidebarIcon icon={<AiFillHome size='28' />} text='Home' />
       <SidebarIcon icon={<RiSuitcaseLine size='28' />} text='Careers' />
