@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 
 import Sidebar from './Sidebar';
-import './App.css'
+import Home from './Home';
 
-function App() {
+// WILL WANT TO IMPLEMENT REACT-ROUTER-DOM FOR SEPARATE PAGES
+const App = () => {
   const [view, setView] = useState('');
 
   useEffect(() => {
@@ -17,17 +18,20 @@ function App() {
     if (!view) {
       localStorage.setItem('view', 'light')
       setView('dark');
+      document.documentElement.classList.remove('dark');
     } else {
       localStorage.removeItem('view');
       setView('');
+      document.documentElement.classList.add('dark');
     };
   };
 
   return (
-    <div className={!view ? 'dark' : ''}>
+    <div>
       <Sidebar toggle={toggleView} />
+      <Home />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
