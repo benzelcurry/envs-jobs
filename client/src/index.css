@@ -4,7 +4,7 @@
 
 @layer components {
   #root > div {
-    @apply md:flex md:flex-row h-screen dark:bg-gray-700 dark:text-gray-100;
+    @apply md:flex h-screen dark:bg-gray-700 dark:text-gray-100;
   }
 
   .sidebar-icon {
