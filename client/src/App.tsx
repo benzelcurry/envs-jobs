@@ -13,6 +13,8 @@ const App = () => {
     const viewMode = localStorage.getItem('view');
     if (viewMode) {
       setView(viewMode);
+    } else {
+      document.documentElement.classList.add('dark');
     }
   }, [view]);
 
