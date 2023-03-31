@@ -22,6 +22,12 @@
            transition-all duration-100 scale-0 md:origin-left md:top-0
            origin-top top-14 bg-green-500;
   }
+
+  .btn {
+    @apply bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full
+             shadow-2xl mx-3;
+
+  }
 }
 
 .view {
