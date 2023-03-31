@@ -32,18 +32,18 @@ const App = () => {
   return (
     <div>
       <Sidebar toggle={toggleView} />
-      <div className='flex flex-col flex-1 mt-10'>
-        <div className='w-[450px] flex md:justify-center mx-auto p-5 text-xl'>
+      <div className="flex flex-col flex-1 mt-10">
+        <div className="w-[450px] flex md:justify-center mx-auto p-5 text-xl">
           Welcome to ENVS Matcher, a website geared towards helping both current
           and prospective ENVS students with finding a career in the field that
           matches their needs!
         </div>
-        <div className='w-[450px] flex md:justify-center mx-auto p-5 text-xl'>
+        <div className="w-[450px] flex md:justify-center mx-auto p-5 text-xl">
           To begin, choose one of the options below.
         </div>
-        <div className='w-[450px] flex justify-center mx-auto p-5'>
-          <button className='btn'>Log In</button>
-          <button className='btn'>Sign Up</button>
+        <div className="w-[450px] flex justify-center mx-auto p-5">
+          <button className="btn">Log In</button>
+          <button className="btn">Sign Up</button>
         </div>
       </div>
     </div>
