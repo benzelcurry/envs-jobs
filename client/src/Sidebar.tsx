@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 
 import { AiFillHome } from 'react-icons/ai';
-import { BsFillMoonStarsFill } from 'react-icons/bs';
+import { BsFillMoonStarsFill, BsFillSunFill } from 'react-icons/bs';
 import { RiSuitcaseLine } from 'react-icons/ri';
 import { RxAvatar } from 'react-icons/rx';
 
@@ -29,15 +29,23 @@ const Sidebar = ({ toggle }: ParentProps) => {
 
   return (
     <div
-      className="sticky top-0 left-0 w-screen md:h-screen md:w-16 m-0 flex md:flex-col 
-                  dark:bg-gray-900 text-white shadow-lg"
+      className='sticky top-0 left-0 w-screen md:h-screen md:w-16 m-0 flex md:flex-col 
+                  dark:bg-gray-900 text-white shadow-lg'
     >
-      <SidebarIcon icon={<AiFillHome size="28" />} text="Home" />
-      <SidebarIcon icon={<RiSuitcaseLine size="28" />} text="Careers" />
+      <SidebarIcon icon={<AiFillHome size='28' />} text="Home" />
+      <SidebarIcon icon={<RiSuitcaseLine size='28' />} text="Careers" />
       <SidebarIcon icon={<RxAvatar size="28" />} text="Profile" />
       <SidebarIcon
-        icon={<BsFillMoonStarsFill size="28" />}
-        text="Dark Mode"
+        icon={ document.documentElement.classList.contains('dark') ?
+          <BsFillSunFill size="28" />
+          :
+          <BsFillMoonStarsFill size='28' />
+        }
+        text={ document.documentElement.classList.contains('dark') ? 
+          'Light Mode'
+          :
+          'Dark Mode'
+        }
         view={true}
         onClick={() => toggle()}
       />
