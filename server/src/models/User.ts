@@ -1,6 +1,6 @@
-// User model
+// User schema
 
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 // Don't rely on `unique: true` for validation; do additional verification check
