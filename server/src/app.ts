@@ -10,11 +10,17 @@
 // * Implement some form of auth (JWT?)
 
 import express, { Application, Request, Response, NextFunction } from 'express';
+import mongoose, { ConnectOptions } from 'mongoose';
 import careers from './routes/careers';
 import users from './routes/users';
 import dotenv from 'dotenv';
 
 dotenv.config();
+
+const mongoDB = String(process.env.MONGODB_URI);
+mongoose.connect(mongoDB, { useUnifiedTopology: true, useNewUrlParser: true } as ConnectOptions);
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'mongo connection error'));
 
 const app: Application = express();
 

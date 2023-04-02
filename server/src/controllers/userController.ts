@@ -1,5 +1,7 @@
 // Controller for User methods
 
+// TO-DO
+// * Make function for creating new users
 import User from '../models/User';
 
 import { RequestHandler } from 'express';
@@ -12,5 +14,5 @@ dotenv.config();
 
 // Return list of Users on GET
 export const user_list: RequestHandler = (req, res, next) => {
-  res.json('Hello, Users!')
+  res.json('Hello, User!');
 };
