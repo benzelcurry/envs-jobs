@@ -12,8 +12,9 @@
 import express, { Application, Request, Response, NextFunction } from 'express';
 import careers from './routes/careers';
 import users from './routes/users';
+import dotenv from 'dotenv';
 
-require('dotenv').config();
+dotenv.config();
 
 const app: Application = express();
 
