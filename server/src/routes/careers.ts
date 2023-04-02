@@ -1,7 +1,7 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express, { RequestHandler } from 'express';
 const router = express.Router();
 
-router.get('/', (req: Request, res: Response) => {
+router.get('/', (req, res) => {
   res.json({
     msg: 'Career section!'
   });

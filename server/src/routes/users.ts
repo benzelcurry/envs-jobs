@@ -1,10 +1,10 @@
 import express, { Request, Response, NextFunction } from 'express';
 const router = express.Router();
 
-router.get('/', (req: Request, res: Response) => {
-  res.json({
-    msg: 'This is where your users will be returned from!'
-  });
-});
+import {
+  user_list,
+} from '../controllers/userController';
+
+router.get('/', user_list);
 
 export default router;
