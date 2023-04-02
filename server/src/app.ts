@@ -10,15 +10,14 @@
 // * Implement some form of auth (JWT?)
 
 import express, { Application, Request, Response, NextFunction } from 'express';
+import careers from './routes/careers';
+import users from './routes/users';
 
 require('dotenv').config();
 
 const app: Application = express();
-const careers = require('./routes/careers');
-const users = require('./routes/users');
 
 app.use('/careers', careers);
-
 app.use('/users', users);
 
 app.use('/', (req: Request, res: Response): void => {
