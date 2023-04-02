@@ -4,7 +4,8 @@
 // * Make function for creating new users
 import User from '../models/User';
 
-import { RequestHandler } from 'express';
+import { Request, Response, NextFunction, RequestHandler } from 'express';
+import { body, validationResult } from 'express-validator';
 import async from 'async';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -16,3 +17,86 @@ dotenv.config();
 export const user_list: RequestHandler = (req, res, next) => {
   res.json('Hello, User!');
 };
+
+
+// Create new User on POST
+export const create_user = [
+  // Validate and sanitize fields
+  body('first_name')
+    .trim()
+    .isLength({ min: 1, max: 20 })
+    .withMessage('First name must be between 1 and 20 characters')
+    .matches(/^[a-zA-Z'-]+$/)
+    .withMessage('First name may only contain letters, hyphens, and apostrophes'),
+  body('family_name')
+    .trim()
+    .isLength({ min: 1, max: 20 })
+    .withMessage('First name must be between 1 and 20 characters')
+    .matches(/^[a-zA-Z'-]+$/)
+    .withMessage('Family name may only contain letters, hyphens, and apostrophes'),
+  body('username')
+    .trim()
+    .isLength({ min: 3, max: 16 })
+    .withMessage('Username must be between 3 and 16 characters')
+    .isAlphanumeric()
+    .withMessage('Usernames may only contain alphanumeric characters'),
+  body('password')
+    .trim()
+    .isLength({ min: 6, max: 100 })
+    .withMessage('Password must be between 6 and 100 characters long'),
+  body('confirm_password')
+    .trim()
+    .isLength({ min: 1 })
+    .withMessage('Password confirmation field must not be empty')
+    .custom((value, { req }) => value === req.body.password)
+    .withMessage('Passwords must match'),
+  
+  // Process request after validation
+  (req: Request, res: Response, next: NextFunction) => {
+    async.parallel({
+      user() {
+        User.findOne({ username: req.body.username }).exec();
+      },
+    },
+    (err, results) => {
+      if (results.user) {
+        return res.status(400).json({
+          errors: ['Username already exists']
+        });
+      };
+
+      bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
+        if (err) { return next(err) };
+
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+          return res.status(400).json({
+            errors: errors.array()
+          });
+        } else {
+          const user = new User({
+            first_name: req.body.first_name,
+            family_name: req.body.family_name,
+            username: req.body.username,
+            password: hashedPassword,
+            is_admin: false,
+            attributes: []
+          });
+
+        async function create() {
+          try {
+            const createUser = await user.save();
+            res.status(200).json('User created!');
+          } catch (err) {
+            res.status(500).json({ errors: [err]} );
+          }
+        };
+
+        create();
+        }
+      })
+    }
+    )
+  }
+];
