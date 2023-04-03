@@ -13,8 +13,23 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // Return list of Users on GET
-export const user_list: RequestHandler = (req, res, next) => {
-  res.json('Hello, User!');
+export const user_list: RequestHandler = async (req, res, next) => {
+  try {
+    const users = await User.find();
+    const userList: string[] = [];
+
+    if (users) {
+      for (const user of users) {
+        const fullName = `${user.first_name} ${user.family_name}`;
+        userList.push(fullName);
+      }
+      res.status(200).json(userList);
+    } else {
+      res.status(200).json('There are no users!');
+    };
+  } catch (err) {
+    res.status(500).json({ errors: err });
+  };
 };
 
 // Create new User on POST
