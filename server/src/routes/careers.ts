@@ -1,10 +1,8 @@
 import express, { RequestHandler } from 'express';
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.json({
-    msg: 'Career section!'
-  });
-});
+import { career_list } from '../controllers/careerController';
+
+router.get('/', career_list);
 
 export default router;
