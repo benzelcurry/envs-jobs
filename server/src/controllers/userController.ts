@@ -26,10 +26,10 @@ export const user_list: RequestHandler = async (req, res, next) => {
       res.status(200).json(userList);
     } else {
       res.status(200).json('There are no users!');
-    };
+    }
   } catch (err) {
     res.status(500).json({ errors: err });
-  };
+  }
 };
 
 // Create new User on POST
@@ -93,7 +93,7 @@ export const create_user = [
           attributes: []
         });
 
-        const createUser = await user.save();
+        user.save();
         res.status(200).json('User created!');
       }
     } catch (err) {
