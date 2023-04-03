@@ -34,8 +34,8 @@ export const add_career = [
     .isLength({ min: 2 })
     .withMessage('Career description must be at least 2 characters long'),
   body('attributes')
-    .isLength({ min: 3 })
-    .withMessage('Please enter at least three attributes for the career'),
+    .isArray({ min: 3 })
+    .withMessage('Please submit a minimum of 3 attributes'),
   async (req: Request, res: Response, next: NextFunction) => {
     // ADD LOGIC HERE TO ENSURE THAT DATA IS COMING FROM AN ADMIN
     try {

@@ -16,7 +16,7 @@ const CareerSchema = new Schema({
     unique: true
   },
   description: { type: String, required: true, minLength: 2 },
-  attributes: [{ type: String }]
+  attributes: { type: [String], required: true, minItems: 3 }
 });
 
-module.exports = mongoose.model('Career', CareerSchema);
+export default mongoose.model('Career', CareerSchema);
