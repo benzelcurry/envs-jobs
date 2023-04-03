@@ -6,15 +6,20 @@ import { Request, Response, NextFunction, RequestHandler } from 'express';
 import { body, validationResult } from 'express-validator';
 import { Callback } from 'mongoose';
 import async from 'async';
-import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
 // Return list of Careers on GET
-export const career_list: RequestHandler = (req, res, next) => {
-  res.json("Here's the careers!");
+export const career_list: RequestHandler = async (req, res, next) => {
+  const careers = await Career.find();
+  
+  if (careers) {
+    res.status(200).json(careers);
+  } else {
+    res.status(200).json('There are no careers in the database!');
+  };
 };
 
 // Allow admins to add new Careers on POST
