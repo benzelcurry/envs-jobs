@@ -8,7 +8,13 @@ const Schema = mongoose.Schema;
 // * Helpful certificates/degrees
 // * Pay range (only add if can pull from a 3rd party API that updates; might not be a DB call)
 const CareerSchema = new Schema({
-  title: { type: String, required: true, minLength: 2, maxLength: 100 },
+  title: {
+    type: String,
+    required: true,
+    minLength: 2,
+    maxLength: 100,
+    unique: true
+  },
   description: { type: String, required: true, minLength: 2 },
   attributes: [{ type: String }]
 });
