@@ -6,8 +6,15 @@
     "outDir": "dist",
     "sourceMap": true,
     "strict": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "noImplicitAny": true
   },
-  "include": ["src/**/*"],
+  "types": [
+    "jest"
+  ],
+  "include": [
+    "src/**/*",
+    "tests/**/*"
+  ],
   "exclude": ["node_modules"]
 }
