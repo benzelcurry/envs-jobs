@@ -40,3 +40,5 @@ app.use('/', (req: Request, res: Response): void => {
 app.listen(process.env.PORT, (): void => {
   console.log(`Server is running on Port ${process.env.PORT}`);
 });
+
+export default app;
