@@ -1,6 +1,8 @@
 import request from 'supertest';
 import app from '../src/app';
 
+// TODO: Add more tests!
+
 describe('GET /', () => {
   test('It should respond with a 200 status code',  (done) => {
     request(app).get('/')
