@@ -41,3 +41,17 @@ describe('GET /users', () => {
       });
   });
 });
+
+// NOTE: Having issues figuring out how to mock a database properly
+// describe('POST /careers', () => {
+//   const career = {
+//     title: 'Another Career',
+//     description: 'This is a career sent from the Jest suite',
+//     attributes: ['test', 'jest', 'suite']
+//   };
+
+//   test('It should respond with a 200 status code when sending properly formatted object', async () => {
+//     const response = await request(app).post('/careers').send(career);
+//     expect(response.body).toBe(200);
+//   });
+// });
