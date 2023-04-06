@@ -28,3 +28,16 @@ describe('GET /careers', () => {
       });
   });
 });
+
+describe('GET /users', () => {
+  test('It should return with a 200 status code', (done) => {
+    request(app).get('/users')
+      .then((response) => {
+        expect(response.statusCode).toBe(200);
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+});
