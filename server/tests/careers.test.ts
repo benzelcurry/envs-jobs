@@ -15,3 +15,16 @@ describe('GET /', () => {
       });
   });
 });
+
+describe('GET /careers', () => {
+  test('It should respond with a 200 status code', (done) => {
+    request(app).get('/careers')
+      .then((response) => {
+        expect(response.statusCode).toBe(200);
+        done();
+      })
+      .catch((err) => {
+        done(err);
+      });
+  });
+});
