@@ -1,4 +1,4 @@
-// Log-in component
+// Log-in component for existing users
 
 import Sidebar from './Sidebar';
 
