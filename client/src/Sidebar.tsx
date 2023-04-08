@@ -53,7 +53,12 @@ const Sidebar = () => {
       <Link to={'/careers'} className='sidebar-icon'>
         <SidebarIcon icon={<RiSuitcaseLine size="28" />} text="Careers" />
       </Link>
-      <SidebarIcon icon={<RxAvatar size="28" />} text="Profile" />
+      {/* WILL NEED TO MODIFY BELOW CODE TO EITHER PASS CURRENT USERNAME TO THE 
+      LINK OR WILL NEED TO HAVE IT REDIRECT TO SIGNUP/LOGIN PAGE IF NO ONE IS 
+      LOGGED IN */}
+      <Link to={`/profile/placeholder`} className='sidebar-icon'>
+        <SidebarIcon icon={<RxAvatar size="28" />} text="Profile" />
+      </Link>
       <SidebarIcon
         icon={
           document.documentElement.classList.contains('dark') ? (
