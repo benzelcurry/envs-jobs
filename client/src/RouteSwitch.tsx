@@ -14,10 +14,10 @@ const RouteSwitch = () => {
     <HashRouter>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path='/careers' element={<CareersList />} />
-        <Route path='/profile/:username' element={<Profile />} />
-        <Route path='/log-in' element={<LogIn />} />
-        <Route path='/sign-up' element={<SignUp />} />
+        <Route path="/careers" element={<CareersList />} />
+        <Route path="/profile/:username" element={<Profile />} />
+        <Route path="/log-in" element={<LogIn />} />
+        <Route path="/sign-up" element={<SignUp />} />
       </Routes>
     </HashRouter>
   );
