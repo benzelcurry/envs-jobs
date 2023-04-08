@@ -7,6 +7,7 @@ import App from './App';
 import CareersList from './CareersList';
 import Profile from './Profile';
 import LogIn from './LogIn';
+import SignUp from './SignUp';
 
 const RouteSwitch = () => {
   return (
@@ -16,6 +17,7 @@ const RouteSwitch = () => {
         <Route path='/careers' element={<CareersList />} />
         <Route path='/profile/:username' element={<Profile />} />
         <Route path='/log-in' element={<LogIn />} />
+        <Route path='/sign-up' element={<SignUp />} />
       </Routes>
     </HashRouter>
   );
