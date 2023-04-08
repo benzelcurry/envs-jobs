@@ -1,11 +1,7 @@
 // Primary App component
-// Don't forget to format using Prettier before commits!
-import { useState, useEffect } from 'react';
-
 import Sidebar from './Sidebar';
 
-// WILL WANT TO IMPLEMENT REACT-ROUTER-DOM FOR SEPARATE PAGES
-const App = () => {
+const Home = () => {
   return (
     <div>
       <Sidebar />
@@ -27,4 +23,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Home;

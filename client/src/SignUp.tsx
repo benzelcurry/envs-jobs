@@ -7,6 +7,7 @@ const SignUp = () => {
     <div>
       <Sidebar />
       <div>
+        {/* Add 'autocomplete' username/new-password attributes to input fields for UX/a11y */}
         <p>Sign-up logic will go here.</p>
       </div>
     </div>
