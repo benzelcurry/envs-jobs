@@ -1,5 +1,10 @@
 // Primary App component
+import { Link } from 'react-router-dom';
+
 import Sidebar from './Sidebar';
+
+// TODO:
+//   1. Make buttons conditionally display if receiving currentUser data from sidebar
 
 const Home = () => {
   return (
@@ -15,8 +20,12 @@ const Home = () => {
           To begin, choose one of the options below.
         </p>
         <div className="w-[450px] flex justify-center mx-auto p-5">
-          <button className="btn">Log In</button>
-          <button className="btn">Sign Up</button>
+          <Link to={'/log-in'}>
+            <button className="btn">Log In</button>
+          </Link>
+          <Link to={'/sign-up'}>
+            <button className="btn">Sign Up</button>
+          </Link>
         </div>
       </div>
     </div>
