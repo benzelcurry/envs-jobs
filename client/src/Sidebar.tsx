@@ -3,13 +3,10 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate, Navigate } from 'react-router-dom';
 
 import { AiFillHome } from 'react-icons/ai';
+import { BiUserPlus } from 'react-icons/bi';
 import { BsFillMoonStarsFill, BsFillSunFill } from 'react-icons/bs';
 import { RiSuitcaseLine } from 'react-icons/ri';
 import { RxAvatar } from 'react-icons/rx';
-
-interface ParentProps {
-  toggle: Function;
-}
 
 type Props = React.HTMLAttributes<HTMLDivElement> & {
   icon: JSX.Element;
@@ -18,8 +15,23 @@ type Props = React.HTMLAttributes<HTMLDivElement> & {
   onClick?: () => void;
 };
 
+interface User {
+  username: string;
+  first_name: string;
+  family_name: string;
+  is_admin: boolean;
+  attributes: string[];
+}
+
 const Sidebar = () => {
   const [view, setView] = useState('');
+  const [currentUser, setCurrentUser] = useState<User>({
+    username: '',
+    first_name: '',
+    family_name: '',
+    is_admin: false,
+    attributes: []
+  });
 
   useEffect(() => {
     const viewMode = localStorage.getItem('view');
@@ -47,18 +59,24 @@ const Sidebar = () => {
       className="sticky top-0 left-0 w-screen md:h-screen md:w-16 m-0 flex md:flex-col 
                   dark:bg-gray-900 text-white shadow-lg"
     >
-      <Link to={'/'} className='sidebar-icon'>
+      <Link to={'/'} className="sidebar-icon">
         <SidebarIcon icon={<AiFillHome size="28" />} text="Home" />
       </Link>
-      <Link to={'/careers'} className='sidebar-icon'>
+      <Link to={'/careers'} className="sidebar-icon">
         <SidebarIcon icon={<RiSuitcaseLine size="28" />} text="Careers" />
       </Link>
-      {/* WILL NEED TO MODIFY BELOW CODE TO EITHER PASS CURRENT USERNAME TO THE 
-      LINK OR WILL NEED TO HAVE IT REDIRECT TO SIGNUP/LOGIN PAGE IF NO ONE IS 
-      LOGGED IN */}
-      <Link to={`/profile/placeholder`} className='sidebar-icon'>
-        <SidebarIcon icon={<RxAvatar size="28" />} text="Profile" />
-      </Link>
+      {currentUser.username ? (
+        <Link to={`/profile/placeholder`} className="sidebar-icon">
+          <SidebarIcon icon={<RxAvatar size="28" />} text="Profile" />
+        </Link>
+      ) : (
+        <Link to={'/log-in'} className="sidebar-icon">
+          <SidebarIcon
+            icon={<BiUserPlus size="28" />}
+            text="Log In / Sign Up"
+          />
+        </Link>
+      )}
       <SidebarIcon
         icon={
           document.documentElement.classList.contains('dark') ? (

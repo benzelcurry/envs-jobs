@@ -7,9 +7,7 @@ const LogIn = () => {
     <div>
       <Sidebar />
       <div>
-        <p>
-          Log In logic will go here.
-        </p>
+        <p>Log In logic will go here.</p>
       </div>
     </div>
   );

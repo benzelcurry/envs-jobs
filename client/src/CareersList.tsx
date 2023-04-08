@@ -7,18 +7,20 @@ const CareersList = () => {
   return (
     <div>
       <Sidebar />
-      <div className='flex flex-col flex-1 mt-10'>
-        <p className='w-[450px] flex md:justify-center mx-auto p-5 text-xl'>
-          Welcome to the careers page, where you can find a list of ENVS careers!
+      <div className="flex flex-col flex-1 mt-10">
+        <p className="w-[450px] flex md:justify-center mx-auto p-5 text-xl">
+          Welcome to the careers page, where you can find a list of ENVS
+          careers!
         </p>
-        <p className='w-[450px] md:justify-center mx-auto p-5 text-xl'>
+        <p className="w-[450px] md:justify-center mx-auto p-5 text-xl">
           Please note, this is not an exhaustive list of
-          <span className="italic">every</span> ENVS career in
-          existence. This site may be updated in the future to include more
-          careers.
+          <span className="italic">every</span> ENVS career in existence. This
+          site may be updated in the future to include more careers.
         </p>
         <div>
-          <p className='w-[450px] flex md:justify-center mx-auto p-5 text-xl'>Careers will go here in a grid format.</p>
+          <p className="w-[450px] flex md:justify-center mx-auto p-5 text-xl">
+            Careers will go here in a grid format.
+          </p>
         </div>
       </div>
     </div>
