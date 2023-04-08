@@ -17,15 +17,29 @@ type Props = React.HTMLAttributes<HTMLDivElement> & {
   onClick?: () => void;
 };
 
-const Sidebar = ({ toggle }: ParentProps) => {
+const Sidebar = () => {
   const [view, setView] = useState('');
 
   useEffect(() => {
-    const viewValue = localStorage.getItem('view');
-    if (viewValue) {
-      setView(viewValue);
+    const viewMode = localStorage.getItem('view');
+    if (viewMode) {
+      setView(viewMode);
+    } else {
+      document.documentElement.classList.add('dark');
     }
   }, [view]);
+
+  const toggleView = () => {
+    if (!view) {
+      localStorage.setItem('view', 'light');
+      setView('dark');
+      document.documentElement.classList.remove('dark');
+    } else {
+      localStorage.removeItem('view');
+      setView('');
+      document.documentElement.classList.add('dark');
+    }
+  };
 
   return (
     <div
@@ -49,7 +63,7 @@ const Sidebar = ({ toggle }: ParentProps) => {
             : 'Dark Mode'
         }
         view={true}
-        onClick={() => toggle()}
+        onClick={() => toggleView()}
       />
     </div>
   );
