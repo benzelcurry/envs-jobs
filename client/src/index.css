@@ -31,7 +31,8 @@
 
   .form-input {
     @apply text-black p-1 border-2 focus:outline-none focus:border-solid focus:border-green-500 
-             focus:border-2 focus:rounded-xl transition-all duration-300;
+             focus:border-2 focus:rounded-xl transition-all duration-300 border-black
+             dark:border-transparent dark:focus:border-green-500;
   }
 }
 
