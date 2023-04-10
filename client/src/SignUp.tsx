@@ -17,24 +17,24 @@ const SignUp = () => {
     const target = e.target as HTMLInputElement;
     switch (target.id) {
       case 'first_name':
-        console.log(target.value);
+        setBody({ ...body, first_name: target.value });
         break;
       case 'family_name':
-        console.log(target.value);
+        setBody({ ...body, family_name: target.value });
         break;
       case 'username':
-        console.log(target.value);
+        setBody({ ...body, username: target.value });
         break;
       case 'password':
-        console.log(target.value);
+        setBody({ ...body, password: target.value });
         break;
       case 'confirm_password':
-        console.log(target.value);
+        setBody({ ...body, confirm_password: target.value });
         break;
       default:
         console.log('Not sure how you ended up here.');
         break;
-    }
+    };
   };
 
   return (
