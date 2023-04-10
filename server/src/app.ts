@@ -11,6 +11,7 @@
 
 import express, { Application, Request, Response, NextFunction } from 'express';
 import mongoose, { ConnectOptions } from 'mongoose';
+import cors from 'cors';
 import careers from './routes/careers';
 import users from './routes/users';
 import dotenv from 'dotenv';
@@ -28,6 +29,8 @@ db.on('error', console.error.bind(console, 'mongo connection error'));
 
 const app: Application = express();
 
+// UPDATE CORS TO ONLY ACCEPT REQUESTS FROM FRONT END URL ONCE HOSTED
+app.use(cors());
 app.use(bodyParser.json());
 
 app.use('/careers', careers);
