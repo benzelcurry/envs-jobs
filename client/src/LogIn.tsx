@@ -32,6 +32,7 @@ const LogIn = () => {
           <div className="grid grid-cols-[100px_auto] gap-5 items-center">
             <label className="justify-self-end">Username</label>
             <input
+              aria-label='Username'
               type="text"
               onChange={(e) => handleUsername(e)}
               autoComplete="username"
@@ -39,17 +40,19 @@ const LogIn = () => {
             />
             <label className="justify-self-end">Password</label>
             <input
+              aria-label='Password'
               type="password"
               onChange={(e) => handlePassword(e)}
               autoComplete="current-password"
               className="form-input"
             />
           </div>
-          <button className="btn">Log In</button>
+          <button aria-label='Log in' className="btn">Log In</button>
         </form>
         <p className="mt-10">
           New user?{' '}
           <Link
+            aria-label='Sign up'
             to={'/sign-up'}
             className="italic underline text-green-500 hover:text-green-300"
           >

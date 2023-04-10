@@ -62,18 +62,18 @@ const Sidebar = () => {
       className="sticky top-0 left-0 w-screen md:h-screen md:w-16 m-0 flex md:flex-col 
                   dark:bg-gray-900 text-white shadow-lg"
     >
-      <Link to="/" className="sidebar-icon">
+      <Link to="/" aria-label='Home page' className="sidebar-icon">
         <SidebarIcon icon={<AiFillHome size="28" />} text="Home" />
       </Link>
-      <Link to={'/careers'} className="sidebar-icon">
+      <Link to={'/careers'} aria-label='Careers page' className="sidebar-icon">
         <SidebarIcon icon={<RiSuitcaseLine size="28" />} text="Careers" />
       </Link>
       {currentUser.username ? (
-        <Link to={`/profile/placeholder`} className="sidebar-icon">
+        <Link to={`/profile/placeholder`} aria-label='Profile page' className="sidebar-icon">
           <SidebarIcon icon={<RxAvatar size="28" />} text="Profile" />
         </Link>
       ) : (
-        <Link to={'/log-in'} className="sidebar-icon">
+        <Link to={'/log-in'} aria-label='Log in or sign up' className="sidebar-icon">
           <SidebarIcon
             icon={<BiUserPlus size="28" />}
             text="Log In / Sign Up"
@@ -88,6 +88,7 @@ const Sidebar = () => {
             <BsFillMoonStarsFill size="28" />
           )
         }
+        aria-label='Toggle light or dark mode'
         text={
           document.documentElement.classList.contains('dark')
             ? 'Light Mode'
