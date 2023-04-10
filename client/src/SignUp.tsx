@@ -1,10 +1,12 @@
 // Sign-up component for new users
 
 import { useState, FormEvent } from 'react';
+import axios from 'axios';
 
 import Sidebar from './Sidebar';
 
 const SignUp = () => {
+  const [error, setError] = useState('');
   const [body, setBody] = useState({
     first_name: '',
     family_name: '',
@@ -13,6 +15,7 @@ const SignUp = () => {
     confirm_password: ''
   });
 
+  // Updates `body` state object upon form input
   const handleInput = (e: FormEvent) => {
     const target = e.target as HTMLInputElement;
     switch (target.id) {
@@ -32,9 +35,22 @@ const SignUp = () => {
         setBody({ ...body, confirm_password: target.value });
         break;
       default:
-        console.log('Not sure how you ended up here.');
-        break;
-    };
+        throw new Error('Not sure how you ended up here!');
+    }
+  };
+
+  // Sends `body` to back end to create new User
+  // MAKE THIS LOG USER IN AUTOMATICALLY AND THEN REDIRECT TO HOME PAGE
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    axios
+      .post('/api/users', body)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        setError(error.response.data.errors[0]);
+      });
   };
 
   return (
@@ -44,6 +60,7 @@ const SignUp = () => {
         <form
           className="flex flex-col items-center gap-7"
           onChange={(e) => handleInput(e)}
+          onSubmit={(e) => handleSubmit(e)}
         >
           <div className="grid grid-cols-[150px_auto] gap-5 items-center">
             <label className="justify-self-end">First Name</label>
@@ -90,6 +107,7 @@ const SignUp = () => {
           <button aria-label="Create account" className="btn">
             Create Account
           </button>
+          {error ? <p className="text-red-500">{error}</p> : null}
         </form>
       </div>
     </div>
