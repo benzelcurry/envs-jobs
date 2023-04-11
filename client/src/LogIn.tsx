@@ -41,7 +41,7 @@ const LogIn = () => {
         };
       })
       .catch((err) => {
-        setError(err);
+        setError(err.response.data.errors);
       });
   };
 
