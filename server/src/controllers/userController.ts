@@ -116,8 +116,7 @@ export const login_user: RequestHandler = async (req, res, next) => {
           const secret = process.env.SECRET_KEY as string;
           const token = jwt.sign(
             {
-              username: req.body.username,
-              first_name: user.first_name
+              id: user._id
             },
             secret,
             { expiresIn: '30d' }
@@ -129,10 +128,38 @@ export const login_user: RequestHandler = async (req, res, next) => {
           });
         } else {
           return res.status(400).json({ errors: 'Incorrect password' });
-        };
+        }
       });
-    };
+    }
   } catch (err) {
     return res.status(500).json({ errors: err });
-  };
+  }
+};
+
+// Get user info from ID on POST
+export const user_info: RequestHandler = async (req, res, next) => {
+  try {
+    if (req.body.token) {
+      const decrypt = jwt.verify(
+        req.body.token,
+        process.env.SECRET_KEY as string
+      );
+      const user = await User.findOne({ _id: decrypt });
+      if (!user) {
+        return res.status(400).json({
+          errors: 'No user was found matching that ID'
+        });
+      } else {
+        return res.status(200).json({
+          username: user.username,
+          first_name: user.first_name,
+          family_name: user.family_name,
+          is_admin: user.is_admin,
+          attributes: user.attributes
+        });
+      }
+    }
+  } catch (err) {
+    return res.status(500).json({ errors: err });
+  }
 };
