@@ -36,6 +36,7 @@ const Sidebar = () => {
     attributes: []
   });
 
+  // Gets and sets user's view (light/dark) preference
   useEffect(() => {
     const viewMode = localStorage.getItem('view');
     if (viewMode) {
@@ -45,6 +46,21 @@ const Sidebar = () => {
     }
   }, [view]);
 
+  // Gets active user if one is logged in
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setCurrentUser({
+        username: 'user',
+        first_name: '',
+        family_name: '',
+        is_admin: false,
+        attributes: []
+      })
+    }
+  })
+
+  // Toggles view (light/dark) mode
   const toggleView = () => {
     if (!view) {
       localStorage.setItem('view', 'light');
