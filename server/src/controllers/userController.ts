@@ -7,7 +7,7 @@ import { body, validationResult } from 'express-validator';
 import { Callback } from 'mongoose';
 import async from 'async';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -143,8 +143,8 @@ export const user_info: RequestHandler = async (req, res, next) => {
       const decrypt = jwt.verify(
         req.body.token,
         process.env.SECRET_KEY as string
-      );
-      const user = await User.findOne({ _id: decrypt });
+      ) as JwtPayload;
+      const user = await User.findOne({ _id: decrypt.id });
       if (!user) {
         return res.status(400).json({
           errors: 'No user was found matching that ID'

@@ -54,14 +54,13 @@ const Sidebar = () => {
       axios
         .post('/api/users/info', { token: token })
         .then((response) => {
-          console.log(response);
           setCurrentUser(response.data)
         })
         .catch((err) => {
           throw new Error(err);
         });
     };
-  }, [currentUser]);
+  }, []);
 
   // Toggles view (light/dark) mode
   const toggleView = () => {
