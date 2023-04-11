@@ -1,6 +1,7 @@
 // Sign-up component for new users
 
 import { useState, FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import Sidebar from './Sidebar';
@@ -14,6 +15,8 @@ const SignUp = () => {
     password: '',
     confirm_password: ''
   });
+
+  const navigate = useNavigate();
 
   // Updates `body` state object upon form input
   const handleInput = (e: FormEvent) => {
@@ -47,6 +50,18 @@ const SignUp = () => {
       .post('/api/users', body)
       .then((response) => {
         console.log(response);
+        axios
+          .post('/api/users/login', { username: body.username, password: body.password })
+          .then((response) => {
+            console.log(response);
+            if (response.data.message === 'Successful') {
+              window.localStorage.setItem('token', response.data.token);
+              navigate('/');
+            };
+          })
+          .catch((error) => {
+            setError(error.response.data.errors[0]);
+          });
       })
       .catch((error) => {
         setError(error.response.data.errors[0]);
