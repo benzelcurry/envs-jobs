@@ -48,11 +48,9 @@ const SignUp = () => {
     axios
       .post('/api/users', body)
       .then((response) => {
-        console.log(response);
         axios
           .post('/api/users/login', { username: body.username, password: body.password })
           .then((response) => {
-            console.log(response);
             if (response.data.message === 'Successful') {
               window.localStorage.setItem('token', response.data.token);
               navigate('/');
