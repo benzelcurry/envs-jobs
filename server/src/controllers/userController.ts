@@ -94,10 +94,45 @@ export const create_user = [
         });
 
         user.save();
-        res.status(200).json('User created!');
+        return res.status(200).json('User created!');
       }
     } catch (err) {
-      res.status(500).json({ errors: err });
+      return res.status(500).json({ errors: err });
     }
   }
 ];
+
+// Log user in on POST
+export const login_user: RequestHandler = async (req, res, next) => {
+  try {
+    const user = await User.findOne({ username: req.body.username });
+    if (!user) {
+      return res.status(400).json({
+        errors: 'Username does not exist'
+      });
+    } else {
+      bcrypt.compare(req.body.password, user.password, (err, isValid) => {
+        if (isValid) {
+          const secret = process.env.SECRET_KEY as string;
+          const token = jwt.sign(
+            {
+              username: req.body.username,
+              first_name: user.first_name
+            },
+            secret,
+            { expiresIn: '30d' }
+          );
+
+          return res.status(200).json({
+            message: 'Successful',
+            token
+          });
+        } else {
+          return res.status(400).json({ errors: 'Incorrect password' });
+        };
+      });
+    };
+  } catch (err) {
+    return res.status(500).json({ errors: err });
+  };
+};
