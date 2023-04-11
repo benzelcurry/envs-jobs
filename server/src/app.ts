@@ -36,10 +36,6 @@ app.use(bodyParser.json());
 app.use('/careers', careers);
 app.use('/users', users);
 
-app.use('/', (req: Request, res: Response): void => {
-  res.json('Hello, World!');
-});
-
 app.listen(process.env.PORT, (): void => {
   console.log(`Server is running on Port ${process.env.PORT}`);
 });
