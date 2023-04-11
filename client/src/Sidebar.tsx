@@ -26,6 +26,9 @@ interface User {
 
 // TODO:
 //   1. Make currentUser send as props to links in navbar
+//   2. Implement sign out button in navbar
+//   3. Remove buttons from home screen and display new content
+//      if active user is present 
 
 const Sidebar = () => {
   const [view, setView] = useState('');
