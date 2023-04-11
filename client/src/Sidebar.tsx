@@ -1,6 +1,7 @@
 // Navbar component
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate, Navigate } from 'react-router-dom';
+import axios from 'axios';
 
 import { AiFillHome } from 'react-icons/ai';
 import { BiUserPlus } from 'react-icons/bi';
@@ -50,15 +51,17 @@ const Sidebar = () => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      setCurrentUser({
-        username: 'user',
-        first_name: '',
-        family_name: '',
-        is_admin: false,
-        attributes: []
-      })
-    }
-  })
+      axios
+        .post('/api/users/info', { token: token })
+        .then((response) => {
+          console.log(response);
+          setCurrentUser(response.data)
+        })
+        .catch((err) => {
+          throw new Error(err);
+        });
+    };
+  }, [currentUser]);
 
   // Toggles view (light/dark) mode
   const toggleView = () => {

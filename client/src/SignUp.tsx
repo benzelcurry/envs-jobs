@@ -43,7 +43,6 @@ const SignUp = () => {
   };
 
   // Sends `body` to back end to create new User
-  // MAKE THIS LOG USER IN AUTOMATICALLY AND THEN REDIRECT TO HOME PAGE
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     axios
