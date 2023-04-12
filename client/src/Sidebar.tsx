@@ -9,6 +9,8 @@ import { BsFillMoonStarsFill, BsFillSunFill } from 'react-icons/bs';
 import { RiSuitcaseLine } from 'react-icons/ri';
 import { RxAvatar } from 'react-icons/rx';
 
+import { User } from './types';
+
 type Props = React.HTMLAttributes<HTMLDivElement> & {
   icon: JSX.Element;
   text?: string;
@@ -24,6 +26,28 @@ type Props = React.HTMLAttributes<HTMLDivElement> & {
 
 const Sidebar = () => {
   const [view, setView] = useState('');
+  const [currentUser, setCurrentUser] = useState<User>({
+    username: '',
+    first_name: '',
+    family_name: '',
+    is_admin: false,
+    attributes: []
+  });
+
+  // Gets active user if one is logged in
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      axios
+        .post('/api/users/info', { token: token })
+        .then((response) => {
+          setCurrentUser(response.data)
+        })
+        .catch((err) => {
+          throw new Error(err);
+        });
+    };
+  }, []);
 
   // Gets and sets user's view (light/dark) preference
   useEffect(() => {
@@ -59,7 +83,7 @@ const Sidebar = () => {
       <Link to={'/careers'} aria-label="Careers page" className="sidebar-icon">
         <SidebarIcon icon={<RiSuitcaseLine size="28" />} text="Careers" />
       </Link>
-      {/* {currentUser.username ? (
+      {currentUser.username ? (
         <Link
           to={`/profile/placeholder`}
           aria-label="Profile page"
@@ -78,7 +102,7 @@ const Sidebar = () => {
             text="Log In / Sign Up"
           />
         </Link>
-      )} */}
+      )}
       <SidebarIcon
         icon={
           document.documentElement.classList.contains('dark') ? (
