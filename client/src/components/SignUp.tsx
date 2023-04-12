@@ -49,12 +49,15 @@ const SignUp = () => {
       .post('/api/users', body)
       .then((response) => {
         axios
-          .post('/api/users/login', { username: body.username, password: body.password })
+          .post('/api/users/login', {
+            username: body.username,
+            password: body.password
+          })
           .then((response) => {
             if (response.data.message === 'Successful') {
               window.localStorage.setItem('token', response.data.token);
               navigate('/');
-            };
+            }
           })
           .catch((error) => {
             setError(error.response.data.errors[0]);

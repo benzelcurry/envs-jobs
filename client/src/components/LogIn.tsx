@@ -38,7 +38,7 @@ const LogIn = () => {
           navigate('/');
         } else {
           setError(response.data.errors);
-        };
+        }
       })
       .catch((err) => {
         setError(err.response.data.errors);
@@ -49,7 +49,10 @@ const LogIn = () => {
     <div>
       <Sidebar />
       <div className="flex flex-col flex-1 mt-10 items-center">
-        <form onSubmit={(e) => handleSubmit(e)} className="flex flex-col items-center gap-7">
+        <form
+          onSubmit={(e) => handleSubmit(e)}
+          className="flex flex-col items-center gap-7"
+        >
           <div className="grid grid-cols-[100px_auto] gap-5 items-center">
             <label className="justify-self-end">Username</label>
             <input
@@ -71,9 +74,7 @@ const LogIn = () => {
           <button aria-label="Log in" className="btn">
             Log In
           </button>
-          {
-           error ? <p className="text-red-500">{error}</p> : null
-          }
+          {error ? <p className="text-red-500">{error}</p> : null}
         </form>
         <p className="mt-10">
           New user?{' '}

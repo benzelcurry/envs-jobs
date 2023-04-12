@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import Sidebar from './Sidebar';
 
-import { User } from './types';
+import { User } from '../types';
 
 // TODO:
 //   1. Make buttons conditionally display if receiving currentUser data from sidebar
@@ -18,7 +18,7 @@ const Home = ({ user }: { user: User }) => {
           and prospective ENVS students with finding a career in the field that
           matches their needs!
         </p>
-        { !user.username ?
+        {!user.username ? (
           <>
             <p className="w-[450px] flex md:justify-center mx-auto p-5 text-xl">
               To begin, choose one of the options below.
@@ -32,8 +32,7 @@ const Home = ({ user }: { user: User }) => {
               </Link>
             </div>
           </>
-          : null
-        }
+        ) : null}
       </div>
     </div>
   );

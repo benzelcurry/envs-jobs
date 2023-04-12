@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import RouteSwitch from './RouteSwitch';
+import RouteSwitch from './components/RouteSwitch';
 import './index.css';
 
 // TODO
