@@ -9,6 +9,7 @@ import CareersList from './CareersList';
 import Profile from './Profile';
 import LogIn from './LogIn';
 import SignUp from './SignUp';
+import NotFound from './404';
 
 import { User } from '../types';
 
@@ -44,6 +45,7 @@ const RouteSwitch = () => {
         <Route path="/profile/:username" element={<Profile />} />
         <Route path="/log-in" element={<LogIn />} />
         <Route path="/sign-up" element={<SignUp />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </HashRouter>
   );
