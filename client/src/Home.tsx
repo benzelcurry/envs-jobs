@@ -6,7 +6,7 @@ import Sidebar from './Sidebar';
 // TODO:
 //   1. Make buttons conditionally display if receiving currentUser data from sidebar
 
-const Home = () => {
+const Home = ({ user }) => {
   return (
     <div>
       <Sidebar />
@@ -28,6 +28,9 @@ const Home = () => {
           </Link>
         </div>
       </div>
+      {
+        user.username ? <p>{user.username}</p> : null
+      }
     </div>
   );
 };

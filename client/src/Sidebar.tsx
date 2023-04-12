@@ -16,14 +16,6 @@ type Props = React.HTMLAttributes<HTMLDivElement> & {
   onClick?: () => void;
 };
 
-interface User {
-  username: string;
-  first_name: string;
-  family_name: string;
-  is_admin: boolean;
-  attributes: string[];
-}
-
 // TODO:
 //   1. Make currentUser send as props to links in navbar
 //   2. Implement sign out button in navbar
@@ -32,13 +24,6 @@ interface User {
 
 const Sidebar = () => {
   const [view, setView] = useState('');
-  const [currentUser, setCurrentUser] = useState<User>({
-    username: '',
-    first_name: '',
-    family_name: '',
-    is_admin: false,
-    attributes: []
-  });
 
   // Gets and sets user's view (light/dark) preference
   useEffect(() => {
@@ -49,21 +34,6 @@ const Sidebar = () => {
       document.documentElement.classList.add('dark');
     }
   }, [view]);
-
-  // Gets active user if one is logged in
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      axios
-        .post('/api/users/info', { token: token })
-        .then((response) => {
-          setCurrentUser(response.data)
-        })
-        .catch((err) => {
-          throw new Error(err);
-        });
-    };
-  }, []);
 
   // Toggles view (light/dark) mode
   const toggleView = () => {
@@ -89,7 +59,7 @@ const Sidebar = () => {
       <Link to={'/careers'} aria-label="Careers page" className="sidebar-icon">
         <SidebarIcon icon={<RiSuitcaseLine size="28" />} text="Careers" />
       </Link>
-      {currentUser.username ? (
+      {/* {currentUser.username ? (
         <Link
           to={`/profile/placeholder`}
           aria-label="Profile page"
@@ -108,7 +78,7 @@ const Sidebar = () => {
             text="Log In / Sign Up"
           />
         </Link>
-      )}
+      )} */}
       <SidebarIcon
         icon={
           document.documentElement.classList.contains('dark') ? (
