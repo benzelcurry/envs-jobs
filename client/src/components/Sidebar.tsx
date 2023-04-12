@@ -21,7 +21,7 @@ type Props = React.HTMLAttributes<HTMLDivElement> & {
 // TODO:
 //   2. Implement sign out button in navbar
 //   3. Remove buttons from home screen and display new content
-//      if active user is present 
+//      if active user is present
 
 const Sidebar = () => {
   const [firstRender, setFirstRender] = useState(true);
@@ -41,7 +41,7 @@ const Sidebar = () => {
       axios
         .post('/api/users/info', { token: token })
         .then((response) => {
-          setCurrentUser(response.data)
+          setCurrentUser(response.data);
         })
         .catch((err) => {
           throw new Error(err);
@@ -86,7 +86,7 @@ const Sidebar = () => {
       <Link to={'/careers'} aria-label="Careers page" className="sidebar-icon">
         <SidebarIcon icon={<RiSuitcaseLine size="28" />} text="Careers" />
       </Link>
-      { firstRender || currentUser.username ? (
+      {firstRender || currentUser.username ? (
         <Link
           to={`/profile/placeholder`}
           aria-label="Profile page"
@@ -101,7 +101,7 @@ const Sidebar = () => {
           className="sidebar-icon"
         >
           <SidebarIcon
-            icon={ <BiUserPlus size="28" /> }
+            icon={<BiUserPlus size="28" />}
             text="Log In / Sign Up"
           />
         </Link>
