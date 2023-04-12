@@ -10,7 +10,7 @@ import Profile from './Profile';
 import LogIn from './LogIn';
 import SignUp from './SignUp';
 
-import { User } from './types';
+import { User } from '../types';
 
 const RouteSwitch = () => {
   const [currentUser, setCurrentUser] = useState<User>({
@@ -28,12 +28,12 @@ const RouteSwitch = () => {
       axios
         .post('/api/users/info', { token: token })
         .then((response) => {
-          setCurrentUser(response.data)
+          setCurrentUser(response.data);
         })
         .catch((err) => {
           throw new Error(err);
         });
-    };
+    }
   }, []);
 
   return (

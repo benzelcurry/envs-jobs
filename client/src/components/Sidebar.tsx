@@ -9,7 +9,7 @@ import { BsFillMoonStarsFill, BsFillSunFill } from 'react-icons/bs';
 import { RiSuitcaseLine } from 'react-icons/ri';
 import { RxAvatar } from 'react-icons/rx';
 
-import { User } from './types';
+import { User } from '../types';
 
 type Props = React.HTMLAttributes<HTMLDivElement> & {
   icon: JSX.Element;
@@ -19,12 +19,12 @@ type Props = React.HTMLAttributes<HTMLDivElement> & {
 };
 
 // TODO:
-//   1. Make currentUser send as props to links in navbar
 //   2. Implement sign out button in navbar
 //   3. Remove buttons from home screen and display new content
 //      if active user is present 
 
 const Sidebar = () => {
+  const [firstRender, setFirstRender] = useState(true);
   const [view, setView] = useState('');
   const [currentUser, setCurrentUser] = useState<User>({
     username: '',
@@ -46,7 +46,10 @@ const Sidebar = () => {
         .catch((err) => {
           throw new Error(err);
         });
-    };
+    } else {
+      // Prevents profile icon from flickering on page change
+      setFirstRender(false);
+    }
   }, []);
 
   // Gets and sets user's view (light/dark) preference
@@ -83,7 +86,7 @@ const Sidebar = () => {
       <Link to={'/careers'} aria-label="Careers page" className="sidebar-icon">
         <SidebarIcon icon={<RiSuitcaseLine size="28" />} text="Careers" />
       </Link>
-      {currentUser.username ? (
+      { firstRender || currentUser.username ? (
         <Link
           to={`/profile/placeholder`}
           aria-label="Profile page"
@@ -98,7 +101,7 @@ const Sidebar = () => {
           className="sidebar-icon"
         >
           <SidebarIcon
-            icon={<BiUserPlus size="28" />}
+            icon={ <BiUserPlus size="28" /> }
             text="Log In / Sign Up"
           />
         </Link>
