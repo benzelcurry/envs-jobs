@@ -1,6 +1,7 @@
 // Admin-restricted page for modifying questionnaire
 
 import Sidebar from './Sidebar';
+import PermissionDenied from './PermissionDenied';
 
 import { User } from '../types';
 
@@ -11,9 +12,14 @@ const ModifyQuestions = ({ user }: { user: User }) => {
   return (
     <div>
       <Sidebar />
-      <div className="flex flex-col flex-1 mt-10 p-10">
-        Contents will go here.
-      </div>
+      {
+        user.is_admin ?
+        <div className="flex flex-col flex-1 mt-10 p-10">
+          Contents will go here.
+        </div>
+        :
+        <PermissionDenied />
+      }
     </div>
   );
 };
