@@ -3,12 +3,14 @@
 
 import Sidebar from './Sidebar';
 
+import { User } from '../types';
+
 // TODO:
 //   1. Make page redirect to 404 page if user isn't logged in or 
 //      tries visiting someone else's page
 //   2. Display links to add/remove-career pages on admin page
 
-const Profile = () => {
+const Profile = ({ user }: { user: User }) => {
   return (
     <div>
       <Sidebar />
