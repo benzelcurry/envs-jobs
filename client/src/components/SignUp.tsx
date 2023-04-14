@@ -57,6 +57,7 @@ const SignUp = () => {
             if (response.data.message === 'Successful') {
               window.localStorage.setItem('token', response.data.token);
               navigate('/');
+              navigate(0);
             }
           })
           .catch((error) => {
