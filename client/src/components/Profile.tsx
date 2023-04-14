@@ -14,10 +14,14 @@ const Profile = ({ user }: { user: User }) => {
   return (
     <div>
       <Sidebar />
-      <div className="flex flex-col flex-1 mt-10">
-        <p className="w-[450px] flex md:justify-center mx-auto p-5 text-xl">
-          Profile page contents will go here.
-        </p>
+      <div className="flex flex-col flex-1 mt-10 p-10">
+        <h1 className='text-5xl mb-5'>{user.first_name} {user.family_name}</h1>
+        <div className='p-2'>
+          <h3>Admin contents.</h3>
+        </div>
+        <div className='p-2'>
+          <h3>Non-admin contents.</h3>
+        </div>
       </div>
     </div>
   );
