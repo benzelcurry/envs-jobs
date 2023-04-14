@@ -39,7 +39,17 @@ const Home = ({ user }: { user: User }) => {
               </Link>
             </div>
           </>
-        ) : null}
+        ) : (
+          <>
+            <p className="w-[450px] flex md:justify-center mx-auto p-5 text-xl">
+              Fill out the questionnaire to get started with figuring out which
+              careers might be a good fit for you!
+            </p>
+            <Link to="/questionnaire" className='flex justify-center'>
+              <button className="btn">Questionnaire</button>
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );
