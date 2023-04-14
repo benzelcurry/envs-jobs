@@ -88,7 +88,7 @@ const Sidebar = () => {
       </Link>
       {firstRender || currentUser.username ? (
         <Link
-          to={`/profile/placeholder`}
+          to={`/profile`}
           aria-label="Profile page"
           className="sidebar-icon"
         >
