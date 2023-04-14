@@ -2,6 +2,9 @@
 
 import Sidebar from './Sidebar';
 
+// TODO:
+//   1. Restrict non-admins from viewing this page even if JS disabled
+//   2. Make sure to restrict routes to admins on the back-end as well
 const ModifyCareers = () => {
   return (
     <div>

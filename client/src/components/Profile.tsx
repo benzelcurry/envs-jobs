@@ -9,8 +9,7 @@ import PermissionDenied from './PermissionDenied';
 import { User } from '../types';
 
 // TODO:
-//   2. Display links to add/remove-career pages on admin page
-
+//   1. Display links to add/remove-career pages on admin page
 const Profile = ({ user }: { user: User }) => {
   return (
     <div>
