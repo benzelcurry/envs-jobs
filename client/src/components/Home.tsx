@@ -1,4 +1,5 @@
 // Primary App component
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import Sidebar from './Sidebar';
@@ -9,6 +10,12 @@ import { User } from '../types';
 //   1. Make buttons conditionally display if receiving currentUser data from sidebar
 
 const Home = ({ user }: { user: User }) => {
+  const [showButtons, setShowButtons] = useState(!user.username);
+
+  useEffect(() => {
+    setShowButtons(!user.username);
+  }, [user]);
+
   return (
     <div>
       <Sidebar />
