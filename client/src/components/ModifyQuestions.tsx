@@ -1,11 +1,7 @@
 // Admin-restricted page for modifying questionnaire
 
 const ModifyQuestions = () => {
-  return (
-    <div>
-
-    </div>
-  );
+  return <></>;
 };
 
 export default ModifyQuestions;
