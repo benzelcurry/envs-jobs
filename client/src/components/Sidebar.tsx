@@ -1,9 +1,9 @@
 // Navbar component
 import { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate, Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-import { AiFillHome } from 'react-icons/ai';
+import { AiFillHome, AiOutlineLogout } from 'react-icons/ai';
 import { BiUserPlus } from 'react-icons/bi';
 import { BsFillMoonStarsFill, BsFillSunFill } from 'react-icons/bs';
 import { RiSuitcaseLine } from 'react-icons/ri';
@@ -18,12 +18,9 @@ type Props = React.HTMLAttributes<HTMLDivElement> & {
   onClick?: () => void;
 };
 
-// TODO:
-//   2. Implement sign out button in navbar
-//   3. Remove buttons from home screen and display new content
-//      if active user is present
-
 const Sidebar = () => {
+  const navigate = useNavigate();
+
   const [firstRender, setFirstRender] = useState(true);
   const [view, setView] = useState('');
   const [currentUser, setCurrentUser] = useState<User>({
@@ -61,6 +58,13 @@ const Sidebar = () => {
       document.documentElement.classList.add('dark');
     }
   }, [view]);
+
+  // Handles logout
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/');
+    navigate(0);
+  }
 
   // Toggles view (light/dark) mode
   const toggleView = () => {
@@ -106,6 +110,15 @@ const Sidebar = () => {
           />
         </Link>
       )}
+      {
+        firstRender || currentUser.username ?
+        <SidebarIcon 
+          icon={<AiOutlineLogout size="28" />} 
+          text="Logout" 
+          onClick={() => handleLogout()}
+        />
+        : null
+      }
       <SidebarIcon
         icon={
           document.documentElement.classList.contains('dark') ? (
