@@ -64,7 +64,7 @@ const Sidebar = () => {
     localStorage.removeItem('token');
     navigate('/');
     navigate(0);
-  }
+  };
 
   // Toggles view (light/dark) mode
   const toggleView = () => {
@@ -110,15 +110,13 @@ const Sidebar = () => {
           />
         </Link>
       )}
-      {
-        firstRender || currentUser.username ?
-        <SidebarIcon 
-          icon={<AiOutlineLogout size="28" />} 
-          text="Logout" 
+      {firstRender || currentUser.username ? (
+        <SidebarIcon
+          icon={<AiOutlineLogout size="28" />}
+          text="Logout"
           onClick={() => handleLogout()}
         />
-        : null
-      }
+      ) : null}
       <SidebarIcon
         icon={
           document.documentElement.classList.contains('dark') ? (

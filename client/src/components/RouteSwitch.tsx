@@ -11,6 +11,7 @@ import LogIn from './LogIn';
 import SignUp from './SignUp';
 import ModifyQuestions from './ModifyQuestions';
 import ModifyCareers from './ModifyCareers';
+import Questionnaire from './Questionnaire';
 import NotFound from './404';
 
 import { User } from '../types';
@@ -47,8 +48,18 @@ const RouteSwitch = () => {
         <Route path="/profile" element={<Profile user={currentUser} />} />
         <Route path="/log-in" element={<LogIn />} />
         <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/modify-questions" element={<ModifyQuestions user={currentUser} />} />
-        <Route path="/modify-careers" element={<ModifyCareers user={currentUser} />} />
+        <Route
+          path="/modify-questions"
+          element={<ModifyQuestions user={currentUser} />}
+        />
+        <Route
+          path="/modify-careers"
+          element={<ModifyCareers user={currentUser} />}
+        />
+        <Route
+          path="/questionnaire"
+          element={<Questionnaire user={currentUser} />}
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </HashRouter>

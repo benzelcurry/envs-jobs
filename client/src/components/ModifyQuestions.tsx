@@ -12,14 +12,13 @@ const ModifyQuestions = ({ user }: { user: User }) => {
   return (
     <div>
       <Sidebar />
-      {
-        user.is_admin ?
+      {user.is_admin ? (
         <div className="flex flex-col flex-1 mt-10 p-10">
           Contents will go here.
         </div>
-        :
+      ) : (
         <PermissionDenied />
-      }
+      )}
     </div>
   );
 };
