@@ -9,6 +9,7 @@ import CareersList from './CareersList';
 import Profile from './Profile';
 import LogIn from './LogIn';
 import SignUp from './SignUp';
+import ModifyQuestions from './ModifyQuestions';
 import NotFound from './404';
 
 import { User } from '../types';
@@ -45,6 +46,7 @@ const RouteSwitch = () => {
         <Route path="/profile" element={<Profile user={currentUser} />} />
         <Route path="/log-in" element={<LogIn />} />
         <Route path="/sign-up" element={<SignUp />} />
+        <Route path='modify-questions' element={<ModifyQuestions /> } />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </HashRouter>
