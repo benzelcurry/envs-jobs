@@ -1,6 +1,8 @@
 // Profile page component
 // Displays user info (name, career rankings, etc.)
 
+import { Link } from 'react-router-dom';
+
 import Sidebar from './Sidebar';
 import PermissionDenied from './PermissionDenied';
 
@@ -21,6 +23,12 @@ const Profile = ({ user }: { user: User }) => {
           {/* MAKE THESE CONDITIONALLY DISPLAY DEPENDING ON USER STATUS */}
           <div className="p-2">
             <h3>Admin contents.</h3>
+            <Link to="/modify-questions">
+              <button className="btn">Modify Questions</button>
+            </Link>
+            <Link to="/modify-careers">
+              <button className="btn">Modify Careers</button>
+            </Link>
           </div>
           <div className="p-2">
             <h3>Non-admin contents.</h3>
