@@ -31,6 +31,11 @@ const ModifyCareers = ({ user }: { user: User }) => {
       });
   }, []);
 
+  // Displays existing career modification form on click
+  const modifyCareer = () => {
+
+  }
+
   return (
     <div>
       <Sidebar />
@@ -56,5 +61,33 @@ const ModifyCareers = ({ user }: { user: User }) => {
     </div>
   );
 };
+
+const modificationForm = (title: string, description: string, attributes: string[]) => {
+  const [totalAttributes, setTotalAttributes] = useState(attributes.length);
+
+  // Increments fields for totalAttributes on click
+  const addAttributes = () => {
+    setTotalAttributes(totalAttributes + 1);
+  };
+
+  return (
+    <form className='grid'>
+      <label htmlFor='career-title'>Title: </label>
+      <input type="text" id='career-title' name='career-title' />
+
+      <label htmlFor='career-description'>Description: </label>
+      <textarea id='career-description' name='career-description' />
+
+      <label htmlFor='career-attributes'>Attributes: </label>
+      <div>
+        {
+          attributes.map((attribute) => 
+            <input type="text" value={attribute} />
+          )
+        }
+      </div>
+    </form>
+  );
+}
 
 export default ModifyCareers;
