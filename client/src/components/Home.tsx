@@ -45,7 +45,7 @@ const Home = ({ user }: { user: User }) => {
               Fill out the questionnaire to get started with figuring out which
               careers might be a good fit for you!
             </p>
-            <Link to="/questionnaire" className='flex justify-center'>
+            <Link to="/questionnaire" className="flex justify-center">
               <button className="btn">Questionnaire</button>
             </Link>
           </>
