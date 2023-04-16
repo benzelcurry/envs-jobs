@@ -18,6 +18,7 @@ interface Career {
 //   2. Make sure to restrict routes to admins on the back-end as well
 const ModifyCareers = ({ user }: { user: User }) => {
   const [careers, setCareers] = useState<Career[]>([]);
+  const [clickedTitle, setClickedTitle] = useState('');
 
   // Pulls info about current careers in database and stores in careers state variable
   useEffect(() => {
@@ -32,9 +33,9 @@ const ModifyCareers = ({ user }: { user: User }) => {
   }, []);
 
   // Displays existing career modification form on click
-  const modifyCareer = () => {
-
-  }
+  const displayForm = (career: string) => {
+    clickedTitle === career ? setClickedTitle('') : setClickedTitle(career);
+  };
 
   return (
     <div>
@@ -43,16 +44,22 @@ const ModifyCareers = ({ user }: { user: User }) => {
         <div className="flex flex-col flex-1 mt-10 p-10">
           <div>
             <h2>Current Careers:</h2>
-            <ul className="list-disc mt-2">
+            {/* <ul className="list-disc mt-2"> */}
               {careers.map((career) => (
-                <li
+                <div
                   aria-label="Click to modify career details"
+                  key={Math.random() * 999}
                   className="ml-6 cursor-pointer hover:text-green-500 transition-all duration-300"
                 >
-                  {career.title}
-                </li>
+                  <h3 onClick={() => displayForm(career.title)}>{career.title}</h3>
+                  {
+                    clickedTitle === career.title ?
+                    <ModificationForm title={career.title} description={career.description} attributes={career.attributes} />
+                    : null
+                  }
+                </div>
               ))}
-            </ul>
+            {/* </ul> */}
           </div>
         </div>
       ) : (
@@ -62,7 +69,7 @@ const ModifyCareers = ({ user }: { user: User }) => {
   );
 };
 
-const modificationForm = (title: string, description: string, attributes: string[]) => {
+const ModificationForm = ({ title, description, attributes }: Career) => {
   const [totalAttributes, setTotalAttributes] = useState(attributes.length);
 
   // Increments fields for totalAttributes on click
@@ -73,16 +80,16 @@ const modificationForm = (title: string, description: string, attributes: string
   return (
     <form className='grid'>
       <label htmlFor='career-title'>Title: </label>
-      <input type="text" id='career-title' name='career-title' />
+      <input type="text" id='career-title' name='career-title' defaultValue={title} />
 
       <label htmlFor='career-description'>Description: </label>
-      <textarea id='career-description' name='career-description' />
+      <textarea id='career-description' name='career-description' defaultValue={description} />
 
       <label htmlFor='career-attributes'>Attributes: </label>
       <div>
         {
           attributes.map((attribute) => 
-            <input type="text" value={attribute} />
+            <input key={Math.random() * 999} type="text" defaultValue={attribute} />
           )
         }
       </div>
