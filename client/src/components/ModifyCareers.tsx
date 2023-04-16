@@ -1,10 +1,11 @@
 // Admin-restricted page for modifying careers
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ChangeEvent } from 'react';
 import axios from 'axios';
 
 import Sidebar from './Sidebar';
 import PermissionDenied from './PermissionDenied';
 
+import { AiOutlinePlusCircle } from 'react-icons/ai';
 import { User } from '../types';
 
 interface Career {
@@ -75,11 +76,18 @@ const ModifyCareers = ({ user }: { user: User }) => {
 };
 
 const ModificationForm = ({ title, description, attributes }: Career) => {
-  const [totalAttributes, setTotalAttributes] = useState(attributes.length);
+  const [newAttributes, setNewAttributes] = useState<string[]>(attributes);
 
   // Increments fields for totalAttributes on click
   const addAttributes = () => {
-    setTotalAttributes(totalAttributes + 1);
+    setNewAttributes([...newAttributes, '']);
+  };
+
+  // Handles change of input fields for attributes
+  const changeAttributes = (e: ChangeEvent<HTMLInputElement>, index: number) => {
+    const tempAttributes = [...newAttributes];
+    tempAttributes[index] = e.target.value;
+    setNewAttributes(tempAttributes);
   };
 
   return (
@@ -93,10 +101,11 @@ const ModificationForm = ({ title, description, attributes }: Career) => {
       <label htmlFor='career-attributes'>Attributes: </label>
       <div className='flex flex-col gap-5'>
         {
-          attributes.map((attribute) => 
-            <input key={Math.random() * 999} type="text" defaultValue={attribute} className='text-black p-2' />
+          newAttributes.map((attribute, index) => 
+            <input key={index} type="text" defaultValue={attribute} onChange={(e) => changeAttributes(e, index)} className='text-black p-2' />
           )
         }
+        <AiOutlinePlusCircle size="40" onClick={() => addAttributes()} className='self-center text-green-500 cursor-pointer hover:text-green-300 transition-all delay-100' />
       </div>
     </form>
   );
