@@ -1,11 +1,13 @@
 // Log-in component for existing users
-import { useState, ChangeEvent, FormEvent } from 'react';
+import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import Sidebar from './Sidebar';
 
-const LogIn = () => {
+import { User } from '../types';
+
+const LogIn = ({ user }: { user: User }) => {
   const [error, setError] = useState('');
   const [body, setBody] = useState({
     username: '',
@@ -13,6 +15,10 @@ const LogIn = () => {
   });
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user.username) navigate('/');
+  }, []);
 
   const handleUsername = (e: ChangeEvent<HTMLInputElement>) => {
     setBody({
