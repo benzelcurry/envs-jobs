@@ -16,6 +16,7 @@ const LogIn = ({ user }: { user: User }) => {
 
   const navigate = useNavigate();
 
+  // Returns active user to homepage if they try to access login page
   useEffect(() => {
     if (user.username) navigate('/');
   }, []);
