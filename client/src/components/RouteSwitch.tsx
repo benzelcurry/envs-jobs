@@ -46,7 +46,7 @@ const RouteSwitch = () => {
         <Route path="/" element={<Home user={currentUser} />} />
         <Route path="/careers" element={<CareersList />} />
         <Route path="/profile" element={<Profile user={currentUser} />} />
-        <Route path="/log-in" element={<LogIn />} />
+        <Route path="/log-in" element={<LogIn user={currentUser} />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route
           path="/modify-questions"
