@@ -7,6 +7,7 @@ import PermissionDenied from './PermissionDenied';
 
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import { User } from '../types';
+import { STATES } from 'mongoose';
 
 interface Career {
   title: string;
@@ -44,25 +45,33 @@ const ModifyCareers = ({ user }: { user: User }) => {
       {user.is_admin ? (
         <div className="flex flex-col flex-1 mt-10 p-10">
           <div>
-            <h2 className='text-3xl border-b-2 border-green-500 inline-block text-green-500'>Current Careers:</h2>
+            <h2 className="text-3xl border-b-2 border-green-500 inline-block text-green-500">
+              Current Careers:
+            </h2>
             <ul className="list-disc mt-2">
               {careers.map((career) => (
                 <li
                   aria-label="Click to modify career details"
                   key={Math.random() * 999}
                   className={
-                    clickedTitle === career.title ?
-                    "ml-6 border-2 border-rad rounded-md p-4 transition-all duration-300 border-green-500 md:w-[70%]"
-                    :
-                    "ml-6 p-4"
+                    clickedTitle === career.title
+                      ? 'ml-6 border-2 border-rad rounded-md p-4 transition-all duration-300 border-green-500 md:w-[70%]'
+                      : 'ml-6 p-4'
                   }
                 >
-                  <h3 className='text-lg cursor-pointer hover:text-green-500 transition-all duration-300 inline-block' onClick={() => displayForm(career.title)}>{career.title}</h3>
-                  {
-                    clickedTitle === career.title ?
-                    <ModificationForm title={career.title} description={career.description} attributes={career.attributes} />
-                    : null
-                  }
+                  <h3
+                    className="text-lg cursor-pointer hover:text-green-500 transition-all duration-300 inline-block"
+                    onClick={() => displayForm(career.title)}
+                  >
+                    {career.title}
+                  </h3>
+                  {clickedTitle === career.title ? (
+                    <ModificationForm
+                      title={career.title}
+                      description={career.description}
+                      attributes={career.attributes}
+                    />
+                  ) : null}
                 </li>
               ))}
             </ul>
@@ -75,7 +84,16 @@ const ModifyCareers = ({ user }: { user: User }) => {
   );
 };
 
+// TODO:
+//   1. Hold title and description field updates in state
+//   2. Add submit button to form
+//   3. Make back-end patch handler on server
+//   4. MAKE IT SO EMPTY ATTRIBUTE FIELDS GET SKIPPED
+//   5. Add error handling to prevent empty required fields
+//   6. Patch new data to existing career DB entry using Axios
 const ModificationForm = ({ title, description, attributes }: Career) => {
+  const [newTitle, setNewTitle] = useState(title);
+  const [newDescription, setNewDescription] = useState(description);
   const [newAttributes, setNewAttributes] = useState<string[]>(attributes);
 
   // Increments fields for totalAttributes on click
@@ -83,32 +101,66 @@ const ModificationForm = ({ title, description, attributes }: Career) => {
     setNewAttributes([...newAttributes, '']);
   };
 
+  // Handles change of input field for title
+  const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
+    setNewTitle(e.target.value);
+  };
+
+  // Handles change of input field for description
+  const changeDescription = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setNewDescription(e.target.value);
+  };
+
   // Handles change of input fields for attributes
-  const changeAttributes = (e: ChangeEvent<HTMLInputElement>, index: number) => {
+  const changeAttributes = (
+    e: ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
     const tempAttributes = [...newAttributes];
     tempAttributes[index] = e.target.value;
     setNewAttributes(tempAttributes);
   };
 
   return (
-    <form className='grid grid-cols-[100px_auto] gap-5 mt-6'>
-      <label htmlFor='career-title'>Title: </label>
-      <input type="text" id='career-title' name='career-title' defaultValue={title} className='text-black p-2' />
+    <form className="grid grid-cols-[100px_auto] gap-5 mt-6">
+      <label htmlFor="career-title">Title: </label>
+      <input
+        type="text"
+        id="career-title"
+        name="career-title"
+        defaultValue={title}
+        onChange={(e) => changeTitle(e)}
+        className="text-black p-2"
+      />
 
-      <label htmlFor='career-description'>Description: </label>
-      <textarea id='career-description' name='career-description' defaultValue={description} className='text-black p-2' />
+      <label htmlFor="career-description">Description: </label>
+      <textarea
+        id="career-description"
+        name="career-description"
+        defaultValue={description}
+        onChange={(e) => changeDescription(e)}
+        className="text-black p-2"
+      />
 
-      <label htmlFor='career-attributes'>Attributes: </label>
-      <div className='flex flex-col gap-5'>
-        {
-          newAttributes.map((attribute, index) => 
-            <input key={index} type="text" defaultValue={attribute} onChange={(e) => changeAttributes(e, index)} className='text-black p-2' />
-          )
-        }
-        <AiOutlinePlusCircle size="40" onClick={() => addAttributes()} className='self-center text-green-500 cursor-pointer hover:text-green-300 transition-all delay-100' />
+      <label htmlFor="career-attributes">Attributes: </label>
+      <div className="flex flex-col gap-5">
+        {newAttributes.map((attribute, index) => (
+          <input
+            key={index}
+            type="text"
+            defaultValue={attribute}
+            onChange={(e) => changeAttributes(e, index)}
+            className="text-black p-2"
+          />
+        ))}
+        <AiOutlinePlusCircle
+          size="40"
+          onClick={() => addAttributes()}
+          className="self-center text-green-500 cursor-pointer hover:text-green-300 transition-all delay-100"
+        />
       </div>
     </form>
   );
-}
+};
 
 export default ModifyCareers;
