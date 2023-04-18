@@ -1,12 +1,14 @@
 // Sign-up component for new users
 
-import { useState, FormEvent } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import Sidebar from './Sidebar';
 
-const SignUp = () => {
+import { User } from '../types';
+
+const SignUp = ({ user }: { user: User }) => {
   const [error, setError] = useState('');
   const [body, setBody] = useState({
     first_name: '',
@@ -17,6 +19,11 @@ const SignUp = () => {
   });
 
   const navigate = useNavigate();
+
+  // Returns active user to homepage if they try to access signup page
+  useEffect(() => {
+    if (user.username) navigate('/');
+  }, []);
 
   // Updates `body` state object upon form input
   const handleInput = (e: FormEvent) => {
