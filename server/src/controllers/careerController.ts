@@ -110,11 +110,11 @@ export const update_career = [
           errors: errors.array()
         });
       } else {
-        Career.findByIdAndUpdate(existingCareer?._id, {
+        await Career.findByIdAndUpdate(existingCareer?._id, {
           title: req.body.title,
           description: req.body.description,
           attributes: req.body.attributes
-        });
+        }, { new: true });
         res.status(200).json('Career successfully modified!');
       }
     } catch (err) {

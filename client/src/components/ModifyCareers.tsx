@@ -1,5 +1,6 @@
 // Admin-restricted page for modifying careers
 import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import Sidebar from './Sidebar';
@@ -7,7 +8,6 @@ import PermissionDenied from './PermissionDenied';
 
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import { User } from '../types';
-import { STATES } from 'mongoose';
 
 interface Career {
   title: string;
@@ -85,13 +85,13 @@ const ModifyCareers = ({ user }: { user: User }) => {
 };
 
 // TODO:
-//   2. Add submit button to form
-//     2.1 GIVE BUTTON FUNCTIONALITY (currently on this step)
-//   3. Make back-end patch handler on server
 //   4. MAKE IT SO EMPTY ATTRIBUTE FIELDS GET SKIPPED
+//     4.1 Make it check for at least three attributes
 //   5. Add error handling to prevent empty required fields
 //   6. Patch new data to existing career DB entry using Axios
 const ModificationForm = ({ title, description, attributes }: Career) => {
+  const navigate = useNavigate();
+
   const [newTitle, setNewTitle] = useState(title);
   const [newDescription, setNewDescription] = useState(description);
   const [newAttributes, setNewAttributes] = useState<string[]>(attributes);
@@ -119,6 +119,25 @@ const ModificationForm = ({ title, description, attributes }: Career) => {
     const tempAttributes = [...newAttributes];
     tempAttributes[index] = e.target.value;
     setNewAttributes(tempAttributes);
+  };
+
+  // Updates career on form submit
+  const handleUpdate = (e: FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const body = {
+      originalTitle: title,
+      title: newTitle,
+      description: newDescription,
+      attributes: newAttributes
+    };
+    axios
+      .put('/api/careers', body)
+      .then((response) => {
+        navigate(0);
+      })
+      .catch((err) => {
+        throw new Error(err);
+      });
   };
 
   return (
@@ -159,7 +178,7 @@ const ModificationForm = ({ title, description, attributes }: Career) => {
           className="self-center text-green-500 cursor-pointer hover:text-green-300 transition-all delay-100"
         />
       </div>
-      <button className="btn col-span-2 w-[50%] mx-auto">Update Career</button>
+      <button onClick={(e) => handleUpdate(e)} className="btn col-span-2 w-[50%] mx-auto">Update Career</button>
     </form>
   );
 };
