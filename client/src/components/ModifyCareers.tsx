@@ -1,5 +1,5 @@
 // Admin-restricted page for modifying careers
-import { useState, useEffect, ChangeEvent } from 'react';
+import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
 
 import Sidebar from './Sidebar';
@@ -85,8 +85,8 @@ const ModifyCareers = ({ user }: { user: User }) => {
 };
 
 // TODO:
-//   1. Hold title and description field updates in state
 //   2. Add submit button to form
+//     2.1 GIVE BUTTON FUNCTIONALITY (currently on this step)
 //   3. Make back-end patch handler on server
 //   4. MAKE IT SO EMPTY ATTRIBUTE FIELDS GET SKIPPED
 //   5. Add error handling to prevent empty required fields
@@ -159,6 +159,7 @@ const ModificationForm = ({ title, description, attributes }: Career) => {
           className="self-center text-green-500 cursor-pointer hover:text-green-300 transition-all delay-100"
         />
       </div>
+      <button className="btn col-span-2 w-[50%] mx-auto">Update Career</button>
     </form>
   );
 };
