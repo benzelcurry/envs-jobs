@@ -2,11 +2,13 @@
 import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 import Sidebar from './Sidebar';
 import PermissionDenied from './PermissionDenied';
 
 import { AiOutlinePlusCircle } from 'react-icons/ai';
+import { RxCross1 } from 'react-icons/rx';
 import { User } from '../types';
 
 interface Career {
@@ -94,11 +96,18 @@ const ModificationForm = ({ title, description, attributes }: Career) => {
 
   const [newTitle, setNewTitle] = useState(title);
   const [newDescription, setNewDescription] = useState(description);
-  const [newAttributes, setNewAttributes] = useState<string[]>(attributes);
+  const [newAttributes, setNewAttributes] = useState(
+    attributes.map((attribute) => ({ id: uuidv4(), value: attribute }))
+  );
 
   // Increments fields for totalAttributes on click
   const addAttributes = () => {
-    setNewAttributes([...newAttributes, '']);
+    setNewAttributes([...newAttributes, { id: uuidv4(), value: '' }]);
+  };
+
+  // Deletes an attribute field for totalAttributes on click
+  const deleteAttributes = (id: string) => {
+    setNewAttributes(newAttributes.filter((attribute) => attribute.id !== id));
   };
 
   // Handles change of input field for title
@@ -112,13 +121,11 @@ const ModificationForm = ({ title, description, attributes }: Career) => {
   };
 
   // Handles change of input fields for attributes
-  const changeAttributes = (
-    e: ChangeEvent<HTMLInputElement>,
-    index: number
-  ) => {
-    const tempAttributes = [...newAttributes];
-    tempAttributes[index] = e.target.value;
-    setNewAttributes(tempAttributes);
+  const changeAttributes = (e: ChangeEvent<HTMLInputElement>, id: string) => {
+    const index = newAttributes.findIndex((attribute) => attribute.id === id);
+    const updatedAttributes = [...newAttributes];
+    updatedAttributes[index] = { id, value: e.target.value };
+    setNewAttributes(updatedAttributes);
   };
 
   // Updates career on form submit
@@ -128,11 +135,11 @@ const ModificationForm = ({ title, description, attributes }: Career) => {
       originalTitle: title,
       title: newTitle,
       description: newDescription,
-      attributes: newAttributes
+      attributes: newAttributes.map((attribute) => attribute.value)
     };
     axios
       .put('/api/careers', body)
-      .then((response) => {
+      .then(() => {
         navigate(0);
       })
       .catch((err) => {
@@ -163,14 +170,20 @@ const ModificationForm = ({ title, description, attributes }: Career) => {
 
       <label htmlFor="career-attributes">Attributes: </label>
       <div className="flex flex-col gap-5">
-        {newAttributes.map((attribute, index) => (
-          <input
-            key={index}
-            type="text"
-            defaultValue={attribute}
-            onChange={(e) => changeAttributes(e, index)}
-            className="text-black p-2"
-          />
+        {newAttributes.map((attribute) => (
+          <div key={attribute.id} className="flex items-center ">
+            <input
+              type="text"
+              defaultValue={attribute.value}
+              onChange={(e) => changeAttributes(e, attribute.id)}
+              className="text-black p-2 w-[100%]"
+            />
+            <RxCross1
+              size="28"
+              onClick={() => deleteAttributes(attribute.id)}
+              className="ml-auto pl-2 cursor-pointer text-red-500 hover:text-red-300"
+            />
+          </div>
         ))}
         <AiOutlinePlusCircle
           size="40"
@@ -178,7 +191,12 @@ const ModificationForm = ({ title, description, attributes }: Career) => {
           className="self-center text-green-500 cursor-pointer hover:text-green-300 transition-all delay-100"
         />
       </div>
-      <button onClick={(e) => handleUpdate(e)} className="btn col-span-2 w-[50%] mx-auto">Update Career</button>
+      <button
+        onClick={(e) => handleUpdate(e)}
+        className="btn col-span-2 w-[50%] mx-auto"
+      >
+        Update Career
+      </button>
     </form>
   );
 };
