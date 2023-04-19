@@ -18,8 +18,8 @@ interface Career {
 }
 
 // TODO:
-//   1. Restrict non-admins from viewing this page even if JS disabled
-//   2. Make sure to restrict routes to admins on the back-end as well
+// 1. Make career description textarea increase to fit contents
+
 const ModifyCareers = ({ user }: { user: User }) => {
   const navigate = useNavigate();
 
@@ -29,7 +29,7 @@ const ModifyCareers = ({ user }: { user: User }) => {
   // Redirects user to another page if they aren't an admin
   useEffect(() => {
     if (!user || !user.is_admin) navigate('/404');
-  }, [])
+  }, []);
 
   // Pulls info about current careers in database and stores in careers state variable
   useEffect(() => {
@@ -61,7 +61,7 @@ const ModifyCareers = ({ user }: { user: User }) => {
               {careers.map((career) => (
                 <li
                   aria-label="Click to modify career details"
-                  key={ uuidv4() }
+                  key={uuidv4()}
                   className={
                     clickedTitle === career.title
                       ? 'ml-6 border-2 border-rad rounded-md p-4 transition-all duration-300 border-green-500 md:w-[70%]'
@@ -142,7 +142,7 @@ const ModificationForm = ({ title, description, attributes }: Career) => {
       token: localStorage.getItem('token')
     };
     axios
-      .put('/api/careers', body, { withCredentials: true })
+      .put('/api/careers', body)
       .then(() => {
         navigate(0);
       })
