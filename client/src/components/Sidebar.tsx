@@ -81,7 +81,7 @@ const Sidebar = () => {
 
   return (
     <div
-      className="sticky top-0 left-0 w-screen md:h-screen md:w-16 m-0 flex md:flex-col 
+      className="sticky top-0 left-0 md:h-screen md:w-16 m-0 flex md:flex-col 
                   dark:bg-gray-900 text-white shadow-lg"
     >
       <Link to="/" aria-label="Home page" className="sidebar-icon">
