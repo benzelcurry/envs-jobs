@@ -86,11 +86,6 @@ const ModifyCareers = ({ user }: { user: User }) => {
   );
 };
 
-// TODO:
-//   4. MAKE IT SO EMPTY ATTRIBUTE FIELDS GET SKIPPED
-//     4.1 Make it check for at least three attributes
-//   5. Add error handling to prevent empty required fields
-//   6. Patch new data to existing career DB entry using Axios
 const ModificationForm = ({ title, description, attributes }: Career) => {
   const navigate = useNavigate();
 
@@ -136,10 +131,11 @@ const ModificationForm = ({ title, description, attributes }: Career) => {
       originalTitle: title,
       title: newTitle,
       description: newDescription,
-      attributes: newAttributes.map((attribute) => attribute.value)
+      attributes: newAttributes.map((attribute) => attribute.value),
+      token: localStorage.getItem('token')
     };
     axios
-      .put('/api/careers', body)
+      .put('/api/careers', body, { withCredentials: true })
       .then(() => {
         navigate(0);
       })

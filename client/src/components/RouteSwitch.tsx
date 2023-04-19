@@ -11,6 +11,7 @@ import LogIn from './LogIn';
 import SignUp from './SignUp';
 import ModifyQuestions from './ModifyQuestions';
 import ModifyCareers from './ModifyCareers';
+import AddQuestions from './AddQuestions';
 import Questionnaire from './Questionnaire';
 import NotFound from './404';
 
@@ -56,6 +57,7 @@ const RouteSwitch = () => {
           path="/modify-careers"
           element={<ModifyCareers user={currentUser} />}
         />
+        <Route path='/add-questions' user={currentUser} />
         <Route
           path="/questionnaire"
           element={<Questionnaire user={currentUser} />}
