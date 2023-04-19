@@ -8,9 +8,7 @@ const AddQuestions = ({ user }: { user: User }) => {
   return (
     <div>
       <Sidebar />
-      <div>
-        Add Questions content will go here.
-      </div>
+      <div>Add Questions content will go here.</div>
     </div>
   );
 };
