@@ -13,11 +13,9 @@ import checkAdmin from '../middleware/checkAdmin';
 router.get('/', career_list);
 
 // Adds a new career on POST
-// TODO: Restrict to admins; maybe add middleware to route that does this?
 router.post('/', checkAdmin, add_career);
 
 // Updates a career on PUT
-// TODO: Restrict to admins; maybe add middleware to route that does this?
 router.put('/', checkAdmin, update_career);
 
 export default router;

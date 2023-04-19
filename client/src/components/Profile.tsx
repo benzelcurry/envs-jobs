@@ -30,7 +30,7 @@ const Profile = ({ user }: { user: User }) => {
               </div>
             ) : (
               <div className="flex flex-col items-center md:items-start">
-                <h2 className='text-lg text-center md:text-start'>
+                <h2 className="text-lg text-center md:text-start">
                   Take the questionnaire below to find out what career
                   attributes you prefer!
                 </h2>
@@ -42,26 +42,29 @@ const Profile = ({ user }: { user: User }) => {
               </div>
             )}
           </div>
-          { user.is_admin ?
-          <div className="p-2">
-            <h2 className='text-lg text-center md:text-start'>Admin Contents</h2>
-            <div className="flex flex-col justify-center md:justify-start md:grid md:grid-cols-[auto_auto]">
-              <Link to="/modify-questions">
-                <button className="btn m-5 w-[200px]">Modify Questions</button>
-              </Link>
-              <Link to="/modify-careers">
-                <button className="btn m-5 w-[200px]">Modify Careers</button>
-              </Link>
-              <Link to='/add-questions'>
-                <button className="btn m-5 w-[200px]">Add Questions</button>
-              </Link>
-              <Link to='/add-careers'>
-                <button className="btn m-5 w-[200px]">Add Careers</button>
-              </Link>
+          {user.is_admin ? (
+            <div className="p-2">
+              <h2 className="text-lg text-center md:text-start">
+                Admin Contents
+              </h2>
+              <div className="flex flex-col justify-center md:justify-start md:grid md:grid-cols-[auto_auto]">
+                <Link to="/modify-questions">
+                  <button className="btn m-5 w-[200px]">
+                    Modify Questions
+                  </button>
+                </Link>
+                <Link to="/modify-careers">
+                  <button className="btn m-5 w-[200px]">Modify Careers</button>
+                </Link>
+                <Link to="/add-questions">
+                  <button className="btn m-5 w-[200px]">Add Questions</button>
+                </Link>
+                <Link to="/add-careers">
+                  <button className="btn m-5 w-[200px]">Add Careers</button>
+                </Link>
+              </div>
             </div>
-          </div>
-          : null
-          }
+          ) : null}
         </div>
       ) : (
         <PermissionDenied />
