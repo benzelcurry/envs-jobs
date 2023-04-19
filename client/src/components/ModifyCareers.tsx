@@ -21,8 +21,15 @@ interface Career {
 //   1. Restrict non-admins from viewing this page even if JS disabled
 //   2. Make sure to restrict routes to admins on the back-end as well
 const ModifyCareers = ({ user }: { user: User }) => {
+  const navigate = useNavigate();
+
   const [careers, setCareers] = useState<Career[]>([]);
   const [clickedTitle, setClickedTitle] = useState('');
+
+  // Redirects user to another page if they aren't an admin
+  useEffect(() => {
+    if (!user || !user.is_admin) navigate('/404');
+  }, [])
 
   // Pulls info about current careers in database and stores in careers state variable
   useEffect(() => {

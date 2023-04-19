@@ -8,8 +8,6 @@ import PermissionDenied from './PermissionDenied';
 
 import { User } from '../types';
 
-// TODO:
-//   1. Display links to add/remove-career pages on admin page
 const Profile = ({ user }: { user: User }) => {
   return (
     <div>
@@ -58,7 +56,7 @@ const Profile = ({ user }: { user: User }) => {
                 <button className="btn m-5 w-[200px]">Add Questions</button>
               </Link>
               <Link to='/add-careers'>
-                <button className="btn m-5 w-[200px]">Modify Careers</button>
+                <button className="btn m-5 w-[200px]">Add Careers</button>
               </Link>
             </div>
           </div>
