@@ -61,7 +61,7 @@ const ModifyCareers = ({ user }: { user: User }) => {
               {careers.map((career) => (
                 <li
                   aria-label="Click to modify career details"
-                  key={Math.random() * 999}
+                  key={ uuidv4() }
                   className={
                     clickedTitle === career.title
                       ? 'ml-6 border-2 border-rad rounded-md p-4 transition-all duration-300 border-green-500 md:w-[70%]'
