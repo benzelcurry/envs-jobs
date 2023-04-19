@@ -12,6 +12,7 @@ import SignUp from './SignUp';
 import ModifyQuestions from './ModifyQuestions';
 import ModifyCareers from './ModifyCareers';
 import AddQuestions from './AddQuestions';
+import AddCareers from './AddCareers';
 import Questionnaire from './Questionnaire';
 import NotFound from './404';
 
@@ -57,7 +58,11 @@ const RouteSwitch = () => {
           path="/modify-careers"
           element={<ModifyCareers user={currentUser} />}
         />
-        <Route path='/add-questions' user={currentUser} />
+        <Route
+          path="/add-questions"
+          element={<AddQuestions user={currentUser} />}
+        />
+        <Route path="add-careers" element={<AddCareers user={currentUser} />} />
         <Route
           path="/questionnaire"
           element={<Questionnaire user={currentUser} />}
