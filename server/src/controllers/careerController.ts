@@ -41,7 +41,14 @@ export const add_career = [
     .withMessage('Career description must be at least 2 characters long'),
   body('attributes')
     .isArray({ min: 3 })
-    .withMessage('Please submit a minimum of 3 attributes'),
+    .withMessage('Please submit a minimum of 3 attributes')
+    .custom((value) => {
+      const hasEmptyString = value.some((item: string) => item === '');
+      if (hasEmptyString) {
+        throw new Error('Please fill out all attribute fields');
+      }
+      return true;
+    }),
   async (req: Request, res: Response, next: NextFunction) => {
     // ADD LOGIC HERE TO ENSURE THAT DATA IS COMING FROM AN ADMIN
     try {
@@ -95,7 +102,14 @@ export const update_career = [
     .withMessage('Career description must be at least 2 characters long'),
   body('attributes')
     .isArray({ min: 3 })
-    .withMessage('Please submit a minimum of 3 attributes'),
+    .withMessage('Please submit a minimum of 3 attributes')
+    .custom((value) => {
+      const hasEmptyString = value.some((item: string) => item === '');
+      if (hasEmptyString) {
+        throw new Error('Please fill out all attribute fields');
+      }
+      return true;
+    }),
   async (req: Request, res: Response, next: NextFunction) => {
     // ADD LOGIC HERE TO ENSURE THAT DATA IS COMING FROM AN ADMIN
     try {
@@ -110,11 +124,15 @@ export const update_career = [
           errors: errors.array()
         });
       } else {
-        await Career.findByIdAndUpdate(existingCareer?._id, {
-          title: req.body.title,
-          description: req.body.description,
-          attributes: req.body.attributes
-        }, { new: true });
+        await Career.findByIdAndUpdate(
+          existingCareer?._id,
+          {
+            title: req.body.title,
+            description: req.body.description,
+            attributes: req.body.attributes
+          },
+          { new: true }
+        );
         res.status(200).json('Career successfully modified!');
       }
     } catch (err) {
