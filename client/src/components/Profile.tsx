@@ -15,7 +15,7 @@ const Profile = ({ user }: { user: User }) => {
     <div>
       <Sidebar />
       {user.username ? (
-        <div className="flex flex-col flex-1 mt-10 p-10">
+        <div className="flex flex-col items-center md:items-start flex-1 mt-10 p-10">
           <h1 className="text-5xl mb-5">
             {user.first_name} {user.family_name}
           </h1>
@@ -31,11 +31,11 @@ const Profile = ({ user }: { user: User }) => {
                 {/* ADD CAREER MATCHES HERE */}
               </div>
             ) : (
-              <div className="flex flex-col">
-                <p>
+              <div className="flex flex-col items-center md:items-start">
+                <h2 className='text-lg text-center md:text-start'>
                   Take the questionnaire below to find out what career
                   attributes you prefer!
-                </p>
+                </h2>
                 <Link to="/questionnaire">
                   <button className="btn mt-3 mb-3 self-center w-[200px] md:self-start">
                     Questionnaire
@@ -46,7 +46,7 @@ const Profile = ({ user }: { user: User }) => {
           </div>
           { user.is_admin ?
           <div className="p-2">
-            <h3>Admin contents.</h3>
+            <h2 className='text-lg text-center md:text-start'>Admin Contents</h2>
             <div className="flex flex-col justify-center md:justify-start md:grid md:grid-cols-[auto_auto]">
               <Link to="/modify-questions">
                 <button className="btn m-5 w-[200px]">Modify Questions</button>
