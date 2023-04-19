@@ -7,15 +7,17 @@ import {
   update_career
 } from '../controllers/careerController';
 
+import checkAdmin from '../middleware/checkAdmin';
+
 // Returns list of careers on GET
 router.get('/', career_list);
 
 // Adds a new career on POST
 // TODO: Restrict to admins; maybe add middleware to route that does this?
-router.post('/', add_career);
+router.post('/', checkAdmin, add_career);
 
 // Updates a career on PUT
 // TODO: Restrict to admins; maybe add middleware to route that does this?
-router.put('/', update_career);
+router.put('/', checkAdmin, update_career);
 
 export default router;
