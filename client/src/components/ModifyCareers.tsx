@@ -99,6 +99,7 @@ const ModificationForm = ({ title, description, attributes }: Career) => {
   const [newAttributes, setNewAttributes] = useState(
     attributes.map((attribute) => ({ id: uuidv4(), value: attribute }))
   );
+  const [error, setError] = useState('');
 
   // Increments fields for totalAttributes on click
   const addAttributes = () => {
@@ -143,6 +144,7 @@ const ModificationForm = ({ title, description, attributes }: Career) => {
         navigate(0);
       })
       .catch((err) => {
+        setError(err.response.data.errors[0].msg);
         throw new Error(err);
       });
   };
@@ -191,6 +193,9 @@ const ModificationForm = ({ title, description, attributes }: Career) => {
           className="self-center text-green-500 cursor-pointer hover:text-green-300 transition-all delay-100"
         />
       </div>
+      {error ? (
+        <p className="col-span-2 text-red-500 mx-auto italic">{error}</p>
+      ) : null}
       <button
         onClick={(e) => handleUpdate(e)}
         className="btn col-span-2 w-[50%] mx-auto"
