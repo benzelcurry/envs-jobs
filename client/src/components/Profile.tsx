@@ -44,17 +44,26 @@ const Profile = ({ user }: { user: User }) => {
               </div>
             )}
           </div>
+          { user.is_admin ?
           <div className="p-2">
             <h3>Admin contents.</h3>
-            <div className="flex justify-center md:justify-start">
+            <div className="flex flex-col justify-center md:justify-start md:grid md:grid-cols-[auto_auto]">
               <Link to="/modify-questions">
                 <button className="btn m-5 w-[200px]">Modify Questions</button>
               </Link>
               <Link to="/modify-careers">
                 <button className="btn m-5 w-[200px]">Modify Careers</button>
               </Link>
+              <Link to='/add-questions'>
+                <button className="btn m-5 w-[200px]">Add Questions</button>
+              </Link>
+              <Link to='/add-careers'>
+                <button className="btn m-5 w-[200px]">Modify Careers</button>
+              </Link>
             </div>
           </div>
+          : null
+          }
         </div>
       ) : (
         <PermissionDenied />
