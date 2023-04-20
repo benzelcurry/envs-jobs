@@ -5,7 +5,13 @@ import 'react-image-crop/dist/ReactCrop.css';
 const Cropper = () => {
   const [file, setFile] = useState<File>();
   const [image, setImage] = useState('');
-  const [crop, setCrop] = useState<Crop>();
+  const [crop, setCrop] = useState<Crop>({
+    unit: 'px',
+    width: 50,
+    height: 50,
+    x: 25,
+    y: 25
+  })
   const imgRef = useRef<HTMLImageElement>(null);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
