@@ -19,6 +19,12 @@ interface Career {
 
 // TODO:
 //   1. Make career description textarea increase to fit contents
+
+// TODO:
+//  1. Allow admins to
+//   1.1 Update bio picture (Cloudinary)
+//   1.2 Update bio description
+//   1.3 Update job photo (Cloudinary)
 const AddCareers = ({ user }: { user: User }) => {
   const [careers, setCareers] = useState<Career[]>([]);
 

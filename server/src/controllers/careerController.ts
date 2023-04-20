@@ -4,11 +4,7 @@ import Career from '../models/Career';
 
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import { body, validationResult } from 'express-validator';
-import { Callback } from 'mongoose';
-import async from 'async';
-import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import User from '../models/User';
 
 dotenv.config();
 
@@ -24,7 +20,11 @@ export const career_list: RequestHandler = async (req, res, next) => {
 };
 
 // Allow admins to add new Careers on POST
-// TO-DO: ADD JWT AUTHENTICATION TO ENSURE THAT DATA IS COMING FROM AN ADMIN
+// TODO:
+//  1. Allow admins to
+//   1.1 Update bio picture (Cloudinary)
+//   1.2 Update bio description
+//   1.3 Update job photo (Cloudinary)
 export const add_career = [
   // Validate and sanitize fields
   body('title')
@@ -50,7 +50,6 @@ export const add_career = [
       return true;
     }),
   async (req: Request, res: Response, next: NextFunction) => {
-    // ADD LOGIC HERE TO ENSURE THAT DATA IS COMING FROM AN ADMIN
     try {
       const existingCareer = await Career.findOne({ title: req.body.title });
 
@@ -85,7 +84,11 @@ export const add_career = [
 ];
 
 // Allow admins to update careers
-// TODO: Add JWT auth, either to this or to route
+// TODO:
+//  1. Allow admins to
+//   1.1 Update bio picture (Cloudinary)
+//   1.2 Update bio description
+//   1.3 Update job photo (Cloudinary)
 export const update_career = [
   // Validate and sanitize fields
   body('title')
@@ -111,7 +114,6 @@ export const update_career = [
       return true;
     }),
   async (req: Request, res: Response, next: NextFunction) => {
-    // ADD LOGIC HERE TO ENSURE THAT DATA IS COMING FROM AN ADMIN
     try {
       const existingCareer = await Career.findOne({
         title: req.body.originalTitle
