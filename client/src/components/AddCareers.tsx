@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import Sidebar from './Sidebar';
+import Cropper from './ImageCropper';
 
 import { v4 as uuidv4 } from 'uuid';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
@@ -173,6 +174,7 @@ const NewCareerForm = () => {
           className="self-center text-green-500 cursor-pointer hover:text-green-300 transition-all delay-100"
         />
       </div>
+      <Cropper />
       {error ? (
         <p className="col-span-2 text-red-500 mx-auto italic">{error}</p>
       ) : null}
