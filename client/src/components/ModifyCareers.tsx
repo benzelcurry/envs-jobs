@@ -19,6 +19,9 @@ interface Career {
 
 // TODO:
 // 1. Make career description textarea increase to fit contents
+// 2. Pull bio pic and job pic and bio quote when displaying current details
+// 3. Allow user to modify fields mentioned in TODO #3
+//  3.1 Might need to modify the above interface
 
 const ModifyCareers = ({ user }: { user: User }) => {
   const navigate = useNavigate();

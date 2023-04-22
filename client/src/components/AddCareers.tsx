@@ -19,12 +19,6 @@ interface Career {
 
 // TODO:
 //   1. Make career description textarea increase to fit contents
-
-// TODO:
-//  1. Allow admins to
-//   1.1 Update bio picture (Cloudinary)
-//   1.2 Update bio description
-//   1.3 Update job photo (Cloudinary)
 const AddCareers = ({ user }: { user: User }) => {
   const [careers, setCareers] = useState<Career[]>([]);
 
@@ -68,10 +62,6 @@ const AddCareers = ({ user }: { user: User }) => {
   );
 };
 
-// TODO:
-//   1. Send in bioPhoto data from <Cropper /> and submit to backend
-//    1.1 Figure out how to save image refs in database then pull on front end
-//        from Cloudinary, similar to Odinbook
 const NewCareerForm = () => {
   const navigate = useNavigate();
   const [error, setError] = useState('');
@@ -147,10 +137,10 @@ const NewCareerForm = () => {
     newAttributes.forEach((attribute) => {
       body.append('attributes', attribute.value);
     });
-    if (token) {
-      body.append('token', token);
-    }
+    if (token) body.append('token', token);
     if (bioPhoto) body.append('bio_photo', bioPhoto);
+    if (careerPhoto) body.append('job_photo', careerPhoto);
+    if (bioQuote) body.append('quote', bioQuote);
     axios
       .post('/api/careers', body)
       .then(() => {

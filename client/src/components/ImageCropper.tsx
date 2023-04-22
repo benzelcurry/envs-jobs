@@ -26,7 +26,8 @@ const Cropper: React.FC<Props> = ({ setPhoto, circle }) => {
   const imgRef = useRef<HTMLImageElement>(null);
 
   // Allows user to hide the image
-  const toggleDisplay = () => {
+  const toggleDisplay = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     display ? setDisplay(false) : setDisplay(true);
   };
 
@@ -50,14 +51,16 @@ const Cropper: React.FC<Props> = ({ setPhoto, circle }) => {
       const ctx = canvas.getContext('2d')!;
       ctx.save();
       ctx.beginPath();
-      ctx.arc(
-        crop.width! / 2,
-        crop.height! / 2,
-        crop.width! / 2,
-        0,
-        2 * Math.PI
-      );
-      ctx.clip();
+      if (circle) {
+        ctx.arc(
+          crop.width! / 2,
+          crop.height! / 2,
+          crop.width! / 2,
+          0,
+          2 * Math.PI
+        );
+        ctx.clip();
+      }
       ctx.drawImage(
         img,
         crop.x! * scaleX,
@@ -90,7 +93,7 @@ const Cropper: React.FC<Props> = ({ setPhoto, circle }) => {
       />
       {image ? (
         <button
-          onClick={() => toggleDisplay()}
+          onClick={(e) => toggleDisplay(e)}
           className="border-2 border-black text-black hover:brightness-75 cursor-pointer bg-red-300 p-2 rounded-lg"
         >
           Toggle Display

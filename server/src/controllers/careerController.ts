@@ -68,18 +68,23 @@ export const add_career = [
           errors: errors.array()
         });
       } else {
-        // const career = new Career({
-        //   title: req.body.title,
-        //   description: req.body.description,
-        //   attributes: req.body.attributes
-        // });
+        const career = new Career({
+          title: req.body.title,
+          description: req.body.description,
+          attributes: req.body.attributes,
+          job_photo:
+            (req.files as { [fieldname: string]: Express.Multer.File[] })?.[
+              'job_photo'
+            ]?.[0]?.filename || undefined,
+          bio_photo:
+            (req.files as { [fieldname: string]: Express.Multer.File[] })?.[
+              'bio_photo'
+            ]?.[0]?.filename || undefined,
+          bio_quote: req.body.quote ? req.body.quote : undefined
+        });
 
-        // career.save();
-        // res.status(200).json('Career added!');
-        res.status(200).json(req.body);
-        // FIX ABOVE CODE TO PULL REF TO CLOUDINARY LINK AND STORE IN DB,
-        // LOOK AT ODINBOOK FOR HELP ON HOW TO DO THAT
-        // MAKE SURE TO ONLY ALLOW IMAGE UPLOADS
+        career.save();
+        res.status(200).json('Career added!');
       }
     } catch (err) {
       res.status(500).json({ errors: err });

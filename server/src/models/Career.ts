@@ -18,7 +18,7 @@ const CareerSchema = new Schema({
   description: { type: String, required: true, minLength: 2 },
   attributes: { type: [String], required: true, minItems: 3 },
   job_photo: { type: String },
-  bio_avatar: { type: String },
+  bio_photo: { type: String },
   bio_quote: { type: String }
 });
 
