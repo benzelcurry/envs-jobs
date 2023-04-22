@@ -170,7 +170,7 @@ const NewCareerForm = () => {
         id="career-title"
         name="career-title"
         onChange={(e) => changeTitle(e)}
-        className="text-black p-2 border-2 border-black dark:border-transparent"
+        className="focus:outline-none text-black p-2 border-2 border-black dark:border-transparent"
       />
 
       <label htmlFor="career-description">Description: </label>
@@ -178,7 +178,7 @@ const NewCareerForm = () => {
         id="career-description"
         name="career-description"
         onChange={(e) => changeDescription(e)}
-        className="text-black p-2 border-2 border-black dark:border-transparent"
+        className="focus:outline-none text-black p-2 border-2 border-black dark:border-transparent"
       />
 
       <label htmlFor="career-attributes">Attributes: </label>
@@ -189,7 +189,7 @@ const NewCareerForm = () => {
               type="text"
               defaultValue={attribute.value}
               onChange={(e) => changeAttributes(e, attribute.id)}
-              className="text-black p-2 w-[100%] border-2 border-black dark:border-transparent"
+              className="focus:outline-none text-black p-2 w-[100%] border-2 border-black dark:border-transparent"
             />
             <RxCross1
               size="28"
@@ -216,7 +216,7 @@ const NewCareerForm = () => {
         id="pro-quote"
         name="pro-quote"
         onChange={(e) => changeQuote(e)}
-        className="text-black p-2 border-2 border-black dark:border-transparent"
+        className="focus:outline-none text-black p-2 border-2 border-black dark:border-transparent"
       />
 
       {error ? (
