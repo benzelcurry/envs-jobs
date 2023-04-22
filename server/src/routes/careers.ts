@@ -21,12 +21,27 @@ cloudinary.config({
 });
 
 // Configure multer
+// const storage = new CloudinaryStorage({
+//   cloudinary: cloudinary,
+//   params: (req: Request, file: Express.Multer.File) => {
+//     return {
+//       folder: 'IMAGES/envs'
+//     };
+//   }
+// });
+
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: (req: Request, file: Express.Multer.File) => {
-    return {
-      folder: 'IMAGES/envs'
-    };
+    if (file.fieldname === 'bio_photo') {
+      return {
+        folder: 'IMAGES/envs/bio_photos'
+      };
+    } else if (file.fieldname === 'job_photo') {
+      return {
+        folder: 'IMAGES/envs/job_photos'
+      };
+    }
   }
 });
 
@@ -37,7 +52,15 @@ const upload = multer({ storage: storage });
 router.get('/', career_list);
 
 // Adds a new career on POST
-router.post('/', upload.single('bio_photo'), checkAdmin, add_career);
+router.post(
+  '/',
+  upload.fields([
+    { name: 'bio_photo', maxCount: 1 },
+    { name: 'job_photo', maxCount: 1 }
+  ]),
+  checkAdmin,
+  add_career
+);
 
 // Updates a career on PUT
 router.put('/', checkAdmin, update_career);
