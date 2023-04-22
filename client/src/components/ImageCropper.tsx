@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, useRef } from 'react';
+import { ChangeEvent, useState, useEffect, useRef } from 'react';
 import ReactCrop, { Crop } from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
 
@@ -13,7 +13,6 @@ interface Props {
 //   1.3 Update job photo (Cloudinary)
 //  2. ONLY ALLOW IMAGE UPLOADS
 const Cropper: React.FC<Props> = ({ setBioPhoto }) => {
-  const [file, setFile] = useState<File>();
   const [image, setImage] = useState('');
   const [crop, setCrop] = useState<Crop>({
     unit: 'px',
@@ -24,15 +23,15 @@ const Cropper: React.FC<Props> = ({ setBioPhoto }) => {
   });
   const imgRef = useRef<HTMLImageElement>(null);
 
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+  // Sets the image uploaded by user pre-crop
+  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length !== 0) {
-      setFile(e.target.files[0]);
       setImage(URL.createObjectURL(e.target.files[0]));
     }
   };
 
-  const getCroppedImage = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  // Saves a cropped version of the uploaded image
+  const getCroppedImage = () => {
     const img = imgRef.current;
     if (img && crop) {
       const canvas = document.createElement('canvas');
@@ -68,11 +67,8 @@ const Cropper: React.FC<Props> = ({ setBioPhoto }) => {
         if (blob) {
           const photo = new File([blob], 'croppedImage.png', { type: 'image/png' });
           setBioPhoto(photo);
-          console.log(file);
         }
       }, 'image/png');
-      // const croppedImageUrl = canvas.toDataURL();
-      // console.log(croppedImageUrl);
     }
   };
 
@@ -88,12 +84,10 @@ const Cropper: React.FC<Props> = ({ setBioPhoto }) => {
         aspect={1}
         circularCrop={true}
         onChange={(c) => setCrop(c)}
+        onComplete={() => getCroppedImage()}
       >
-        <img src={image} ref={imgRef} />
+        <img src={image} ref={imgRef} onLoad={() => getCroppedImage()} />
       </ReactCrop>
-      <button className="btn" onClick={(e) => getCroppedImage(e)}>
-        Crop Image
-      </button>
     </div>
   );
 };
