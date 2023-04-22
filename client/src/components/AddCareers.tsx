@@ -68,6 +68,10 @@ const AddCareers = ({ user }: { user: User }) => {
   );
 };
 
+// TODO:
+//   1. Send in bioPhoto data from <Cropper /> and submit to backend
+//    1.1 Figure out how to save image refs in database then pull on front end
+//        from Cloudinary, similar to Odinbook
 const NewCareerForm = () => {
   const navigate = useNavigate();
   const [error, setError] = useState('');
@@ -76,6 +80,7 @@ const NewCareerForm = () => {
   const [newAttributes, setNewAttributes] = useState<
     { id: string; value: string }[]
   >([]);
+  const [bioPhoto, setBioPhoto] = useState<File | null>(null);
 
   useEffect(() => {
     if (newAttributes.length === 0) {
@@ -118,15 +123,27 @@ const NewCareerForm = () => {
     setNewAttributes(updatedAttributes);
   };
 
+  // Sets file upload for bioPhoto
+  const handlePhoto = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setBioPhoto(e.target.files[0]);
+    }
+  };
+
   // Updates career on form submit
   const handleUpdate = (e: FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const body = {
-      title: newTitle,
-      description: newDescription,
-      attributes: newAttributes.map((attribute) => attribute.value),
-      token: localStorage.getItem('token')
-    };
+    const token = localStorage.getItem('token');
+    const body = new FormData();
+    body.append('title', newTitle);
+    body.append('description', newDescription);
+    newAttributes.forEach((attribute) => {
+      body.append('attributes', attribute.value);
+    });
+    if (token) {
+      body.append('token', token);
+    }
+    if (bioPhoto) body.append('bio_photo', bioPhoto);
     axios
       .post('/api/careers', body)
       .then(() => {
@@ -180,7 +197,8 @@ const NewCareerForm = () => {
           className="self-center text-green-500 cursor-pointer hover:text-green-300 transition-all delay-100"
         />
       </div>
-      <Cropper />
+      <input type="file" onChange={(e) => handlePhoto(e)} />
+      {/* <Cropper /> */}
       {error ? (
         <p className="col-span-2 text-red-500 mx-auto italic">{error}</p>
       ) : null}

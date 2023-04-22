@@ -143,8 +143,10 @@ const ModificationForm = ({ title, description, attributes }: Career) => {
     };
     axios
       .put('/api/careers', body)
-      .then(() => {
-        navigate(0);
+      .then((response) => {
+        // COME BACK AND FIX THIS ONCE THE BACKEND CREATES NEW CAREERS AGAIN
+        console.log(response);
+        // navigate(0);
       })
       .catch((err) => {
         setError(err.response.data.errors[0].msg);
