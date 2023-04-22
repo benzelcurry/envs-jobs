@@ -3,7 +3,8 @@ import ReactCrop, { Crop } from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
 
 interface Props {
-  setBioPhoto: React.Dispatch<React.SetStateAction<File | null>>
+  setBioPhoto: React.Dispatch<React.SetStateAction<File | null>>;
+  circle: boolean;
 };
 
 // TODO:
@@ -12,7 +13,7 @@ interface Props {
 //   1.2 Update bio description
 //   1.3 Update job photo (Cloudinary)
 //  2. ONLY ALLOW IMAGE UPLOADS
-const Cropper: React.FC<Props> = ({ setBioPhoto }) => {
+const Cropper: React.FC<Props> = ({ setBioPhoto, circle }) => {
   const [image, setImage] = useState('');
   const [crop, setCrop] = useState<Crop>({
     unit: 'px',
@@ -81,8 +82,8 @@ const Cropper: React.FC<Props> = ({ setBioPhoto }) => {
       />
       <ReactCrop
         crop={crop}
-        aspect={1}
-        circularCrop={true}
+        aspect={circle ? 1 : undefined}
+        circularCrop={circle}
         onChange={(c) => setCrop(c)}
         onComplete={() => getCroppedImage()}
       >
