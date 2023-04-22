@@ -197,12 +197,13 @@ const NewCareerForm = () => {
           className="self-center text-green-500 cursor-pointer hover:text-green-300 transition-all delay-100"
         />
       </div>
-      <input type="file" onChange={(e) => handlePhoto(e)} />
-      {/* <Cropper /> */}
+      {/* <input type="file" onChange={(e) => handlePhoto(e)} /> */}
+      <Cropper setBioPhoto={setBioPhoto} />
       {error ? (
         <p className="col-span-2 text-red-500 mx-auto italic">{error}</p>
       ) : null}
       <button
+        type='button'
         onClick={(e) => handleUpdate(e)}
         className="btn col-span-2 w-[50%] mx-auto"
       >

@@ -2,13 +2,17 @@ import { ChangeEvent, useState, useRef } from 'react';
 import ReactCrop, { Crop } from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
 
+interface Props {
+  setBioPhoto: React.Dispatch<React.SetStateAction<File | null>>
+};
+
 // TODO:
 //  1. Allow admins to
 //   1.1 Update bio picture (Cloudinary)
 //   1.2 Update bio description
 //   1.3 Update job photo (Cloudinary)
 //  2. ONLY ALLOW IMAGE UPLOADS
-const Cropper = () => {
+const Cropper: React.FC<Props> = ({ setBioPhoto }) => {
   const [file, setFile] = useState<File>();
   const [image, setImage] = useState('');
   const [crop, setCrop] = useState<Crop>({
@@ -27,7 +31,8 @@ const Cropper = () => {
     }
   };
 
-  const getCroppedImage = () => {
+  const getCroppedImage = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     const img = imgRef.current;
     if (img && crop) {
       const canvas = document.createElement('canvas');
@@ -59,8 +64,15 @@ const Cropper = () => {
         crop.height!
       );
       ctx.restore();
-      const croppedImageUrl = canvas.toDataURL();
-      console.log(croppedImageUrl);
+      canvas.toBlob((blob) => {
+        if (blob) {
+          const photo = new File([blob], 'croppedImage.png', { type: 'image/png' });
+          setBioPhoto(photo);
+          console.log(file);
+        }
+      }, 'image/png');
+      // const croppedImageUrl = canvas.toDataURL();
+      // console.log(croppedImageUrl);
     }
   };
 
@@ -79,7 +91,7 @@ const Cropper = () => {
       >
         <img src={image} ref={imgRef} />
       </ReactCrop>
-      <button className="btn" onClick={getCroppedImage}>
+      <button className="btn" onClick={(e) => getCroppedImage(e)}>
         Crop Image
       </button>
     </div>

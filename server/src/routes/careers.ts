@@ -31,7 +31,7 @@ const storage = new CloudinaryStorage({
 });
 
 // Set up Multer middleware
-const upload = multer({ storage });
+const upload = multer({ storage: storage });
 
 // Returns list of careers on GET
 router.get('/', career_list);
