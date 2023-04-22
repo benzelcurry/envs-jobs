@@ -81,6 +81,7 @@ const NewCareerForm = () => {
     { id: string; value: string }[]
   >([]);
   const [bioPhoto, setBioPhoto] = useState<File | null>(null);
+  const [careerPhoto, setCareerPhoto] = useState<File | null>(null);
 
   useEffect(() => {
     if (newAttributes.length === 0) {
@@ -156,7 +157,7 @@ const NewCareerForm = () => {
   };
 
   return (
-    <form className="grid grid-cols-[100px_auto] gap-5 mt-6">
+    <form className="grid grid-cols-[125px_auto] gap-5 mt-6">
       <label htmlFor="career-title">Title: </label>
       <input
         type="text"
@@ -197,7 +198,13 @@ const NewCareerForm = () => {
           className="self-center text-green-500 cursor-pointer hover:text-green-300 transition-all delay-100"
         />
       </div>
-      <Cropper setBioPhoto={setBioPhoto} circle={true} />
+
+      <label>Career Photo: </label>
+      <Cropper setPhoto={setCareerPhoto} circle={false} />
+
+      <label>Headshot: </label>
+      <Cropper setPhoto={setBioPhoto} circle={true} />
+      
       {error ? (
         <p className="col-span-2 text-red-500 mx-auto italic">{error}</p>
       ) : null}
