@@ -68,14 +68,18 @@ export const add_career = [
           errors: errors.array()
         });
       } else {
-        const career = new Career({
-          title: req.body.title,
-          description: req.body.description,
-          attributes: req.body.attributes
-        });
+        // const career = new Career({
+        //   title: req.body.title,
+        //   description: req.body.description,
+        //   attributes: req.body.attributes
+        // });
 
-        career.save();
-        res.status(200).json('Career added!');
+        // career.save();
+        // res.status(200).json('Career added!');
+        res.status(200).json(req.body);
+        // FIX ABOVE CODE TO PULL REF TO CLOUDINARY LINK AND STORE IN DB,
+        // LOOK AT ODINBOOK FOR HELP ON HOW TO DO THAT
+        // MAKE SURE TO ONLY ALLOW IMAGE UPLOADS
       }
     } catch (err) {
       res.status(500).json({ errors: err });

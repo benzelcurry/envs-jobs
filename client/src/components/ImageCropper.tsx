@@ -7,6 +7,7 @@ import 'react-image-crop/dist/ReactCrop.css';
 //   1.1 Update bio picture (Cloudinary)
 //   1.2 Update bio description
 //   1.3 Update job photo (Cloudinary)
+//  2. ONLY ALLOW IMAGE UPLOADS
 const Cropper = () => {
   const [file, setFile] = useState<File>();
   const [image, setImage] = useState('');
