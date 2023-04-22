@@ -5,7 +5,7 @@ import 'react-image-crop/dist/ReactCrop.css';
 interface Props {
   setPhoto: React.Dispatch<React.SetStateAction<File | null>>;
   circle: boolean;
-};
+}
 
 // TODO:
 //  1. Allow admins to
@@ -22,7 +22,13 @@ const Cropper: React.FC<Props> = ({ setPhoto, circle }) => {
     x: 25,
     y: 25
   });
+  const [display, setDisplay] = useState(true);
   const imgRef = useRef<HTMLImageElement>(null);
+
+  // Allows user to hide the image
+  const toggleDisplay = () => {
+    display ? setDisplay(false) : setDisplay(true);
+  };
 
   // Sets the image uploaded by user pre-crop
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -66,7 +72,9 @@ const Cropper: React.FC<Props> = ({ setPhoto, circle }) => {
       ctx.restore();
       canvas.toBlob((blob) => {
         if (blob) {
-          const photo = new File([blob], 'croppedImage.png', { type: 'image/png' });
+          const photo = new File([blob], 'croppedImage.png', {
+            type: 'image/png'
+          });
           setPhoto(photo);
         }
       }, 'image/png');
@@ -74,21 +82,32 @@ const Cropper: React.FC<Props> = ({ setPhoto, circle }) => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col items-center gap-5">
       <input
         type="file"
         accept="image/*"
         onChange={(e) => handleFileChange(e)}
       />
-      <ReactCrop
-        crop={crop}
-        aspect={circle ? 1 : undefined}
-        circularCrop={circle}
-        onChange={(c) => setCrop(c)}
-        onComplete={() => getCroppedImage()}
-      >
-        <img src={image} ref={imgRef} onLoad={() => getCroppedImage()} />
-      </ReactCrop>
+      {
+        image ?
+        <button onClick={() => toggleDisplay()} className="border-2 border-black text-black hover:brightness-75 cursor-pointer bg-red-300 p-2 rounded-lg">
+          Toggle Display
+        </button>
+        : null
+      }
+      { 
+        display ?
+        <ReactCrop
+          crop={crop}
+          aspect={circle ? 1 : undefined}
+          circularCrop={circle}
+          onChange={(c) => setCrop(c)}
+          onComplete={() => getCroppedImage()}
+        >
+          <img src={image} ref={imgRef} onLoad={() => getCroppedImage()} />
+        </ReactCrop>
+        : null
+      }
     </div>
   );
 };

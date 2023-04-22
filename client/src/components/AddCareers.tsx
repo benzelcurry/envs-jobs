@@ -204,12 +204,12 @@ const NewCareerForm = () => {
 
       <label>Headshot: </label>
       <Cropper setPhoto={setBioPhoto} circle={true} />
-      
+
       {error ? (
         <p className="col-span-2 text-red-500 mx-auto italic">{error}</p>
       ) : null}
       <button
-        type='button'
+        type="button"
         onClick={(e) => handleUpdate(e)}
         className="btn col-span-2 w-[50%] mx-auto"
       >
