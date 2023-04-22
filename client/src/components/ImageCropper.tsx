@@ -82,7 +82,7 @@ const Cropper: React.FC<Props> = ({ setPhoto, circle }) => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-5">
+    <div className="flex flex-col items-center p-4 gap-5 border-2 border-black dark:border-transparent">
       <input
         type="file"
         accept="image/*"
