@@ -88,15 +88,15 @@ const Cropper: React.FC<Props> = ({ setPhoto, circle }) => {
         accept="image/*"
         onChange={(e) => handleFileChange(e)}
       />
-      {
-        image ?
-        <button onClick={() => toggleDisplay()} className="border-2 border-black text-black hover:brightness-75 cursor-pointer bg-red-300 p-2 rounded-lg">
+      {image ? (
+        <button
+          onClick={() => toggleDisplay()}
+          className="border-2 border-black text-black hover:brightness-75 cursor-pointer bg-red-300 p-2 rounded-lg"
+        >
           Toggle Display
         </button>
-        : null
-      }
-      { 
-        display ?
+      ) : null}
+      {display ? (
         <ReactCrop
           crop={crop}
           aspect={circle ? 1 : undefined}
@@ -106,8 +106,7 @@ const Cropper: React.FC<Props> = ({ setPhoto, circle }) => {
         >
           <img src={image} ref={imgRef} onLoad={() => getCroppedImage()} />
         </ReactCrop>
-        : null
-      }
+      ) : null}
     </div>
   );
 };

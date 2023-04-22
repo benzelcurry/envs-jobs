@@ -82,6 +82,7 @@ const NewCareerForm = () => {
   >([]);
   const [bioPhoto, setBioPhoto] = useState<File | null>(null);
   const [careerPhoto, setCareerPhoto] = useState<File | null>(null);
+  const [bioQuote, setBioQuote] = useState('');
 
   useEffect(() => {
     if (newAttributes.length === 0) {
@@ -114,6 +115,11 @@ const NewCareerForm = () => {
   // Handles change of input field for description
   const changeDescription = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setNewDescription(e.target.value);
+  };
+
+  // Handles change of input field for biography quote
+  const changeQuote = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setBioQuote(e.target.value);
   };
 
   // Handles change of input fields for attributes
@@ -204,6 +210,14 @@ const NewCareerForm = () => {
 
       <label>Headshot: </label>
       <Cropper setPhoto={setBioPhoto} circle={true} />
+
+      <label htmlFor="pro-quote">Professional Quote: </label>
+      <textarea
+        id="pro-quote"
+        name="pro-quote"
+        onChange={(e) => changeQuote(e)}
+        className="text-black p-2"
+      />
 
       {error ? (
         <p className="col-span-2 text-red-500 mx-auto italic">{error}</p>
