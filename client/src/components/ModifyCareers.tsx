@@ -29,11 +29,16 @@ const ModifyCareers = ({ user }: { user: User }) => {
 
   const [careers, setCareers] = useState<Career[]>([]);
   const [clickedTitle, setClickedTitle] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   // Redirects user to another page if they aren't an admin
   useEffect(() => {
-    if (!user || !user.is_admin) navigate('/404');
-  }, []);
+    if ((!user || !user.is_admin) && !isLoading) {
+      navigate('/404');
+    } else {
+      setIsLoading(false);
+    }
+  }, [user]);
 
   // Pulls info about current careers in database and stores in careers state variable
   useEffect(() => {
@@ -55,7 +60,7 @@ const ModifyCareers = ({ user }: { user: User }) => {
   return (
     <div>
       <Sidebar />
-      {user.is_admin ? (
+      {user.is_admin ? 
         <div className="flex flex-col flex-1 mt-10 p-10">
           <div>
             <h2 className="text-3xl border-b-2 border-green-500 inline-block text-green-500">
@@ -90,9 +95,9 @@ const ModifyCareers = ({ user }: { user: User }) => {
             </ul>
           </div>
         </div>
-      ) : (
+       : 
         <PermissionDenied />
-      )}
+      }
     </div>
   );
 };
@@ -105,6 +110,9 @@ const ModificationForm = ({ title, description, attributes }: Career) => {
   const [newAttributes, setNewAttributes] = useState(
     attributes.map((attribute) => ({ id: uuidv4(), value: attribute }))
   );
+  const [bioPhoto, setBioPhoto] = useState<File | null>(null);
+  const [careerPhoto, setCareerPhoto] = useState<File | null>(null);
+  const [bioQuote, setBioQuote] = useState('');
   const [error, setError] = useState('');
 
   // Increments fields for totalAttributes on click
@@ -127,6 +135,11 @@ const ModificationForm = ({ title, description, attributes }: Career) => {
     setNewDescription(e.target.value);
   };
 
+  // Handles change of input field for biography quote
+  const changeQuote = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setBioQuote(e.target.value);
+  };
+
   // Handles change of input fields for attributes
   const changeAttributes = (e: ChangeEvent<HTMLInputElement>, id: string) => {
     const index = newAttributes.findIndex((attribute) => attribute.id === id);
@@ -146,11 +159,9 @@ const ModificationForm = ({ title, description, attributes }: Career) => {
       token: localStorage.getItem('token')
     };
     axios
-      .put('/api/careers', body)
-      .then((response) => {
-        // COME BACK AND FIX THIS ONCE THE BACKEND CREATES NEW CAREERS AGAIN
-        console.log(response);
-        // navigate(0);
+      .patch('/api/careers', body)
+      .then(() => {
+        navigate(0);
       })
       .catch((err) => {
         setError(err.response.data.errors[0].msg);
@@ -202,6 +213,21 @@ const ModificationForm = ({ title, description, attributes }: Career) => {
           className="self-center text-green-500 cursor-pointer hover:text-green-300 transition-all delay-100"
         />
       </div>
+
+      <label>Career Photo: </label>
+      <Cropper setPhoto={setCareerPhoto} circle={false} />
+
+      <label>Headshot: </label>
+      <Cropper setPhoto={setBioPhoto} circle={true} />
+
+      <label htmlFor="pro-quote">Professional Quote: </label>
+      <textarea
+        id="pro-quote"
+        name="pro-quote"
+        onChange={(e) => changeQuote(e)}
+        className="focus:outline-none text-black p-2 border-2 border-black dark:border-transparent"
+      />
+
       {error ? (
         <p className="col-span-2 text-red-500 mx-auto italic">{error}</p>
       ) : null}
