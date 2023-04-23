@@ -68,18 +68,13 @@ export const add_career = [
           errors: errors.array()
         });
       } else {
+        const { job_photo, bio_photo } = req.files as Record<string, Express.Multer.File[]>
         const career = new Career({
           title: req.body.title,
           description: req.body.description,
           attributes: req.body.attributes,
-          job_photo:
-            (req.files as { [fieldname: string]: Express.Multer.File[] })?.[
-              'job_photo'
-            ]?.[0]?.filename || undefined,
-          bio_photo:
-            (req.files as { [fieldname: string]: Express.Multer.File[] })?.[
-              'bio_photo'
-            ]?.[0]?.filename || undefined,
+          job_photo: job_photo[0].filename,
+          bio_photo: bio_photo[0].filename,
           bio_quote: req.body.quote ? req.body.quote : undefined
         });
 
