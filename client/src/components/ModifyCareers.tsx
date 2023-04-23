@@ -16,6 +16,7 @@ interface Career {
   title: string;
   description: string;
   attributes: string[];
+  bio_quote: string;
 }
 
 // TODO:
@@ -88,6 +89,7 @@ const ModifyCareers = ({ user }: { user: User }) => {
                       title={career.title}
                       description={career.description}
                       attributes={career.attributes}
+                      bio_quote={career.bio_quote}
                     />
                   ) : null}
                 </li>
@@ -102,7 +104,7 @@ const ModifyCareers = ({ user }: { user: User }) => {
   );
 };
 
-const ModificationForm = ({ title, description, attributes }: Career) => {
+const ModificationForm = ({ title, description, attributes, bio_quote }: Career) => {
   const navigate = useNavigate();
 
   const [newTitle, setNewTitle] = useState(title);
@@ -151,17 +153,23 @@ const ModificationForm = ({ title, description, attributes }: Career) => {
   // Updates career on form submit
   const handleUpdate = (e: FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const body = {
-      originalTitle: title,
-      title: newTitle,
-      description: newDescription,
-      attributes: newAttributes.map((attribute) => attribute.value),
-      token: localStorage.getItem('token')
-    };
+    const token = localStorage.getItem('token');
+    const body = new FormData();
+    body.append('originalTitle', title);
+    body.append('title', newTitle);
+    body.append('description', newDescription);
+    newAttributes.forEach((attribute) => {
+      body.append('attributes', attribute.value);
+    });
+    if (token) body.append('token', token);
+    if (bioPhoto) body.append('bio_photo', bioPhoto);
+    if (careerPhoto) body.append('job_photo', careerPhoto);
+    if (bioQuote) body.append('quote', bioQuote);
     axios
-      .patch('/api/careers', body)
-      .then(() => {
-        navigate(0);
+      .put('/api/careers', body)
+      .then((response) => {
+        // navigate(0);
+        console.log(response);
       })
       .catch((err) => {
         setError(err.response.data.errors[0].msg);
@@ -225,6 +233,7 @@ const ModificationForm = ({ title, description, attributes }: Career) => {
         id="pro-quote"
         name="pro-quote"
         onChange={(e) => changeQuote(e)}
+        defaultValue={bio_quote}
         className="focus:outline-none text-black p-2 border-2 border-black dark:border-transparent"
       />
 
