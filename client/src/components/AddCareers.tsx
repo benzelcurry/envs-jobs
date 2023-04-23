@@ -21,7 +21,19 @@ interface Career {
 // TODO:
 //   1. Make career description textarea increase to fit contents
 const AddCareers = ({ user }: { user: User }) => {
+  const navigate = useNavigate();
+
   const [careers, setCareers] = useState<Career[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Redirects user to another page if they aren't an admin
+  useEffect(() => {
+    if ((!user || !user.is_admin) && !isLoading) {
+      navigate('/404');
+    } else {
+      setIsLoading(false);
+    }
+  }, [user]);
 
   // Pulls careers from DB and stores them in state
   useEffect(() => {
@@ -123,13 +135,6 @@ const NewCareerForm = () => {
     const updatedAttributes = [...newAttributes];
     updatedAttributes[index] = { id, value: e.target.value };
     setNewAttributes(updatedAttributes);
-  };
-
-  // Sets file upload for bioPhoto
-  const handlePhoto = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setBioPhoto(e.target.files[0]);
-    }
   };
 
   // Updates career on form submit
