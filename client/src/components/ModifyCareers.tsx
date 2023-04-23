@@ -16,7 +16,9 @@ interface Career {
   title: string;
   description: string;
   attributes: string[];
-  bio_quote: string;
+  bio_quote?: string;
+  bio_photo?: string;
+  job_photo?: string;
 }
 
 // TODO:
@@ -74,7 +76,7 @@ const ModifyCareers = ({ user }: { user: User }) => {
                   key={uuidv4()}
                   className={
                     clickedTitle === career.title
-                      ? 'ml-6 border-2 border-rad rounded-md p-4 transition-all duration-300 border-green-500 md:w-[70%]'
+                      ? 'ml-6 border-2 border-rad rounded-md p-4 transition-all duration-300 border-green-500 lg:w-[60%]'
                       : 'ml-6 p-4'
                   }
                 >
@@ -86,10 +88,7 @@ const ModifyCareers = ({ user }: { user: User }) => {
                   </h3>
                   {clickedTitle === career.title ? (
                     <ModificationForm
-                      title={career.title}
-                      description={career.description}
-                      attributes={career.attributes}
-                      bio_quote={career.bio_quote}
+                      career={career}
                     />
                   ) : null}
                 </li>
@@ -104,13 +103,13 @@ const ModifyCareers = ({ user }: { user: User }) => {
   );
 };
 
-const ModificationForm = ({ title, description, attributes, bio_quote }: Career) => {
+const ModificationForm = ({ career }: { career: Career }) => {
   const navigate = useNavigate();
 
-  const [newTitle, setNewTitle] = useState(title);
-  const [newDescription, setNewDescription] = useState(description);
+  const [newTitle, setNewTitle] = useState(career.title);
+  const [newDescription, setNewDescription] = useState(career.description);
   const [newAttributes, setNewAttributes] = useState(
-    attributes.map((attribute) => ({ id: uuidv4(), value: attribute }))
+    career.attributes.map((attribute) => ({ id: uuidv4(), value: attribute }))
   );
   const [bioPhoto, setBioPhoto] = useState<File | null>(null);
   const [careerPhoto, setCareerPhoto] = useState<File | null>(null);
@@ -155,7 +154,7 @@ const ModificationForm = ({ title, description, attributes, bio_quote }: Career)
     e.preventDefault();
     const token = localStorage.getItem('token');
     const body = new FormData();
-    body.append('originalTitle', title);
+    body.append('originalTitle', career.title);
     body.append('title', newTitle);
     body.append('description', newDescription);
     newAttributes.forEach((attribute) => {
@@ -167,9 +166,8 @@ const ModificationForm = ({ title, description, attributes, bio_quote }: Career)
     if (bioQuote) body.append('quote', bioQuote);
     axios
       .put('/api/careers', body)
-      .then((response) => {
-        // navigate(0);
-        console.log(response);
+      .then(() => {
+        navigate(0);
       })
       .catch((err) => {
         setError(err.response.data.errors[0].msg);
@@ -178,13 +176,13 @@ const ModificationForm = ({ title, description, attributes, bio_quote }: Career)
   };
 
   return (
-    <form className="grid grid-cols-[100px_auto] gap-5 mt-6">
+    <form className="grid grid-cols-[150px_auto] gap-5 mt-6">
       <label htmlFor="career-title">Title: </label>
       <input
         type="text"
         id="career-title"
         name="career-title"
-        defaultValue={title}
+        defaultValue={career.title}
         onChange={(e) => changeTitle(e)}
         className="text-black p-2"
       />
@@ -193,7 +191,7 @@ const ModificationForm = ({ title, description, attributes, bio_quote }: Career)
       <textarea
         id="career-description"
         name="career-description"
-        defaultValue={description}
+        defaultValue={career.description}
         onChange={(e) => changeDescription(e)}
         className="text-black p-2"
       />
@@ -221,6 +219,26 @@ const ModificationForm = ({ title, description, attributes, bio_quote }: Career)
           className="self-center text-green-500 cursor-pointer hover:text-green-300 transition-all delay-100"
         />
       </div>
+      
+      <label>Current Career Photo: </label>
+      <div>
+        {
+          career.job_photo ?
+          <img src={`${import.meta.env.VITE_IMAGES}/${career.job_photo}`} alt="Career imagery" />
+          :
+          <p>No current career photo.</p>
+        }
+      </div>
+
+      <label>Current Headshot: </label>
+      <div>
+        {
+          career.bio_photo ?
+          <img src={`${import.meta.env.VITE_IMAGES}/${career.bio_photo}`} alt="Career imagery" />
+          :
+          <p>No current headshot.</p>
+        }
+      </div>
 
       <label>Career Photo: </label>
       <Cropper setPhoto={setCareerPhoto} circle={false} />
@@ -233,7 +251,7 @@ const ModificationForm = ({ title, description, attributes, bio_quote }: Career)
         id="pro-quote"
         name="pro-quote"
         onChange={(e) => changeQuote(e)}
-        defaultValue={bio_quote}
+        defaultValue={career.bio_quote}
         className="focus:outline-none text-black p-2 border-2 border-black dark:border-transparent"
       />
 
