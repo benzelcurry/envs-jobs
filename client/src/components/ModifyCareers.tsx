@@ -63,7 +63,7 @@ const ModifyCareers = ({ user }: { user: User }) => {
   return (
     <div>
       <Sidebar />
-      {user.is_admin ? 
+      {user.is_admin ? (
         <div className="flex flex-col flex-1 mt-10 p-10">
           <div>
             <h2 className="text-3xl border-b-2 border-green-500 inline-block text-green-500">
@@ -87,18 +87,16 @@ const ModifyCareers = ({ user }: { user: User }) => {
                     {career.title}
                   </h3>
                   {clickedTitle === career.title ? (
-                    <ModificationForm
-                      career={career}
-                    />
+                    <ModificationForm career={career} />
                   ) : null}
                 </li>
               ))}
             </ul>
           </div>
         </div>
-       : 
+      ) : (
         <PermissionDenied />
-      }
+      )}
     </div>
   );
 };
@@ -184,7 +182,7 @@ const ModificationForm = ({ career }: { career: Career }) => {
         name="career-title"
         defaultValue={career.title}
         onChange={(e) => changeTitle(e)}
-        className="text-black p-2"
+        className="text-black p-2 border-2 border-black dark:border-transparent"
       />
 
       <label htmlFor="career-description">Description: </label>
@@ -193,7 +191,7 @@ const ModificationForm = ({ career }: { career: Career }) => {
         name="career-description"
         defaultValue={career.description}
         onChange={(e) => changeDescription(e)}
-        className="text-black p-2"
+        className="text-black p-2 border-2 border-black dark:border-transparent"
       />
 
       <label htmlFor="career-attributes">Attributes: </label>
@@ -204,7 +202,7 @@ const ModificationForm = ({ career }: { career: Career }) => {
               type="text"
               defaultValue={attribute.value}
               onChange={(e) => changeAttributes(e, attribute.id)}
-              className="text-black p-2 w-[100%]"
+              className="text-black p-2 w-[100%] border-2 border-black dark:border-transparent"
             />
             <RxCross1
               size="28"
@@ -219,25 +217,29 @@ const ModificationForm = ({ career }: { career: Career }) => {
           className="self-center text-green-500 cursor-pointer hover:text-green-300 transition-all delay-100"
         />
       </div>
-      
+
       <label>Current Career Photo: </label>
       <div>
-        {
-          career.job_photo ?
-          <img src={`${import.meta.env.VITE_IMAGES}/${career.job_photo}`} alt="Career imagery" />
-          :
+        {career.job_photo ? (
+          <img
+            src={`${import.meta.env.VITE_IMAGES}/${career.job_photo}`}
+            alt="Career imagery"
+          />
+        ) : (
           <p>No current career photo.</p>
-        }
+        )}
       </div>
 
       <label>Current Headshot: </label>
       <div>
-        {
-          career.bio_photo ?
-          <img src={`${import.meta.env.VITE_IMAGES}/${career.bio_photo}`} alt="Career imagery" />
-          :
+        {career.bio_photo ? (
+          <img
+            src={`${import.meta.env.VITE_IMAGES}/${career.bio_photo}`}
+            alt="Career imagery"
+          />
+        ) : (
           <p>No current headshot.</p>
-        }
+        )}
       </div>
 
       <label>Career Photo: </label>

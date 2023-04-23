@@ -52,7 +52,15 @@ router.post(
   add_career
 );
 
-// Updates a career on PUT
-router.put('/', checkAdmin, update_career);
+// Updates a career on PATCH
+router.put(
+  '/',
+  upload.fields([
+    { name: 'bio_photo', maxCount: 1 },
+    { name: 'job_photo', maxCount: 1 }
+  ]),
+  checkAdmin,
+  update_career
+);
 
 export default router;

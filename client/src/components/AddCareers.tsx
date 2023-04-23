@@ -50,8 +50,7 @@ const AddCareers = ({ user }: { user: User }) => {
   return (
     <div>
       <Sidebar />
-      {
-        user.is_admin ?
+      {user.is_admin ? (
         <div>
           <div className="flex flex-col flex-1 mt-10 p-10">
             <h2 className="text-3xl border-b-2 inline-block border-green-500 text-green-500">
@@ -73,8 +72,9 @@ const AddCareers = ({ user }: { user: User }) => {
             <NewCareerForm />
           </div>
         </div>
-        : <PermissionDenied />
-      }
+      ) : (
+        <PermissionDenied />
+      )}
     </div>
   );
 };
