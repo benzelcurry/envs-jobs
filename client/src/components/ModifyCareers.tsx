@@ -5,6 +5,7 @@ import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
 import Sidebar from './Sidebar';
+import Cropper from './ImageCropper';
 import PermissionDenied from './PermissionDenied';
 
 import { AiOutlinePlusCircle } from 'react-icons/ai';
