@@ -73,8 +73,8 @@ export const add_career = [
           title: req.body.title,
           description: req.body.description,
           attributes: req.body.attributes,
-          job_photo: job_photo[0].filename,
-          bio_photo: bio_photo[0].filename,
+          job_photo: job_photo?.[0]?.filename,
+          bio_photo: bio_photo?.[0]?.filename,
           bio_quote: req.body.quote ? req.body.quote : undefined
         });
 
@@ -82,6 +82,7 @@ export const add_career = [
         res.status(200).json('Career added!');
       }
     } catch (err) {
+      console.log(err);
       res.status(500).json({ errors: err });
     }
   }

@@ -20,16 +20,6 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_SECRET
 });
 
-// Configure multer
-// const storage = new CloudinaryStorage({
-//   cloudinary: cloudinary,
-//   params: (req: Request, file: Express.Multer.File) => {
-//     return {
-//       folder: 'IMAGES/envs'
-//     };
-//   }
-// });
-
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: (req: Request, file: Express.Multer.File) => {
