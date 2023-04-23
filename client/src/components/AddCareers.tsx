@@ -5,6 +5,7 @@ import axios from 'axios';
 
 import Sidebar from './Sidebar';
 import Cropper from './ImageCropper';
+import PermissionDenied from './PermissionDenied';
 
 import { v4 as uuidv4 } from 'uuid';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
@@ -37,27 +38,31 @@ const AddCareers = ({ user }: { user: User }) => {
   return (
     <div>
       <Sidebar />
-      <div>
-        <div className="flex flex-col flex-1 mt-10 p-10">
-          <h2 className="text-3xl border-b-2 inline-block border-green-500 text-green-500">
-            Current Careers
-          </h2>
-          <ul className="list-disc mt-2">
-            {careers
-              ? careers.map((career) => (
-                  <li key={uuidv4()} className="ml-6 p-2">
-                    {career.title}
-                  </li>
-                ))
-              : null}
-          </ul>
+      {
+        user.is_admin ?
+        <div>
+          <div className="flex flex-col flex-1 mt-10 p-10">
+            <h2 className="text-3xl border-b-2 inline-block border-green-500 text-green-500">
+              Current Careers
+            </h2>
+            <ul className="list-disc mt-2">
+              {careers
+                ? careers.map((career) => (
+                    <li key={uuidv4()} className="ml-6 p-2">
+                      {career.title}
+                    </li>
+                  ))
+                : null}
+            </ul>
 
-          <h2 className="text-3xl border-b-2 inline-block border-green-500 text-green-500">
-            Add New Career
-          </h2>
-          <NewCareerForm />
+            <h2 className="text-3xl border-b-2 inline-block border-green-500 text-green-500">
+              Add New Career
+            </h2>
+            <NewCareerForm />
+          </div>
         </div>
-      </div>
+        : <PermissionDenied />
+      }
     </div>
   );
 };
@@ -147,6 +152,7 @@ const NewCareerForm = () => {
         navigate(0);
       })
       .catch((err) => {
+        console.log(err);
         setError(err.response.data.errors[0].msg);
         throw new Error(err);
       });
