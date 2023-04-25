@@ -24,13 +24,13 @@ const CareersList = () => {
   return (
     <div>
       <Sidebar />
-      <div className="flex flex-col flex-1 mt-10">
-        <h1 className="ml-10 text-3xl">
+      <div className="flex flex-col flex-1 mt-10 p-10">
+        <h1 className="text-3xl text-center md:text-start">
           <span className="pb-2">
             Click on a career below to learn more about it!
           </span>
         </h1>
-        <ul className="list-disc mt-10 ml-20 marker:text-green-500">
+        <ul className="list-disc mt-10 ml-4 marker:text-green-500">
           {careers?.map((career) => (
             <li
               aria-label="Click to view more details"
