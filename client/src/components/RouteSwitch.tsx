@@ -47,7 +47,7 @@ const RouteSwitch = () => {
     <HashRouter>
       <Routes>
         <Route path="/" element={<Home user={currentUser} />} />
-        <Route path='/careers/:id' element={<CareerPage />} />
+        <Route path="/careers/:id" element={<CareerPage />} />
         <Route path="/careers" element={<CareersList />} />
         <Route path="/profile" element={<Profile user={currentUser} />} />
         <Route path="/log-in" element={<LogIn user={currentUser} />} />
