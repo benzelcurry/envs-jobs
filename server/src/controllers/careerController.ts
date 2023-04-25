@@ -19,12 +19,19 @@ export const career_list: RequestHandler = async (req, res, next) => {
   }
 };
 
+// Return info for single Career on GET
+export const career_info: RequestHandler = async (req, res, next) => {
+  const careerTitle = req.params.id;
+  const career = await Career.findOne({ title: careerTitle });
+
+  if (career) {
+    res.status(200).json(career);
+  } else {
+    res.status(400).json('Career does not exist');
+  }
+};
+
 // Allow admins to add new Careers on POST
-// TODO:
-//  1. Allow admins to
-//   1.1 Update bio picture (Cloudinary)
-//   1.2 Update bio description
-//   1.3 Update job photo (Cloudinary)
 export const add_career = [
   // Validate and sanitize fields
   body('title')
@@ -129,10 +136,8 @@ export const update_career = [
           errors: errors.array()
         });
       } else {
-        const { job_photo, bio_photo } = req.files as Record<
-          string,
-          Express.Multer.File[]
-        > || {};
+        const { job_photo, bio_photo } =
+          (req.files as Record<string, Express.Multer.File[]>) || {};
         await Career.findByIdAndUpdate(
           existingCareer?._id,
           {

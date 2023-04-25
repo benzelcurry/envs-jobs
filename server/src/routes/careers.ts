@@ -7,6 +7,7 @@ const router = express.Router();
 
 import {
   career_list,
+  career_info,
   add_career,
   update_career
 } from '../controllers/careerController';
@@ -38,8 +39,13 @@ const storage = new CloudinaryStorage({
 // Set up Multer middleware
 const upload = multer({ storage: storage });
 
+///// CAREER ROUTES /////
+
 // Returns list of careers on GET
 router.get('/', career_list);
+
+// Returns info for a single career on GET
+router.get('/:id', career_info);
 
 // Adds a new career on POST
 router.post(
