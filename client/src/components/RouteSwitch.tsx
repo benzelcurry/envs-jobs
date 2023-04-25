@@ -6,6 +6,7 @@ import axios from 'axios';
 
 import Home from './Home';
 import CareersList from './CareersList';
+import CareerPage from './CareerPage';
 import Profile from './Profile';
 import LogIn from './LogIn';
 import SignUp from './SignUp';
@@ -46,6 +47,7 @@ const RouteSwitch = () => {
     <HashRouter>
       <Routes>
         <Route path="/" element={<Home user={currentUser} />} />
+        <Route path='/careers/:id' element={<CareerPage />} />
         <Route path="/careers" element={<CareersList />} />
         <Route path="/profile" element={<Profile user={currentUser} />} />
         <Route path="/log-in" element={<LogIn user={currentUser} />} />

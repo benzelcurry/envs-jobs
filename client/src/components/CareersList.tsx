@@ -1,6 +1,7 @@
 // Careers List page component
 // Displays a list of all careers that are on website
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -32,15 +33,17 @@ const CareersList = () => {
         </h1>
         <ul className="list-disc mt-10 ml-4 marker:text-green-500">
           {careers?.map((career) => (
-            <li
-              aria-label="Click to view more details"
-              key={uuidv4()}
-              className="p-4"
-            >
-              <span className="border-b-2 border-green-500 text-2xl text-green-500 hover:text-green-300 hover:border-green-300 cursor-pointer">
-                {career.title}
-              </span>
-            </li>
+            <Link to={`/careers/${career.title}`}>
+              <li
+                aria-label="Click to view more details"
+                key={uuidv4()}
+                className="p-4"
+              >
+                <span className="border-b-2 border-green-500 text-2xl text-green-500 hover:text-green-300 hover:border-green-300 cursor-pointer">
+                  {career.title}
+                </span>
+              </li>
+            </Link>
           ))}
         </ul>
       </div>
