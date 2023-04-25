@@ -25,14 +25,21 @@ const CareersList = () => {
     <div>
       <Sidebar />
       <div className="flex flex-col flex-1 mt-10">
-        <ul className="list-disc mt-2 ml-10">
+        <h1 className="ml-10 text-3xl">
+          <span className="pb-2">
+            Click on a career below to learn more about it!
+          </span>
+        </h1>
+        <ul className="list-disc mt-10 ml-20 marker:text-green-500">
           {careers?.map((career) => (
             <li
               aria-label="Click to view more details"
               key={uuidv4()}
-              className="ml-6 p-4"
+              className="p-4"
             >
-              {career.title}
+              <span className="border-b-2 border-green-500 text-2xl text-green-500 hover:text-green-300 hover:border-green-300 cursor-pointer">
+                {career.title}
+              </span>
             </li>
           ))}
         </ul>
