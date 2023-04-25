@@ -1,27 +1,30 @@
 // Careers List page component
 // Displays a list of all careers that are on website
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import Sidebar from './Sidebar';
+import { Career } from '../types';
 
 const CareersList = () => {
+  const [careers, setCareers] = useState<Career[]>();
+
+  useEffect(() => {
+    axios 
+      .get(('/api/careers'))
+      .then((response) => {
+        setCareers(response.data);
+      })
+      .catch((err) => {
+        throw new Error(err);
+      });
+  }, []);
+
   return (
     <div>
       <Sidebar />
       <div className="flex flex-col flex-1 mt-10">
-        <p className="w-[450px] flex md:justify-center mx-auto p-5 text-xl">
-          Welcome to the careers page, where you can find a list of ENVS
-          careers!
-        </p>
-        <p className="w-[450px] md:justify-center mx-auto p-5 text-xl">
-          Please note, this is not an exhaustive list of
-          <span className="italic">every</span> ENVS career in existence. This
-          site may be updated in the future to include more careers.
-        </p>
-        <div>
-          <p className="w-[450px] flex md:justify-center mx-auto p-5 text-xl">
-            Careers will go here in a grid format.
-          </p>
-        </div>
+        
       </div>
     </div>
   );

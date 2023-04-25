@@ -10,16 +10,7 @@ import PermissionDenied from './PermissionDenied';
 
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import { RxCross1 } from 'react-icons/rx';
-import { User } from '../types';
-
-interface Career {
-  title: string;
-  description: string;
-  attributes: string[];
-  bio_quote?: string;
-  bio_photo?: string;
-  job_photo?: string;
-}
+import { User, Career } from '../types';
 
 // TODO:
 // 1. Make career description textarea increase to fit contents
