@@ -30,6 +30,10 @@ const CareerPage = () => {
       });
   });
 
+  const descriptionHelper = (str: Career['description']) => {
+    return str;
+  };
+
   return (
     <div>
       <Sidebar />
@@ -38,7 +42,7 @@ const CareerPage = () => {
         {career?.job_photo ? (
           <img src={`${import.meta.env.VITE_IMAGES}/${career?.job_photo}`} />
         ) : null}
-        <p>{career?.description}</p>
+        <p className='mr-auto' dangerouslySetInnerHTML={{ __html: career?.description as string }} />
         <div className='md:grid md:grid-cols-2'>
           <div className="flex flex-col">
             <h2 className='text-3xl'><span className='border-b-2 pb-2'>Career Attributes</span></h2>
