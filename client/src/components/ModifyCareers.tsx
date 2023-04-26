@@ -122,7 +122,12 @@ const ModificationForm = ({ career }: { career: Career }) => {
 
   // Handles change of input field for description
   const changeDescription = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setNewDescription(e.target.value);
+    const str = e.target.value;
+    const strHTML = str
+      .split(/\n\n+/)
+      .map((x) => `<p> ${x} </p>`)
+      .join('');
+    setNewDescription(strHTML);
   };
 
   // Handles change of input field for biography quote

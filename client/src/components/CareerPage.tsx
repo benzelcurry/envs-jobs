@@ -37,25 +37,34 @@ const CareerPage = () => {
   return (
     <div>
       <Sidebar />
-      <div className='flex flex-col mx-auto items-center pt-5 gap-5'>
-        <p className='border-b-2 border-green-500 text-5xl text-green-500'>{career?.title}</p>
+      <div className="flex flex-col mx-auto items-center pt-5 gap-5">
+        <p className="border-b-2 border-green-500 text-5xl text-green-500">
+          {career?.title}
+        </p>
         {career?.job_photo ? (
           <img src={`${import.meta.env.VITE_IMAGES}/${career?.job_photo}`} />
         ) : null}
-        <p className='mr-auto' dangerouslySetInnerHTML={{ __html: career?.description as string }} />
-        <div className='md:grid md:grid-cols-2'>
+        <p
+          className="mr-auto"
+          dangerouslySetInnerHTML={{ __html: career?.description as string }}
+        />
+        <div className="md:grid md:grid-cols-2">
           <div className="flex flex-col">
-            <h2 className='text-3xl'><span className='border-b-2 pb-2'>Career Attributes</span></h2>
-            <ul className='m-4 list-disc'>
+            <h2 className="text-3xl">
+              <span className="border-b-2 pb-2">Career Attributes</span>
+            </h2>
+            <ul className="m-4 list-disc">
               {career?.attributes.map((attribute) => (
                 <li key={uuidv4()}>{attribute}</li>
               ))}
             </ul>
           </div>
-          <div className='pb-4'>
-            <div className='flex flex-col items-center gap-5'>
+          <div className="pb-4">
+            <div className="flex flex-col items-center gap-5">
               {career?.bio_photo ? (
-                  <img src={`${import.meta.env.VITE_IMAGES}/${career?.bio_photo}`} />
+                <img
+                  src={`${import.meta.env.VITE_IMAGES}/${career?.bio_photo}`}
+                />
               ) : null}
               <p>{career?.bio_quote}</p>
             </div>
