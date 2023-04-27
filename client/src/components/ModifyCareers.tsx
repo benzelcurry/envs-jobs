@@ -171,7 +171,7 @@ const ModificationForm = ({ career }: { career: Career }) => {
 
   return (
     <form className="grid grid-cols-[150px_auto] gap-5 mt-6">
-      <p className='col-span-2 italic'>* indicates required field</p>
+      <p className="col-span-2 italic">* indicates required field</p>
 
       <label htmlFor="career-title">Title*: </label>
       <input
@@ -192,7 +192,7 @@ const ModificationForm = ({ career }: { career: Career }) => {
           onChange={(e) => changeDescription(e)}
           className="w-[100%] text-black p-2 border-2 border-black dark:border-transparent"
         />
-        <p className='text-sm'>Hit 'enter' twice to start a new paragraph.</p>
+        <p className="text-sm">Hit 'enter' twice to start a new paragraph.</p>
       </div>
 
       <label htmlFor="career-attributes">Attributes*: </label>
