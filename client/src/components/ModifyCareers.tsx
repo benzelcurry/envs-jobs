@@ -171,7 +171,9 @@ const ModificationForm = ({ career }: { career: Career }) => {
 
   return (
     <form className="grid grid-cols-[150px_auto] gap-5 mt-6">
-      <label htmlFor="career-title">Title: </label>
+      <p className='col-span-2 italic'>* indicates required field</p>
+
+      <label htmlFor="career-title">Title*: </label>
       <input
         type="text"
         id="career-title"
@@ -181,7 +183,7 @@ const ModificationForm = ({ career }: { career: Career }) => {
         className="text-black p-2 border-2 border-black dark:border-transparent"
       />
 
-      <label htmlFor="career-description">Description: </label>
+      <label htmlFor="career-description">Description*: </label>
       <div>
         <textarea
           id="career-description"
@@ -193,7 +195,7 @@ const ModificationForm = ({ career }: { career: Career }) => {
         <p className='text-sm'>Hit 'enter' twice to start a new paragraph.</p>
       </div>
 
-      <label htmlFor="career-attributes">Attributes: </label>
+      <label htmlFor="career-attributes">Attributes*: </label>
       <div className="flex flex-col gap-5">
         {newAttributes.map((attribute) => (
           <div key={attribute.id} className="flex items-center ">
