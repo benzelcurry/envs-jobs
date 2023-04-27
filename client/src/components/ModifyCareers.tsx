@@ -182,13 +182,16 @@ const ModificationForm = ({ career }: { career: Career }) => {
       />
 
       <label htmlFor="career-description">Description: </label>
-      <textarea
-        id="career-description"
-        name="career-description"
-        defaultValue={career.description}
-        onChange={(e) => changeDescription(e)}
-        className="text-black p-2 border-2 border-black dark:border-transparent"
-      />
+      <div>
+        <textarea
+          id="career-description"
+          name="career-description"
+          defaultValue={career.description}
+          onChange={(e) => changeDescription(e)}
+          className="w-[100%] text-black p-2 border-2 border-black dark:border-transparent"
+        />
+        <p className='text-sm'>Hit 'enter' twice to start a new paragraph.</p>
+      </div>
 
       <label htmlFor="career-attributes">Attributes: </label>
       <div className="flex flex-col gap-5">
