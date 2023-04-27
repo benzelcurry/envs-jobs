@@ -162,7 +162,6 @@ const NewCareerForm = () => {
         navigate(0);
       })
       .catch((err) => {
-        console.log(err);
         setError(err.response.data.errors[0].msg);
         throw new Error(err);
       });

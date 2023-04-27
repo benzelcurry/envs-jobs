@@ -14,6 +14,8 @@ interface RouteParams extends Params {
 // TODO:
 //   1. Begin making this page look nice
 //     1.1 Mobile, desktop, AND light/dark
+//   2. Add more info (beneficial certs, etc.)
+//     2.2 Add fields for these in data model
 const CareerPage = () => {
   const { id } = useParams<RouteParams>();
 
