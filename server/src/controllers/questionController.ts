@@ -27,7 +27,7 @@ export const add_question = [
     .withMessage(
       'Question may only contain letters, numbers, spaces, hyphens, quotation marks, and apostrophes'
     ),
-  body('answer_one')
+  body('answerOne')
     .trim()
     .isLength({ min: 2 })
     .withMessage('Answer one must be at least two characters long')
@@ -35,7 +35,7 @@ export const add_question = [
     .withMessage(
       'Answer one may only contain letters, numbers, spaces, hyphens, quotation marks, and apostrophes'
     ),
-  body('attribute_one')
+  body('attributeOne')
     .trim()
     .isLength({ min: 2 })
     .withMessage('Attribute one must be at least two characters long')
@@ -43,7 +43,7 @@ export const add_question = [
     .withMessage(
       'Attribute one may only contain letters, numbers, spaces, hyphens, quotation marks, and apostrophes'
     ),
-  body('answer_two')
+  body('answerTwo')
     .trim()
     .isLength({ min: 2 })
     .withMessage('Answer two must be at least two characters long')
@@ -51,7 +51,7 @@ export const add_question = [
     .withMessage(
       'Answer two may only contain letters, numbers, spaces, hyphens, quotation marks, and apostrophes'
     ),
-  body('attribute_two')
+  body('attributeTwo')
     .trim()
     .isLength({ min: 2 })
     .withMessage('Attribute two must be at least two characters long')
@@ -82,8 +82,8 @@ export const add_question = [
       } else {
         const question = new Question({
           prompt: req.body.prompt,
-          answer_one: [req.body.answer_one, req.body.attribute_one],
-          answer_two: [req.body.answer_two, req.body.attribute_two]
+          answer_one: [req.body.answerOne, req.body.attributeOne],
+          answer_two: [req.body.answerTwo, req.body.attributeTwo]
         });
 
         question.save();
