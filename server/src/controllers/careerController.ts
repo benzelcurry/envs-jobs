@@ -92,7 +92,6 @@ export const add_career = [
         res.status(200).json('Career added!');
       }
     } catch (err) {
-      console.log(err);
       res.status(500).json({ errors: err });
     }
   }
