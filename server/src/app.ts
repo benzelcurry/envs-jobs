@@ -14,6 +14,7 @@ import mongoose, { ConnectOptions } from 'mongoose';
 import cors from 'cors';
 import careers from './routes/careers';
 import users from './routes/users';
+import questions from './routes/questions';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 
@@ -35,6 +36,7 @@ app.use(bodyParser.json());
 
 app.use('/careers', careers);
 app.use('/users', users);
+app.use('/questions', questions);
 
 app.listen(process.env.PORT, (): void => {
   console.log(`Server is running on Port ${process.env.PORT}`);
