@@ -39,14 +39,14 @@ const AddQuestions = ({ user }: { user: User }) => {
             <ol className="list-decimal">
               {questions &&
                 questions.map((question) => (
-                  <li key={question.id} className="ml-6 p-2">
+                  <li key={question._id} className="ml-6 p-2">
                     <h3
-                      onClick={() => displayTable(question.id)}
+                      onClick={() => displayTable(question._id)}
                       className="cursor-pointer hover:text-green-300 inline-block"
                     >
                       {question.prompt}
                     </h3>
-                    {question.id === showTable && (
+                    {question._id === showTable && (
                       <table className="mt-2 table w-full border-collapse border-[2px] border-black dark:border-gray-300">
                         <thead className="bg-gray-200 text-black">
                           <tr>
