@@ -16,6 +16,7 @@ export interface Career {
 }
 
 export interface Question {
+  id: string;
   prompt: string;
   answer_one: [string, string];
   answer_two: [string, string];
