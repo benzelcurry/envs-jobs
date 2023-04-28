@@ -1,5 +1,6 @@
 // Page for allowing admins to add new questions
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import Sidebar from './Sidebar';
@@ -82,12 +83,84 @@ const AddQuestions = ({ user }: { user: User }) => {
             <h2 className="mt-4 text-3xl border-b-2 inline-block border-green-500 text-green-500">
               Add New Question
             </h2>
+
+            <NewQuestionForm />
           </div>
         </div>
       ) : (
         <PermissionDenied />
       )}
     </div>
+  );
+};
+
+const NewQuestionForm = () => {
+  const navigate = useNavigate();
+  const [error, setError] = useState('');
+  const [newQuestion, setNewQuestion] = useState({
+    prompt: '',
+    answerOne: '',
+    attributeOne: '',
+    answerTwo: '',
+    attributeTwo: ''
+  });
+
+  const modifyQuestion = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewQuestion({
+      ...newQuestion,
+      [e.target.id]: e.target.value
+    });
+  };
+
+  return (
+    <form className="grid grid-cols-[125px_auto] gap-5 mt-6">
+      <p className="col-span-2 italic">* indicates required field</p>
+
+      <label htmlFor="prompt">Question*: </label>
+      <input
+        type="text"
+        id="prompt"
+        name="prompt"
+        onChange={(e) => modifyQuestion(e)}
+        className="focus:outline-none text-black p-2 border-2 border-black dark:border-transparent"
+      />
+
+      <label htmlFor="answerOne">Answer #1*: </label>
+      <input
+        type="text"
+        id="answerOne"
+        name="answerOne"
+        onChange={(e) => modifyQuestion(e)}
+        className="focus:outline-none text-black p-2 border-2 border-black dark:border-transparent"
+      />
+
+      <label htmlFor="attributeOne">Attribute #1*: </label>
+      <input
+        type="text"
+        id="attributeOne"
+        name="attributeOne"
+        onChange={(e) => modifyQuestion(e)}
+        className="focus:outline-none text-black p-2 border-2 border-black dark:border-transparent"
+      />
+
+      <label htmlFor="answerTwo">Answer #2*: </label>
+      <input
+        type="text"
+        id="answerTwo"
+        name="answerTwo"
+        onChange={(e) => modifyQuestion(e)}
+        className="focus:outline-none text-black p-2 border-2 border-black dark:border-transparent"
+      />
+
+      <label htmlFor="attributeTwo">Attribute #2*: </label>
+      <input
+        type="text"
+        id="attributeTwo"
+        name="attributeTwo"
+        onChange={(e) => modifyQuestion(e)}
+        className="focus:outline-none text-black p-2 border-2 border-black dark:border-transparent"
+      />
+    </form>
   );
 };
 
