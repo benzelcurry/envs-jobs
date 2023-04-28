@@ -121,7 +121,9 @@ const NewQuestionForm = () => {
         navigate(0);
       })
       .catch((err) => {
-        setError(err.response.data.errors[0].msg);
+        setError(
+          err.response.data.errors[0].msg || err.response.data.errors[0]
+        );
         throw new Error(err);
       });
   };
@@ -179,7 +181,9 @@ const NewQuestionForm = () => {
       />
 
       {error ? (
-        <p className="col-span-2 text-red-500 mx-auto italic">{error}</p>
+        <p className="w-[400px] text-center col-span-2 text-red-500 mx-auto italic">
+          {error}
+        </p>
       ) : null}
       <button type="submit" className="btn col-span-2 w-[50%] mx-auto">
         Add Career

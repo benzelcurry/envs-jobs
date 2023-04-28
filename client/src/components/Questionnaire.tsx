@@ -6,6 +6,8 @@ import Question from './Question';
 
 import { User } from '../types';
 
+// TODO:
+//   1. Fill out ModifyQuestions component
 const Questionnaire = ({ user }: { user: User }) => {
   const [attributes, setAttributes] = useState<string[]>();
 
