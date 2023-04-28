@@ -14,3 +14,9 @@ export interface Career {
   bio_photo?: string;
   job_photo?: string;
 }
+
+export interface Question {
+  prompt: string;
+  answer_one: [string, string];
+  answer_two: [string, string];
+}
