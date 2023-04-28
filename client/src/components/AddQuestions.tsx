@@ -102,7 +102,8 @@ const NewQuestionForm = () => {
     answerOne: '',
     attributeOne: '',
     answerTwo: '',
-    attributeTwo: ''
+    attributeTwo: '',
+    token: localStorage.getItem('token')
   });
 
   const modifyQuestion = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -112,8 +113,24 @@ const NewQuestionForm = () => {
     });
   };
 
+  const handleUpdate = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    axios
+      .post('/api/questions', newQuestion)
+      .then(() => {
+        navigate(0);
+      })
+      .catch((err) => {
+        setError(err.response.data.errors[0].msg);
+        throw new Error(err);
+      });
+  };
+
   return (
-    <form className="grid grid-cols-[125px_auto] gap-5 mt-6">
+    <form
+      onSubmit={(e) => handleUpdate(e)}
+      className="grid grid-cols-[125px_auto] gap-5 mt-6"
+    >
       <p className="col-span-2 italic">* indicates required field</p>
 
       <label htmlFor="prompt">Question*: </label>
@@ -160,6 +177,13 @@ const NewQuestionForm = () => {
         onChange={(e) => modifyQuestion(e)}
         className="focus:outline-none text-black p-2 border-2 border-black dark:border-transparent"
       />
+
+      {error ? (
+        <p className="col-span-2 text-red-500 mx-auto italic">{error}</p>
+      ) : null}
+      <button type="submit" className="btn col-span-2 w-[50%] mx-auto">
+        Add Career
+      </button>
     </form>
   );
 };
