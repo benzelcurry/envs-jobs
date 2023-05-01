@@ -4,6 +4,7 @@ import Career from '../models/Career';
 
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import { body, validationResult } from 'express-validator';
+import { v2 as cloudinary } from 'cloudinary';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -137,6 +138,10 @@ export const update_career = [
       } else {
         const { job_photo, bio_photo } =
           (req.files as Record<string, Express.Multer.File[]>) || {};
+        if (job_photo?.[0]?.filename)
+          cloudinary.uploader.destroy(req.body.originalJobPhoto);
+        if (bio_photo?.[0]?.filename)
+          cloudinary.uploader.destroy(req.body.originalBioPhoto);
         await Career.findByIdAndUpdate(
           existingCareer?._id,
           {
@@ -154,6 +159,7 @@ export const update_career = [
         res.status(200).json('Career successfully modified!');
       }
     } catch (err) {
+      console.log(err);
       res.status(500).json({ errors: err });
     }
   }

@@ -149,6 +149,8 @@ const ModificationForm = ({ career }: { career: Career }) => {
     const token = localStorage.getItem('token');
     const body = new FormData();
     body.append('originalTitle', career.title);
+    if (career.job_photo) body.append('originalJobPhoto', career.job_photo);
+    if (career.bio_photo) body.append('originalBioPhoto', career.bio_photo);
     body.append('title', newTitle);
     body.append('description', newDescription);
     newAttributes.forEach((attribute) => {
