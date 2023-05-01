@@ -1,5 +1,5 @@
 // Admin-restricted page for modifying questionnaire
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ChangeEvent } from 'react';
 import axios from 'axios';
 
 import Sidebar from './Sidebar';
@@ -24,7 +24,7 @@ const ModifyQuestions = ({ user }: { user: User }) => {
 
   const displayForm = (id: string) => {
     clickedQuestion === id ? setClickedQuestion('') : setClickedQuestion(id);
-  }
+  };
 
   return (
     <div>
@@ -36,28 +36,28 @@ const ModifyQuestions = ({ user }: { user: User }) => {
               Current Careers:
             </h2>
             <ul className="list-disc mt-2">
-            {questions?.map((question) => (
-              <li
-                aria-label="Click to modify career details"
-                key={question._id}
-                className={
-                  clickedQuestion === question._id
-                    ? 'ml-6 border-2 border-rad rounded-md p-4 transition-all duration-300 border-green-500 lg:w-[60%]'
-                    : 'ml-6 p-4'
-                }
-              >
-                <h3
-                  className="text-lg cursor-pointer hover:text-green-500 transition-all duration-300 inline-block"
-                  onClick={() => displayForm(question._id)}
+              {questions?.map((question) => (
+                <li
+                  aria-label="Click to modify career details"
+                  key={question._id}
+                  className={
+                    clickedQuestion === question._id
+                      ? 'ml-6 border-2 border-rad rounded-md p-4 transition-all duration-300 border-green-500 lg:w-[60%]'
+                      : 'ml-6 p-4'
+                  }
                 >
-                  {question.prompt}
-                </h3>
-                {clickedQuestion === question._id ? (
-                  <ModificationForm question={question.prompt} />
-                ) : null}
-              </li>
-            ))}
-          </ul>
+                  <h3
+                    className="text-lg cursor-pointer hover:text-green-500 transition-all duration-300 inline-block"
+                    onClick={() => displayForm(question._id)}
+                  >
+                    {question.prompt}
+                  </h3>
+                  {clickedQuestion === question._id ? (
+                    <ModificationForm question={question} />
+                  ) : null}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       ) : (
@@ -67,10 +67,24 @@ const ModifyQuestions = ({ user }: { user: User }) => {
   );
 };
 
-const ModificationForm = (question: any) => {
-  return (
-    <div>Hello!</div>
-  )
-}
+const ModificationForm = ({ question }: { question: Question }) => {
+  const [newQuestion, setNewQuestion] = useState({
+    _id: question._id,
+    prompt: question.prompt,
+    answerOne: question.answer_one[0],
+    attributeOne: question.answer_one[1],
+    answerTwo: question.answer_two[0],
+    attributeTwo: question.answer_two[1]
+  });
+
+  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
+    setNewQuestion({
+      ...newQuestion,
+      [e.target.id]: e.target.value
+    });
+  };
+
+  return <div>hello</div>;
+};
 
 export default ModifyQuestions;
