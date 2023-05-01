@@ -9,6 +9,7 @@ import { User, Question } from '../types';
 
 const ModifyQuestions = ({ user }: { user: User }) => {
   const [questions, setQuestions] = useState<Question[]>();
+  const [clickedQuestion, setClickedQuestion] = useState('');
 
   useEffect(() => {
     axios
@@ -21,6 +22,10 @@ const ModifyQuestions = ({ user }: { user: User }) => {
       });
   });
 
+  const displayForm = (id: string) => {
+    clickedQuestion === id ? setClickedQuestion('') : setClickedQuestion(id);
+  }
+
   return (
     <div>
       <Sidebar />
@@ -30,29 +35,29 @@ const ModifyQuestions = ({ user }: { user: User }) => {
             <h2 className="text-3xl border-b-2 border-green-500 inline-block text-green-500">
               Current Careers:
             </h2>
-            {/* <ul className="list-disc mt-2">
-            {careers.map((career) => (
+            <ul className="list-disc mt-2">
+            {questions?.map((question) => (
               <li
                 aria-label="Click to modify career details"
-                key={uuidv4()}
+                key={question._id}
                 className={
-                  clickedTitle === career.title
+                  clickedQuestion === question._id
                     ? 'ml-6 border-2 border-rad rounded-md p-4 transition-all duration-300 border-green-500 lg:w-[60%]'
                     : 'ml-6 p-4'
                 }
               >
                 <h3
                   className="text-lg cursor-pointer hover:text-green-500 transition-all duration-300 inline-block"
-                  onClick={() => displayForm(career.title)}
+                  onClick={() => displayForm(question._id)}
                 >
-                  {career.title}
+                  {question.prompt}
                 </h3>
-                {clickedTitle === career.title ? (
-                  <ModificationForm career={career} />
+                {clickedQuestion === question._id ? (
+                  <ModificationForm question={question.prompt} />
                 ) : null}
               </li>
             ))}
-          </ul> */}
+          </ul>
           </div>
         </div>
       ) : (
@@ -61,5 +66,11 @@ const ModifyQuestions = ({ user }: { user: User }) => {
     </div>
   );
 };
+
+const ModificationForm = (question: any) => {
+  return (
+    <div>Hello!</div>
+  )
+}
 
 export default ModifyQuestions;
