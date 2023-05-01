@@ -84,7 +84,61 @@ const ModificationForm = ({ question }: { question: Question }) => {
     });
   };
 
-  return <div>hello</div>;
+  return (
+    <form className="grid grid-cols-[150px_auto] gap-5 mt-6">
+      <p className="col-span-2 italic">* indicates required field</p>
+
+      <label htmlFor="prompt">Prompt*: </label>
+      <input
+        type="text"
+        id="prompt"
+        name="prompt"
+        defaultValue={question.prompt}
+        onChange={(e) => handleInput(e)}
+        className="text-black p-2 border-2 border-black dark:border-transparent"
+      />
+
+      <label htmlFor="answerOne">Answer #1*: </label>
+      <input
+        type="text"
+        id="answerOne"
+        name="answerOne"
+        defaultValue={question.answer_one[0]}
+        onChange={(e) => handleInput(e)}
+        className="text-black p-2 border-2 border-black dark:border-transparent"
+      />
+
+      <label htmlFor="attributeOne">Attribute #1*: </label>
+      <input
+        type="text"
+        id="attributeOne"
+        name="attributeOne"
+        defaultValue={question.answer_one[1]}
+        onChange={(e) => handleInput(e)}
+        className="text-black p-2 border-2 border-black dark:border-transparent"
+      />
+
+      <label htmlFor="answerTwo">Answer #2*: </label>
+      <input
+        type="text"
+        id="answerTwo"
+        name="answerTwo"
+        defaultValue={question.answer_two[0]}
+        onChange={(e) => handleInput(e)}
+        className="text-black p-2 border-2 border-black dark:border-transparent"
+      />
+
+      <label htmlFor="attributetwo">Attribute #2*: </label>
+      <input
+        type="text"
+        id="attributeTwo"
+        name="attributeTwo"
+        defaultValue={question.answer_two[1]}
+        onChange={(e) => handleInput(e)}
+        className="text-black p-2 border-2 border-black dark:border-transparent"
+      />
+    </form>
+  );
 };
 
 export default ModifyQuestions;
