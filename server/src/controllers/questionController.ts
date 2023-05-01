@@ -94,3 +94,74 @@ export const add_question = [
     }
   }
 ];
+
+// Allows admin to update existing questions on PUT
+export const update_question = [
+  // Validate and sanitize fields
+  body('prompt')
+    .trim()
+    .isLength({ min: 2 })
+    .withMessage('Question must be at least two characters long')
+    .matches(/^[a-zA-Z0-9\s'"-?]+$/)
+    .withMessage(
+      'Question may only contain letters, numbers, spaces, hyphens, quotation marks, and apostrophes'
+    ),
+  body('answerOne')
+    .trim()
+    .isLength({ min: 2 })
+    .withMessage('Answer one must be at least two characters long')
+    .matches(/^[a-zA-Z0-9\s'"-]+$/)
+    .withMessage(
+      'Answer one may only contain letters, numbers, spaces, hyphens, quotation marks, and apostrophes'
+    ),
+  body('attributeOne')
+    .trim()
+    .isLength({ min: 2 })
+    .withMessage('Attribute one must be at least two characters long')
+    .matches(/^[a-zA-Z0-9\s'"-]+$/)
+    .withMessage(
+      'Attribute one may only contain letters, numbers, spaces, hyphens, quotation marks, and apostrophes'
+    ),
+  body('answerTwo')
+    .trim()
+    .isLength({ min: 2 })
+    .withMessage('Answer two must be at least two characters long')
+    .matches(/^[a-zA-Z0-9\s'"-]+$/)
+    .withMessage(
+      'Answer two may only contain letters, numbers, spaces, hyphens, quotation marks, and apostrophes'
+    ),
+  body('attributeTwo')
+    .trim()
+    .isLength({ min: 2 })
+    .withMessage('Attribute two must be at least two characters long')
+    .matches(/^[a-zA-Z0-9\s'"-]+$/)
+    .withMessage(
+      'Attribute two may only contain letters, numbers, spaces, hyphens, quotation marks, and apostrophes'
+    ),
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const errors = validationResult(req);
+
+      if (!errors.isEmpty()) {
+        return res.status(400).json({
+          errors: errors.array()
+        });
+      } else {
+        await Question.findByIdAndUpdate(
+          req.body._id,
+          {
+            $set: {
+              prompt: req.body.prompt,
+              answer_one: [req.body.answerOne, req.body.attributeOne],
+              answer_two: [req.body.answerTwo, req.body.attributeTwo]
+            }
+          },
+          { new: true, upsert: true }
+        );
+        res.status(200).json('Career successfully modified!');
+      }
+    } catch (err) {
+      res.status(500).json({ errors: err });
+    }
+  }
+];

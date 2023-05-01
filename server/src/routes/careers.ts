@@ -58,7 +58,7 @@ router.post(
   add_career
 );
 
-// Updates a career on PATCH
+// Updates a career on PUT
 router.put(
   '/',
   upload.fields([
