@@ -1,5 +1,6 @@
 // Admin-restricted page for modifying questionnaire
-import { useState, useEffect, ChangeEvent } from 'react';
+import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import Sidebar from './Sidebar';
@@ -68,7 +69,10 @@ const ModifyQuestions = ({ user }: { user: User }) => {
 };
 
 const ModificationForm = ({ question }: { question: Question }) => {
+  const navigate = useNavigate();
+
   const [newQuestion, setNewQuestion] = useState({
+    token: localStorage.getItem('token'),
     _id: question._id,
     prompt: question.prompt,
     answerOne: question.answer_one[0],
@@ -76,6 +80,7 @@ const ModificationForm = ({ question }: { question: Question }) => {
     answerTwo: question.answer_two[0],
     attributeTwo: question.answer_two[1]
   });
+  const [error, setError] = useState('');
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     setNewQuestion({
@@ -84,8 +89,24 @@ const ModificationForm = ({ question }: { question: Question }) => {
     });
   };
 
+  const handleUpdate = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    axios
+      .put('/api/questions', newQuestion)
+      .then(() => {
+        navigate(0);
+      })
+      .catch((err) => {
+        setError(err.response.data.errors[0].msg);
+        throw new Error(err);
+      });
+  };
+
   return (
-    <form className="grid grid-cols-[150px_auto] gap-5 mt-6">
+    <form
+      onSubmit={(e) => handleUpdate(e)}
+      className="grid grid-cols-[150px_auto] gap-5 mt-6"
+    >
       <p className="col-span-2 italic">* indicates required field</p>
 
       <label htmlFor="prompt">Prompt*: </label>
@@ -137,6 +158,13 @@ const ModificationForm = ({ question }: { question: Question }) => {
         onChange={(e) => handleInput(e)}
         className="text-black p-2 border-2 border-black dark:border-transparent"
       />
+
+      {error ? (
+        <p className="col-span-2 text-red-500 mx-auto italic">{error}</p>
+      ) : null}
+      <button type="submit" className="btn col-span-2 w-[50%] mx-auto">
+        Update Career
+      </button>
     </form>
   );
 };
