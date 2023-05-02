@@ -10,6 +10,7 @@ export interface Career {
   title: string;
   description: string;
   attributes: string[];
+  certifications?: string[];
   bio_quote?: string;
   bio_photo?: string;
   job_photo?: string;

@@ -100,6 +100,9 @@ const ModificationForm = ({ career }: { career: Career }) => {
   const [newAttributes, setNewAttributes] = useState(
     career.attributes.map((attribute) => ({ id: uuidv4(), value: attribute }))
   );
+  const [newCerts, setNewCerts] = useState(
+    career.certifications?.map((cert) => ({ id: uuidv4(), value: cert }))
+  );
   const [bioPhoto, setBioPhoto] = useState<File | null>(null);
   const [careerPhoto, setCareerPhoto] = useState<File | null>(null);
   const [bioQuote, setBioQuote] = useState('');
@@ -113,6 +116,20 @@ const ModificationForm = ({ career }: { career: Career }) => {
   // Deletes an attribute field for totalAttributes on click
   const deleteAttributes = (id: string) => {
     setNewAttributes(newAttributes.filter((attribute) => attribute.id !== id));
+  };
+
+  // Increments fieds for certifications on click
+  const addCerts = () => {
+    if (newCerts === undefined) {
+      setNewCerts([{ id: uuidv4(), value: '' }])
+    } else {
+      setNewCerts([...newCerts, { id: uuidv4(), value: '' }]);
+    };
+  };
+
+  // Deletes an attribute field for totalAttributes on click
+  const deleteCerts = (id: string) => {
+    setNewCerts(newCerts!.filter((cert) => cert.id !== id));
   };
 
   // Handles change of input field for title
