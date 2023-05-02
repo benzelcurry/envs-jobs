@@ -4,13 +4,12 @@ import { useState, useEffect } from 'react';
 import { User } from '../types';
 
 interface QuestionProps {
-  setIterator: () => void;
+  handleNext: (attribute: string) => void;
   question: string;
   answerOne: string;
   answerTwo: string;
   attributeOne: string;
   attributeTwo: string;
-  setAttributes: React.Dispatch<React.SetStateAction<string[] | undefined>>;
 }
 
 // TODO
@@ -24,12 +23,12 @@ const QuestionCard = (props: QuestionProps) => {
   const [show, setShow] = useState(true);
 
   // Makes question card fade out upon being answered
-  const handleNext = () => {
+  const handleNextQ = (attribute: string) => {
     setShow(false);
     setTimeout(() => {
-      props.setIterator();
-    }, 800)
-  }
+      props.handleNext(attribute);
+    }, 800);
+  };
 
   return (
     <div
@@ -42,11 +41,15 @@ const QuestionCard = (props: QuestionProps) => {
         <button
           type="button"
           className="btn"
-          onClick={() => handleNext()}
+          onClick={() => handleNextQ(props.attributeOne)}
         >
           {props.answerOne}
         </button>
-        <button type="button" className="btn">
+        <button
+          type="button"
+          className="btn"
+          onClick={() => handleNextQ(props.attributeTwo)}
+        >
           {props.answerTwo}
         </button>
       </div>

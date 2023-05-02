@@ -10,7 +10,7 @@ import { User, Question } from '../types';
 // TODO:
 //   1. Fill out ModifyQuestions component
 const Questionnaire = ({ user }: { user: User }) => {
-  const [attributes, setAttributes] = useState<string[]>();
+  const [attributes, setAttributes] = useState<string[]>([]);
   const [questions, setQuestions] = useState<Question[]>();
   const [showQ, setShowQ] = useState<string[]>();
   const [iterator, setIterator] = useState(0);
@@ -28,8 +28,14 @@ const Questionnaire = ({ user }: { user: User }) => {
       });
   }, []);
 
-  const handleNextQuestion = () => {
+  const handleNextQuestion = (attribute: string) => {
+    const updatedAttributes = [...attributes];
+    updatedAttributes.push(attribute);
+    setAttributes(updatedAttributes);
     setIterator(iterator + 1);
+    setTimeout(() => {
+      console.log(attributes);
+    }, 1000);
   };
 
   return (
@@ -49,14 +55,9 @@ const Questionnaire = ({ user }: { user: User }) => {
         ) : (
           /*
           TODO:
-            1. Map these Questions to a list of questions that get
-               pulled in from the database using a useEffect hook
-            2. Figure out how to toggle the display of the next question 
-               once the previous question has been answered
-             2.1 Move show/setShow to this component and pass to Question?
-              2.1.1 Toggle which one is shown using uuidv4 or something similar?
             3. Add a new page/component that users are redirected to once
-               they finish the questionnaire
+               they finish the questionnaire; MAKE IT PATCH USER PROFILE TO
+               UPDATE THEIR ATTRIBUTES ONCE FINISHED
              3.1 Show their attributes and job matches
               3.1.1 Let them know they can find this info on their profile
                     in the future
@@ -68,13 +69,12 @@ const Questionnaire = ({ user }: { user: User }) => {
               showQ[iterator] === q._id && (
                 <QuestionCard
                   key={q._id}
-                  setIterator={handleNextQuestion}
+                  handleNext={handleNextQuestion}
                   question={q.prompt}
                   answerOne={q.answer_one[0]}
-                  attributeOne={q.answer_one[0]}
+                  attributeOne={q.answer_one[1]}
                   answerTwo={q.answer_two[0]}
                   attributeTwo={q.answer_two[1]}
-                  setAttributes={setAttributes}
                 />
               )
           )
