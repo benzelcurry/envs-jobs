@@ -121,15 +121,23 @@ const ModificationForm = ({ career }: { career: Career }) => {
   // Increments fieds for certifications on click
   const addCerts = () => {
     if (newCerts === undefined) {
-      setNewCerts([{ id: uuidv4(), value: '' }])
+      setNewCerts([{ id: uuidv4(), value: '' }]);
     } else {
       setNewCerts([...newCerts, { id: uuidv4(), value: '' }]);
-    };
+    }
   };
 
-  // Deletes an attribute field for totalAttributes on click
+  // Deletes an attribute field for newCerts on click
   const deleteCerts = (id: string) => {
     setNewCerts(newCerts!.filter((cert) => cert.id !== id));
+  };
+
+  // Handles change of input fields for newCerts
+  const changeCerts = (e: ChangeEvent<HTMLInputElement>, id: string) => {
+    const index = newCerts!.findIndex((cert) => cert.id === id);
+    const updatedCerts = [...newCerts!];
+    updatedCerts[index] = { id, value: e.target.value };
+    setNewCerts(updatedCerts);
   };
 
   // Handles change of input field for title
@@ -234,6 +242,30 @@ const ModificationForm = ({ career }: { career: Career }) => {
         <AiOutlinePlusCircle
           size="40"
           onClick={() => addAttributes()}
+          className="self-center text-green-500 cursor-pointer hover:text-green-300 transition-all delay-100"
+        />
+      </div>
+
+      <label htmlFor="career-certs">Helpful Certifications: </label>
+      <div className="flex flex-col gap-5">
+        {newCerts!.map((cert) => (
+          <div key={cert.id} className="flex items-center ">
+            <input
+              type="text"
+              defaultValue={cert.value}
+              onChange={(e) => changeCerts(e, cert.id)}
+              className="text-black p-2 w-[100%] border-2 border-black dark:border-transparent"
+            />
+            <RxCross1
+              size="28"
+              onClick={() => deleteCerts(cert.id)}
+              className="ml-auto pl-2 cursor-pointer text-red-500 hover:text-red-300"
+            />
+          </div>
+        ))}
+        <AiOutlinePlusCircle
+          size="40"
+          onClick={() => addCerts()}
           className="self-center text-green-500 cursor-pointer hover:text-green-300 transition-all delay-100"
         />
       </div>
