@@ -23,6 +23,14 @@ interface QuestionProps {
 const QuestionCard = (props: QuestionProps) => {
   const [show, setShow] = useState(true);
 
+  // Makes question card fade out upon being answered
+  const handleNext = () => {
+    setShow(false);
+    setTimeout(() => {
+      props.setIterator();
+    }, 800)
+  }
+
   return (
     <div
       className={`md:w-[600px] md:h-[200px] gap-5 p-5 bg-gray-500 flex flex-col items-center rounded-xl transform transition-all duration-500 ease-in-out ${
@@ -34,7 +42,7 @@ const QuestionCard = (props: QuestionProps) => {
         <button
           type="button"
           className="btn"
-          onClick={() => props.setIterator()}
+          onClick={() => handleNext()}
         >
           {props.answerOne}
         </button>
