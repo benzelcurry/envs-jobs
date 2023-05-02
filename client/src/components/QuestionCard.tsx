@@ -4,12 +4,12 @@ import { useState, useEffect } from 'react';
 import { User } from '../types';
 
 interface QuestionProps {
+  setIterator: () => void;
   question: string;
   answerOne: string;
   answerTwo: string;
   attributeOne: string;
   attributeTwo: string;
-  user: User;
   setAttributes: React.Dispatch<React.SetStateAction<string[] | undefined>>;
 }
 
@@ -20,13 +20,8 @@ interface QuestionProps {
 //      attributes at once to user... probably will need to send a setAttributes
 //      from <Questionnaire />
 //   3. Improve styling of cards in light mode and mobile
-const QuestionCard = ({ props }: { props: QuestionProps }) => {
-  const [show, setShow] = useState(false);
-
-  useEffect(() => {
-    setShow(true);
-    return () => setShow(false);
-  }, []);
+const QuestionCard = (props: QuestionProps) => {
+  const [show, setShow] = useState(true);
 
   return (
     <div
@@ -36,10 +31,14 @@ const QuestionCard = ({ props }: { props: QuestionProps }) => {
     >
       <p>{props.question}</p>
       <div>
-        <button type="button" className="btn">
+        <button
+          type="button"
+          className="btn"
+          onClick={() => props.setIterator()}
+        >
           {props.answerOne}
         </button>
-        <button onClick={() => setShow(false)} type="button" className="btn">
+        <button type="button" className="btn">
           {props.answerTwo}
         </button>
       </div>

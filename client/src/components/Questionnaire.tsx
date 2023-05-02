@@ -12,6 +12,8 @@ import { User, Question } from '../types';
 const Questionnaire = ({ user }: { user: User }) => {
   const [attributes, setAttributes] = useState<string[]>();
   const [questions, setQuestions] = useState<Question[]>();
+  const [showQ, setShowQ] = useState<string[]>();
+  const [iterator, setIterator] = useState(0);
 
   // Pulls list of question from database
   useEffect(() => {
@@ -19,11 +21,16 @@ const Questionnaire = ({ user }: { user: User }) => {
       .get('/api/questions')
       .then((response) => {
         setQuestions(response.data);
+        setShowQ(response.data.map((item: Question) => item._id));
       })
       .catch((err) => {
         throw new Error(err);
       });
   }, []);
+
+  const handleNextQuestion = () => {
+    setIterator(iterator + 1);
+  };
 
   return (
     <div>
@@ -55,17 +62,22 @@ const Questionnaire = ({ user }: { user: User }) => {
                     in the future
               3.1.2 Make jobs link to respective pages
           */
-          <QuestionCard
-            props={{
-              question: 'Hello world',
-              answerOne: 'Vanilla',
-              answerTwo: 'Chocolate',
-              attributeOne: 'lol',
-              attributeTwo: 'rofl',
-              user: user,
-              setAttributes: setAttributes
-            }}
-          />
+          showQ &&
+          questions?.map(
+            (q) =>
+              showQ[iterator] === q._id && (
+                <QuestionCard
+                  key={q._id}
+                  setIterator={handleNextQuestion}
+                  question={q.prompt}
+                  answerOne={q.answer_one[0]}
+                  attributeOne={q.answer_one[0]}
+                  answerTwo={q.answer_two[0]}
+                  attributeTwo={q.answer_two[1]}
+                  setAttributes={setAttributes}
+                />
+              )
+          )
         )}
       </div>
     </div>
