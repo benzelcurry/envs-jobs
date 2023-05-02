@@ -84,6 +84,7 @@ export const add_career = [
           title: req.body.title,
           description: req.body.description,
           attributes: req.body.attributes,
+          certifications: req.body.certifications || undefined,
           job_photo: job_photo?.[0]?.filename,
           bio_photo: bio_photo?.[0]?.filename,
           bio_quote: req.body.quote ? req.body.quote : undefined
