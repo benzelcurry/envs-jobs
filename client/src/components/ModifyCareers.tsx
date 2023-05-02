@@ -181,6 +181,9 @@ const ModificationForm = ({ career }: { career: Career }) => {
     newAttributes.forEach((attribute) => {
       body.append('attributes', attribute.value);
     });
+    newCerts?.forEach((cert) => {
+      body.append('certifications', cert.value);
+    });
     if (token) body.append('token', token);
     if (bioPhoto) body.append('bio_photo', bioPhoto);
     if (careerPhoto) body.append('job_photo', careerPhoto);
