@@ -20,7 +20,7 @@ interface QuestionProps {
 //      attributes at once to user... probably will need to send a setAttributes
 //      from <Questionnaire />
 //   3. Improve styling of cards in light mode and mobile
-const Question = ({ props }: { props: QuestionProps }) => {
+const QuestionCard = ({ props }: { props: QuestionProps }) => {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -47,4 +47,4 @@ const Question = ({ props }: { props: QuestionProps }) => {
   );
 };
 
-export default Question;
+export default QuestionCard;

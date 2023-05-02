@@ -110,7 +110,7 @@ const NewCareerForm = () => {
   useEffect(() => {
     if (newCerts.length === 0) {
       setNewCerts([{ id: uuidv4(), value: '' }]);
-    };
+    }
   }, []);
 
   // Increments fields for totalAttributes on click

@@ -1,15 +1,29 @@
 // Questionnaire page for determining student attributes
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import Sidebar from './Sidebar';
-import Question from './Question';
+import QuestionCard from './QuestionCard';
 
-import { User } from '../types';
+import { User, Question } from '../types';
 
 // TODO:
 //   1. Fill out ModifyQuestions component
 const Questionnaire = ({ user }: { user: User }) => {
   const [attributes, setAttributes] = useState<string[]>();
+  const [questions, setQuestions] = useState<Question[]>();
+
+  // Pulls list of question from database
+  useEffect(() => {
+    axios
+      .get('/api/questions')
+      .then((response) => {
+        setQuestions(response.data);
+      })
+      .catch((err) => {
+        throw new Error(err);
+      });
+  }, []);
 
   return (
     <div>
@@ -41,7 +55,7 @@ const Questionnaire = ({ user }: { user: User }) => {
                     in the future
               3.1.2 Make jobs link to respective pages
           */
-          <Question
+          <QuestionCard
             props={{
               question: 'Hello world',
               answerOne: 'Vanilla',
