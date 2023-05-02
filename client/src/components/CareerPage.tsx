@@ -14,8 +14,6 @@ interface RouteParams extends Params {
 // TODO:
 //   1. Begin making this page look nice
 //     1.1 Mobile, desktop, AND light/dark
-//   2. Add more info (beneficial certs, etc.)
-//     2.2 Add fields for these in data model
 const CareerPage = () => {
   const { id } = useParams<RouteParams>();
 
@@ -51,15 +49,27 @@ const CareerPage = () => {
           dangerouslySetInnerHTML={{ __html: career?.description as string }}
         />
         <div className="md:grid md:grid-cols-2">
-          <div className="flex flex-col">
-            <h2 className="text-3xl">
-              <span className="border-b-2 pb-2">Career Attributes</span>
-            </h2>
-            <ul className="m-4 list-disc">
-              {career?.attributes.map((attribute) => (
-                <li key={uuidv4()}>{attribute}</li>
-              ))}
-            </ul>
+          <div>
+            <div className="flex flex-col">
+              <h2 className="text-3xl">
+                <span className="border-b-2 pb-2">Career Attributes</span>
+              </h2>
+              <ul className="m-4 list-disc">
+                {career?.attributes.map((attribute) => (
+                  <li key={uuidv4()}>{attribute}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="flex flex-col">
+              <h2 className="text-3xl">
+                <span className="border-b-2 pb-2">Helpful Certifications</span>
+              </h2>
+              <ul className="m-4 list-disc">
+                {career?.certifications?.map((cert) => (
+                  <li key={uuidv4()}>{cert}</li>
+                ))}
+              </ul>
+            </div>
           </div>
           <div className="pb-4">
             <div className="flex flex-col items-center gap-5">

@@ -108,6 +108,13 @@ const ModificationForm = ({ career }: { career: Career }) => {
   const [bioQuote, setBioQuote] = useState('');
   const [error, setError] = useState('');
 
+  // Populates a blank certification field if job doesn't already have one
+  useEffect(() => {
+    if (!newCerts || newCerts.length === 0) {
+      setNewCerts([{ id: uuidv4(), value: '' }]);
+    };
+  }, []);
+
   // Increments fields for totalAttributes on click
   const addAttributes = () => {
     setNewAttributes([...newAttributes, { id: uuidv4(), value: '' }]);
