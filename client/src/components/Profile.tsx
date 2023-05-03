@@ -2,6 +2,7 @@
 // Displays user info (name, career rankings, etc.)
 
 import { Link } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 
 import Sidebar from './Sidebar';
 import PermissionDenied from './PermissionDenied';
@@ -20,10 +21,14 @@ const Profile = ({ user }: { user: User }) => {
           <div className="p-2">
             {user.attributes.length > 0 ? (
               <div>
-                <h3>Career Attributes: </h3>
-                <ul>
+                <h3 className="text-xl font-bold border-b-2 border-green-500 inline-block text-green-500">
+                  Career Attributes:{' '}
+                </h3>
+                <ul className="list-disc pt-2">
                   {user.attributes.map((attribute) => (
-                    <li>{attribute}</li>
+                    <li key={uuidv4()} className="ml-4">
+                      {attribute}
+                    </li>
                   ))}
                 </ul>
                 {/* ADD CAREER MATCHES HERE */}
@@ -44,7 +49,7 @@ const Profile = ({ user }: { user: User }) => {
           </div>
           {user.is_admin ? (
             <div className="p-2">
-              <h2 className="text-lg text-center md:text-start">
+              <h2 className="text-xl font-bold border-b-2 border-green-500 inline-block text-green-500">
                 Admin Contents
               </h2>
               <div className="flex flex-col justify-center md:justify-start md:grid md:grid-cols-[auto_auto]">
