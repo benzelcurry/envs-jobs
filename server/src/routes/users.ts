@@ -5,7 +5,8 @@ import {
   user_list,
   create_user,
   login_user,
-  user_info
+  user_info,
+  assign_attributes
 } from '../controllers/userController';
 
 // Returns list of users; PROBABLY SHOULD DELETE THIS ROUTE, POINTLESS
@@ -19,5 +20,8 @@ router.post('/info', user_info);
 
 // Creates a new user on POST
 router.post('/', create_user);
+
+// Updates user attributes on PUT
+router.put('/', assign_attributes);
 
 export default router;

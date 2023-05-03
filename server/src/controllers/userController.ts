@@ -102,6 +102,23 @@ export const create_user = [
   }
 ];
 
+// Save attributes to User on PUT
+export const assign_attributes: RequestHandler = async (req, res, next) => {
+  User.findByIdAndUpdate(
+    req.body.id,
+    {
+      attributes: req.body.attributes
+    },
+    { new: true }
+  )
+    .then(() => {
+      return res.status(200).json('User updated!');
+    })
+    .catch((err) => {
+      return res.status(500).json({ errors: err });
+    });
+};
+
 // Log user in on POST
 export const login_user: RequestHandler = async (req, res, next) => {
   try {
