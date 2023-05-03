@@ -58,7 +58,7 @@ const Questionnaire = ({ user }: { user: User }) => {
       <Sidebar />
       <div className="flex flex-col flex-1 mt-10 p-10">
         {user.attributes.length > 0 ? (
-          <div className="md:w-[600px] md:h-[200px] gap-5 p-5 bg-gray-500 flex flex-col items-center rounded-xl">
+          <div className="md:w-[600px] md:h-[200px] gap-5 p-5 bg-green-200 dark:bg-gray-500 flex flex-col items-center rounded-xl mx-auto my-auto">
             <p>You've already taken the questionnaire.</p>
             <p>Click below to take it again.</p>
             <div>
