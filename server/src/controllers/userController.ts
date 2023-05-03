@@ -104,8 +104,12 @@ export const create_user = [
 
 // Save attributes to User on PUT
 export const assign_attributes: RequestHandler = async (req, res, next) => {
+  const decrypt = jwt.verify(
+    req.body.token,
+    process.env.SECRET_KEY as string
+  ) as JwtPayload;
   User.findByIdAndUpdate(
-    req.body.id,
+    decrypt.id,
     {
       attributes: req.body.attributes
     },

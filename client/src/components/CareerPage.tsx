@@ -30,10 +30,6 @@ const CareerPage = () => {
       });
   });
 
-  const descriptionHelper = (str: Career['description']) => {
-    return str;
-  };
-
   return (
     <div>
       <Sidebar />

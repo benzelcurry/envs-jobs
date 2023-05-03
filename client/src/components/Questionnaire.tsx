@@ -1,5 +1,6 @@
 // Questionnaire page for determining student attributes
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import Sidebar from './Sidebar';
@@ -7,9 +8,9 @@ import QuestionCard from './QuestionCard';
 
 import { User, Question } from '../types';
 
-// TODO:
-//   1. Fill out ModifyQuestions component
 const Questionnaire = ({ user }: { user: User }) => {
+  const navigate = useNavigate();
+
   const [attributes, setAttributes] = useState<string[]>([]);
   const [questions, setQuestions] = useState<Question[]>();
   const [showQ, setShowQ] = useState<string[]>();
@@ -28,14 +29,28 @@ const Questionnaire = ({ user }: { user: User }) => {
       });
   }, []);
 
+  // Checks to see if user has completed the questionnaire
+  useEffect(() => {
+    if (iterator === showQ?.length) {
+      const token = localStorage.getItem('token');
+      axios
+        .put('/api/users/', { token, attributes })
+        .then(() => {
+          navigate('/profile');
+          navigate(0);
+        })
+        .catch((err) => {
+          throw new Error(err);
+        });
+    }
+  }, [iterator]);
+
+  // Displays the next question and assigns attributes upon answers
   const handleNextQuestion = (attribute: string) => {
     const updatedAttributes = [...attributes];
     updatedAttributes.push(attribute);
     setAttributes(updatedAttributes);
     setIterator(iterator + 1);
-    setTimeout(() => {
-      console.log(attributes);
-    }, 1000);
   };
 
   return (
