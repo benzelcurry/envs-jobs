@@ -20,6 +20,7 @@ import NotFound from './404';
 import { User } from '../types';
 
 const RouteSwitch = () => {
+  const [guest, setGuest] = useState(false);
   const [currentUser, setCurrentUser] = useState<User>({
     username: '',
     first_name: '',
@@ -43,10 +44,16 @@ const RouteSwitch = () => {
     }
   }, []);
 
+  // Determines if a user is logged in as a guest
+  useEffect(() => {
+    const activeGuest = localStorage.getItem('guest');
+    if (activeGuest) setGuest(true);
+  }, []);
+
   return (
     <HashRouter>
       <Routes>
-        <Route path="/" element={<Home user={currentUser} />} />
+        <Route path="/" element={<Home user={currentUser} guest={guest} />} />
         <Route path="/careers/:id" element={<CareerPage />} />
         <Route path="/careers" element={<CareersList />} />
         <Route path="/profile" element={<Profile user={currentUser} />} />
