@@ -62,7 +62,7 @@ const GuestResults = ({ results }: { results: string[] }) => {
           <h3 className="text-xl font-bold border-b-2 border-green-500 inline-block text-green-500">
             Career Matches*:{' '}
           </h3>
-          <ul className="list-disc pt-2">
+          <ol className="list-decimal pt-2">
             {matches.map((match) => (
               <li key={uuidv4()} className="ml-4">
                 <Link to={`/careers/${match.title}`}>
@@ -73,7 +73,7 @@ const GuestResults = ({ results }: { results: string[] }) => {
                 : {match.percentage}
               </li>
             ))}
-          </ul>
+          </ol>
         </div>
       </div>
       <p className="pt-10 text-sm italic w-[300px] md:w-[600px]">

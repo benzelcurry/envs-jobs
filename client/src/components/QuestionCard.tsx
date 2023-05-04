@@ -31,6 +31,7 @@ const QuestionCard = (props: QuestionProps) => {
   };
 
   return (
+    // TODO: FIX THIS DISPLAY ON MOBILE
     <div
       className={`md:w-[600px] md:h-[200px] gap-5 p-5 bg-green-200 mx-auto my-auto dark:bg-gray-500 flex flex-col items-center rounded-xl transform transition-all duration-500 ease-in-out ${
         show ? 'opacity-100 translate-x-0' : 'opacity-0'

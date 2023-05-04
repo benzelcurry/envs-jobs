@@ -9,7 +9,7 @@ const Home = ({ user, guest }: { user: User; guest: boolean }) => {
   const navigate = useNavigate();
 
   const loginGuest = () => {
-    localStorage.setItem('guest', 'true');
+    sessionStorage.setItem('guest', 'true');
     navigate(0);
   };
 

@@ -46,7 +46,7 @@ const RouteSwitch = () => {
 
   // Determines if a user is logged in as a guest
   useEffect(() => {
-    const activeGuest = localStorage.getItem('guest');
+    const activeGuest = sessionStorage.getItem('guest');
     if (activeGuest) setGuest(true);
   }, []);
 
