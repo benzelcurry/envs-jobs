@@ -48,8 +48,8 @@ const Questionnaire = ({ user }: { user: User }) => {
           });
       } else {
         setGuestResults(true);
-      };
-    };
+      }
+    }
   }, [iterator]);
 
   // Displays the next question and assigns attributes upon answers
@@ -105,10 +105,7 @@ const Questionnaire = ({ user }: { user: User }) => {
               )
           )
         )}
-        {
-          guestResults &&
-          <GuestResults results={attributes} />
-        }
+        {guestResults && <GuestResults results={attributes} />}
       </div>
     </div>
   );

@@ -45,21 +45,42 @@ const GuestResults = ({ results }: { results: string[] }) => {
 
   return (
     <div>
-      <h3 className="text-xl font-bold border-b-2 border-green-500 inline-block text-green-500">
-        Career Matches*:{' '}
-      </h3>
-      <ul className="list-disc pt-2">
-        {matches.map((match) => (
-          <li key={uuidv4()} className="ml-4">
-            <Link to={`/careers/${match.title}`}>
-              <span className="text-green-500 hover:text-green-300">
-                {match.title}
-              </span>
-            </Link>
-            : {match.percentage}
-          </li>
-        ))}
-      </ul>
+      <div className="flex gap-10">
+        <div>
+          <h3 className="text-xl font-bold border-b-2 border-green-500 inline-block text-green-500">
+            Preferred Attributes:{' '}
+          </h3>
+          <ul className="list-disc pt-2">
+            {results.map((attribute) => (
+              <li key={uuidv4()} className="ml-4">
+                {attribute}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h3 className="text-xl font-bold border-b-2 border-green-500 inline-block text-green-500">
+            Career Matches*:{' '}
+          </h3>
+          <ul className="list-disc pt-2">
+            {matches.map((match) => (
+              <li key={uuidv4()} className="ml-4">
+                <Link to={`/careers/${match.title}`}>
+                  <span className="text-green-500 hover:text-green-300">
+                    {match.title}
+                  </span>
+                </Link>
+                : {match.percentage}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <p className="pt-10 text-sm italic w-[300px] md:w-[600px]">
+        * Career match scores represent the percentage of your preferred
+        attributes that appear in the career's listed attributes. This is a
+        rough estimate of fit and isn't meant to be a definitive ranking.
+      </p>
     </div>
   );
 };
