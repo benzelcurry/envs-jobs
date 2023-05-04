@@ -67,6 +67,13 @@ const Home = ({ user, guest }: { user: User; guest: boolean }) => {
             )}
           </>
         )}
+        <p className="w-[400px] py-6 flex text-center justify-center mx-auto p-5 text-xl">
+          <span className="py-6 border-t-2 border-green-500">
+            This website is constantly being updated with new questions and
+            jobs, so make sure to check in from time to time to see how your
+            results may have changed.
+          </span>
+        </p>
       </div>
     </div>
   );
