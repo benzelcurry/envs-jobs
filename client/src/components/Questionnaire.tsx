@@ -61,7 +61,10 @@ const Questionnaire = ({ user }: { user: User }) => {
         {user.attributes.length > 0 && !retake ? (
           <div className="md:w-[600px] md:h-[200px] gap-5 p-5 bg-green-200 dark:bg-gray-500 flex flex-col items-center rounded-xl mx-auto my-auto">
             <p>You've already taken the questionnaire.</p>
-            <p>Click below to take it again.</p>
+            <p>
+              Click below to take it again, or navigate to your profile to view
+              your results.
+            </p>
             <div>
               <button
                 type="button"
@@ -70,19 +73,16 @@ const Questionnaire = ({ user }: { user: User }) => {
               >
                 Retake Questionnaire
               </button>
+              <button
+                type="button"
+                className="btn"
+                onClick={() => navigate('/profile')}
+              >
+                Go To Profile
+              </button>
             </div>
           </div>
         ) : (
-          /*
-          TODO:
-            3. Add a new page/component that users are redirected to once
-               they finish the questionnaire; MAKE IT PATCH USER PROFILE TO
-               UPDATE THEIR ATTRIBUTES ONCE FINISHED
-             3.1 Show their attributes and job matches
-              3.1.1 Let them know they can find this info on their profile
-                    in the future
-              3.1.2 Make jobs link to respective pages
-          */
           showQ &&
           questions?.map(
             (q) =>

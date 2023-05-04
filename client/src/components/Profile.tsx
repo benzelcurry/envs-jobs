@@ -73,7 +73,6 @@ const Profile = ({ user }: { user: User }) => {
                     </ul>
                   </div>
                   <div>
-                    {/* TODO: Make these careers link to their respective pages */}
                     <h3 className="text-xl font-bold border-b-2 border-green-500 inline-block text-green-500">
                       Career Matches*:{' '}
                     </h3>
@@ -113,7 +112,7 @@ const Profile = ({ user }: { user: User }) => {
             )}
           </div>
           {user.is_admin ? (
-            <div className="p-2">
+            <div className="p-2 flex flex-col items-center md:block">
               <h2 className="text-xl font-bold border-b-2 border-green-500 inline-block text-green-500">
                 Admin Contents
               </h2>
