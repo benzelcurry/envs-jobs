@@ -5,6 +5,7 @@ import axios from 'axios';
 
 import Sidebar from './Sidebar';
 import QuestionCard from './QuestionCard';
+import GuestResults from './GuestResults';
 
 import { User, Question } from '../types';
 
@@ -16,6 +17,7 @@ const Questionnaire = ({ user }: { user: User }) => {
   const [questions, setQuestions] = useState<Question[]>();
   const [showQ, setShowQ] = useState<string[]>();
   const [iterator, setIterator] = useState(0);
+  const [guestResults, setGuestResults] = useState(false);
 
   // Pulls list of question from database
   useEffect(() => {
@@ -34,16 +36,20 @@ const Questionnaire = ({ user }: { user: User }) => {
   useEffect(() => {
     if (iterator === showQ?.length) {
       const token = localStorage.getItem('token');
-      axios
-        .put('/api/users/', { token, attributes })
-        .then(() => {
-          navigate('/profile');
-          navigate(0);
-        })
-        .catch((err) => {
-          throw new Error(err);
-        });
-    }
+      if (token) {
+        axios
+          .put('/api/users/', { token, attributes })
+          .then(() => {
+            navigate('/profile');
+            navigate(0);
+          })
+          .catch((err) => {
+            throw new Error(err);
+          });
+      } else {
+        setGuestResults(true);
+      };
+    };
   }, [iterator]);
 
   // Displays the next question and assigns attributes upon answers
@@ -99,6 +105,10 @@ const Questionnaire = ({ user }: { user: User }) => {
               )
           )
         )}
+        {
+          guestResults &&
+          <GuestResults results={attributes} />
+        }
       </div>
     </div>
   );
