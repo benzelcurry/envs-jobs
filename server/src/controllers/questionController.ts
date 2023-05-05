@@ -165,3 +165,14 @@ export const update_question = [
     }
   }
 ];
+
+// Allows admins to delete questions
+export const delete_question: RequestHandler = (req, res, next) => {
+  Question.findByIdAndRemove(req.params.id)
+    .then(() => {
+      return res.status(200).json('Question deleted!');
+    })
+    .catch((err) => {
+      return res.status(500).json({ errors: err });
+    });
+};

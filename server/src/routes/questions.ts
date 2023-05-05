@@ -5,7 +5,8 @@ const router = express.Router();
 import {
   question_list,
   add_question,
-  update_question
+  update_question,
+  delete_question
 } from '../controllers/questionController';
 
 import checkAdmin from '../middleware/checkAdmin';
@@ -20,5 +21,8 @@ router.post('/', checkAdmin, add_question);
 
 // Allows admins to update existing questions on PUT
 router.put('/', checkAdmin, update_question);
+
+// Allows admins to remove existing questions on DELETE
+router.delete('/:id', checkAdmin, delete_question);
 
 export default router;
