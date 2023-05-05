@@ -161,8 +161,18 @@ export const update_career = [
         res.status(200).json('Career successfully modified!');
       }
     } catch (err) {
-      console.log(err);
       res.status(500).json({ errors: err });
     }
   }
 ];
+
+// Allows admins to delete careers
+export const delete_career: RequestHandler = (req, res, next) => {
+  Career.findByIdAndRemove(req.params.id)
+    .then(() => {
+      return res.status(200).json('Career deleted!');
+    })
+    .catch((err) => {
+      return res.status(500).json({ errors: err });
+    });
+};

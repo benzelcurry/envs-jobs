@@ -9,7 +9,8 @@ import {
   career_list,
   career_info,
   add_career,
-  update_career
+  update_career,
+  delete_career
 } from '../controllers/careerController';
 
 import checkAdmin from '../middleware/checkAdmin';
@@ -68,5 +69,8 @@ router.put(
   checkAdmin,
   update_career
 );
+
+// Removes a career on DELETE
+router.delete('/:id', checkAdmin, delete_career);
 
 export default router;
