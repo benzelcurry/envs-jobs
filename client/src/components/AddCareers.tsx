@@ -72,7 +72,11 @@ const AddCareers = ({ user }: { user: User }) => {
                       key={uuidv4()}
                       id={career.title}
                       onClick={(e) => handleFocus(e)}
-                      className="ml-6 p-2"
+                      className={`ml-6 p-2 ${
+                        career.title === activeDelete
+                          ? 'border-2 border-red-500 rounded-lg'
+                          : ''
+                      }`}
                     >
                       {career.title}
                       {activeDelete === career.title && (
