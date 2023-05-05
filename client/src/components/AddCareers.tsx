@@ -5,6 +5,7 @@ import axios from 'axios';
 
 import Sidebar from './Sidebar';
 import Cropper from './ImageCropper';
+import DeleteConfirmation from './DeleteConfirmation';
 import PermissionDenied from './PermissionDenied';
 
 import { v4 as uuidv4 } from 'uuid';
@@ -25,6 +26,7 @@ const AddCareers = ({ user }: { user: User }) => {
 
   const [careers, setCareers] = useState<Career[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [activeDelete, setActiveDelete] = useState('');
 
   // Redirects user to another page if they aren't an admin
   useEffect(() => {
@@ -47,6 +49,13 @@ const AddCareers = ({ user }: { user: User }) => {
       });
   }, []);
 
+  const handleFocus = (e: React.MouseEvent<HTMLLIElement>) => {
+    const target = e.target as HTMLLIElement;
+    activeDelete === target.id
+      ? setActiveDelete('')
+      : setActiveDelete(target.id);
+  };
+
   return (
     <div>
       <Sidebar />
@@ -59,8 +68,16 @@ const AddCareers = ({ user }: { user: User }) => {
             <ul className="list-disc mt-2">
               {careers
                 ? careers.map((career) => (
-                    <li key={uuidv4()} className="ml-6 p-2">
+                    <li
+                      key={uuidv4()}
+                      id={career.title}
+                      onClick={(e) => handleFocus(e)}
+                      className="ml-6 p-2"
+                    >
                       {career.title}
+                      {activeDelete === career.title && (
+                        <DeleteConfirmation item={'career'} />
+                      )}
                     </li>
                   ))
                 : null}
