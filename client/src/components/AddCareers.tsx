@@ -49,8 +49,8 @@ const AddCareers = ({ user }: { user: User }) => {
       });
   }, []);
 
-  const handleFocus = (e: React.MouseEvent<HTMLLIElement>) => {
-    const target = e.target as HTMLLIElement;
+  const handleFocus = (e: React.MouseEvent) => {
+    const target = e.target as SVGElement;
     activeDelete === target.id
       ? setActiveDelete('')
       : setActiveDelete(target.id);
@@ -70,15 +70,21 @@ const AddCareers = ({ user }: { user: User }) => {
                 ? careers.map((career) => (
                     <li
                       key={uuidv4()}
-                      id={career.title}
-                      onClick={(e) => handleFocus(e)}
                       className={`ml-6 p-2 ${
                         career.title === activeDelete
                           ? 'border-2 border-red-500 rounded-lg'
                           : ''
                       }`}
                     >
-                      {career.title}
+                      <div className="flex">
+                        {career.title}
+                        <RxCross1
+                          size="28"
+                          id={career.title}
+                          onClick={(e) => handleFocus(e)}
+                          className="ml-auto pl-2 cursor-pointer text-red-500 hover:text-red-300"
+                        />
+                      </div>
                       {activeDelete === career.title && (
                         <DeleteConfirmation item={'career'} />
                       )}
