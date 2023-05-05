@@ -118,18 +118,22 @@ const Profile = ({ user }: { user: User }) => {
               </h2>
               <div className="flex flex-col justify-center md:justify-start md:grid md:grid-cols-[auto_auto]">
                 <Link to="/modify-questions">
-                  <button className="btn m-5 w-[200px]">
+                  <button className="btn m-5 w-[225px]">
                     Modify Questions
                   </button>
                 </Link>
                 <Link to="/modify-careers">
-                  <button className="btn m-5 w-[200px]">Modify Careers</button>
+                  <button className="btn m-5 w-[225px]">Modify Careers</button>
                 </Link>
                 <Link to="/add-questions">
-                  <button className="btn m-5 w-[200px]">Add Questions</button>
+                  <button className="btn m-5 w-[225px]">
+                    Add/Delete Questions
+                  </button>
                 </Link>
                 <Link to="/add-careers">
-                  <button className="btn m-5 w-[200px]">Add Careers</button>
+                  <button className="btn m-5 w-[225px]">
+                    Add/Delete Careers
+                  </button>
                 </Link>
               </div>
             </div>
