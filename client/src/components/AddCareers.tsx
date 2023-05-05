@@ -49,11 +49,8 @@ const AddCareers = ({ user }: { user: User }) => {
       });
   }, []);
 
-  const handleFocus = (e: React.MouseEvent) => {
-    const target = e.target as SVGElement;
-    activeDelete === target.id
-      ? setActiveDelete('')
-      : setActiveDelete(target.id);
+  const handleFocus = (str: string) => {
+    activeDelete === str ? setActiveDelete('') : setActiveDelete(str);
   };
 
   return (
@@ -80,13 +77,18 @@ const AddCareers = ({ user }: { user: User }) => {
                         {career.title}
                         <RxCross1
                           size="28"
-                          id={career.title}
-                          onClick={(e) => handleFocus(e)}
+                          onClick={() => handleFocus(career.title)}
                           className="ml-auto pl-2 cursor-pointer text-red-500 hover:text-red-300"
                         />
                       </div>
                       {activeDelete === career.title && (
-                        <DeleteConfirmation item={'career'} />
+                        <DeleteConfirmation
+                          props={{
+                            item: 'career',
+                            id: career.title,
+                            closeForm: handleFocus
+                          }}
+                        />
                       )}
                     </li>
                   ))
