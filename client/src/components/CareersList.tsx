@@ -34,10 +34,7 @@ const CareersList = () => {
         <ul className="list-disc mt-10 ml-4 marker:text-green-500">
           {careers?.map((career) => (
             <Link to={`/careers/${career.title}`} key={uuidv4()}>
-              <li
-                aria-label="Click to view more details"
-                className="p-4"
-              >
+              <li aria-label="Click to view more details" className="p-4">
                 <span className="border-b-2 border-green-500 text-2xl text-green-500 hover:text-green-300 hover:border-green-300 cursor-pointer">
                   {career.title}
                 </span>

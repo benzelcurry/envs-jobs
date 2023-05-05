@@ -17,8 +17,12 @@ const Home = ({ user, guest }: { user: User; guest: boolean }) => {
     <div>
       <Sidebar />
       <div className="flex flex-col flex-1 mt-10">
-        <h1 className="w-[400px] text-green-500 text-5xl font-bold flex justify-center md:justify-center mx-auto p-5">
-          <span className="border-b-4 border-green-500 ">ENVS Matcher</span>
+        <h1 className="w-[400px] text-green-500 text-5xl font-bold flex items-end md:justify-center mx-auto p-5">
+          <img src="/tree.ico" alt="Tree" className="h-20" />
+          <span className="text-center border-b-4 border-green-500 ">
+            ENVS Matcher
+          </span>
+          <img src="/tree.ico" alt="Tree" className="h-20" />
         </h1>
         <p className="w-[400px] flex text-center justify-center mx-auto p-5 text-xl">
           Welcome to ENVS Matcher, a website geared towards helping both current
