@@ -7,6 +7,7 @@ export interface User {
 }
 
 export interface Career {
+  _id: string;
   title: string;
   description: string;
   attributes: string[];

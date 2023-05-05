@@ -11,13 +11,7 @@ import PermissionDenied from './PermissionDenied';
 import { v4 as uuidv4 } from 'uuid';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import { RxCross1 } from 'react-icons/rx';
-import { User } from '../types';
-
-interface Career {
-  title: string;
-  description: string;
-  attributes: string[];
-}
+import { User, Career } from '../types';
 
 // TODO:
 //   1. Make career description textarea increase to fit contents
@@ -85,7 +79,8 @@ const AddCareers = ({ user }: { user: User }) => {
                         <DeleteConfirmation
                           props={{
                             item: 'career',
-                            id: career.title,
+                            id: career._id,
+                            title: career.title,
                             closeForm: handleFocus
                           }}
                         />
