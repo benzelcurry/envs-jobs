@@ -66,7 +66,7 @@ const AddQuestions = ({ user }: { user: User }) => {
                           {activeDelete === question.prompt && (
                             <DeleteConfirmation
                               props={{
-                                item: 'career',
+                                item: 'question',
                                 id: question._id,
                                 title: question.prompt,
                                 closeForm: handleFocus
