@@ -37,7 +37,7 @@ const DeleteConfirmation = ({ props }: { props: Props }) => {
           throw new Error(err);
         });
     }
-  }
+  };
 
   return (
     <div className="my-4 px-4">
@@ -48,7 +48,10 @@ const DeleteConfirmation = ({ props }: { props: Props }) => {
         <button className="btn" onClick={() => props.closeForm(props.title)}>
           No, Keep It
         </button>
-        <button onClick={() => handleDelete()} className="btn bg-red-500 hover:bg-red-400">
+        <button
+          onClick={() => handleDelete()}
+          className="btn bg-red-500 hover:bg-red-400"
+        >
           YES, DELETE IT
         </button>
       </div>

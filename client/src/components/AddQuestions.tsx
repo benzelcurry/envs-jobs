@@ -4,13 +4,17 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import Sidebar from './Sidebar';
+import DeleteConfirmation from './DeleteConfirmation';
 import PermissionDenied from './PermissionDenied';
+
+import { RxCross1 } from 'react-icons/rx';
 
 import { User, Question } from '../types';
 
 const AddQuestions = ({ user }: { user: User }) => {
   const [questions, setQuestions] = useState<Question[]>();
   const [showTable, setShowTable] = useState('');
+  const [activeDelete, setActiveDelete] = useState('');
 
   useEffect(() => {
     axios
@@ -27,6 +31,10 @@ const AddQuestions = ({ user }: { user: User }) => {
     showTable === tableID ? setShowTable('') : setShowTable(tableID);
   };
 
+  const handleFocus = (str: string) => {
+    activeDelete === str ? setActiveDelete('') : setActiveDelete(str);
+  };
+
   return (
     <div>
       <Sidebar />
@@ -36,46 +44,73 @@ const AddQuestions = ({ user }: { user: User }) => {
             <h2 className="text-3xl border-b-2 inline-block border-green-500 text-green-500">
               Current Questions
             </h2>
-            <ol className="list-decimal">
+            <ol className="list-decimal mt-4">
               {questions &&
                 questions.map((question) => (
-                  <li key={question._id} className="ml-6 p-2">
-                    <h3
-                      onClick={() => displayTable(question._id)}
-                      className="cursor-pointer hover:text-green-300 inline-block"
-                    >
-                      {question.prompt}
-                    </h3>
-                    {question._id === showTable && (
-                      <table className="mt-2 table w-full border-collapse border-[2px] border-black dark:border-gray-300">
-                        <thead className="bg-gray-200 text-black">
-                          <tr>
-                            <th className="py-2 px-4">Answer</th>
-                            <th className="py-2 px-4 border-l-[2px] border-black">
-                              Attribute
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr className="bg-white">
-                            <td className="py-2 px-4 text-black">
-                              {question.answer_one[0]}
-                            </td>
-                            <td className="py-2 px-4 text-black border-l-[2px] border-black">
-                              {question.answer_one[1]}
-                            </td>
-                          </tr>
-                          <tr className="bg-gray-100">
-                            <td className="py-2 px-4 text-black">
-                              {question.answer_two[0]}
-                            </td>
-                            <td className="py-2 px-4 text-black border-l-[2px] border-black">
-                              {question.answer_two[1]}
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    )}
+                  <li
+                    key={question._id}
+                    className={`ml-6 p-2 ${
+                      question.prompt === activeDelete &&
+                      'border-2 border-red-500 rounded-lg'
+                    }`}
+                  >
+                    <div className="flex flex-col">
+                      <div className="flex">
+                        <div>
+                          <span
+                            onClick={() => displayTable(question._id)}
+                            className="cursor-pointer hover:text-green-300 inline-block"
+                          >
+                            {question.prompt}
+                          </span>
+                          {activeDelete === question.prompt && (
+                            <DeleteConfirmation
+                              props={{
+                                item: 'career',
+                                id: question._id,
+                                title: question.prompt,
+                                closeForm: handleFocus
+                              }}
+                            />
+                          )}
+                        </div>
+                        <RxCross1
+                          size="28"
+                          onClick={() => handleFocus(question.prompt)}
+                          className="ml-auto pl-2 cursor-pointer text-red-500 hover:text-red-300"
+                        />
+                      </div>
+                      {question._id === showTable && (
+                        <table className="mt-2 table w-full border-collapse border-[2px] border-black dark:border-gray-300">
+                          <thead className="bg-gray-200 text-black">
+                            <tr>
+                              <th className="py-2 px-4">Answer</th>
+                              <th className="py-2 px-4 border-l-[2px] border-black">
+                                Attribute
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr className="bg-white">
+                              <td className="py-2 px-4 text-black">
+                                {question.answer_one[0]}
+                              </td>
+                              <td className="py-2 px-4 text-black border-l-[2px] border-black">
+                                {question.answer_one[1]}
+                              </td>
+                            </tr>
+                            <tr className="bg-gray-100">
+                              <td className="py-2 px-4 text-black">
+                                {question.answer_two[0]}
+                              </td>
+                              <td className="py-2 px-4 text-black border-l-[2px] border-black">
+                                {question.answer_two[1]}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      )}
+                    </div>
                   </li>
                 ))}
             </ol>
