@@ -64,8 +64,8 @@ const Questionnaire = ({ user }: { user: User }) => {
       const attributes = attribute.filter((item) => item !== '');
       for (const item of attributes) {
         updatedAttributes.push(item);
-      };
-    };
+      }
+    }
     setAttributes(updatedAttributes);
     setIterator(iterator + 1);
   };

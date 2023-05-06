@@ -45,8 +45,9 @@ const Profile = ({ user }: { user: User }) => {
         percentage: Number((tracker / user.attributes.length).toFixed(2))
       });
     }
+    tempMatches.sort((a, b) => b.percentage - a.percentage);
     setMatches(tempMatches);
-  }, [careers]);
+  }, [careers, user.attributes]);
 
   return (
     <div>
