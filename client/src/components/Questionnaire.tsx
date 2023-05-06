@@ -66,7 +66,7 @@ const Questionnaire = ({ user }: { user: User }) => {
   return (
     <div>
       <Sidebar />
-      <div className="flex flex-col flex-1 mt-10 p-10">
+      <div className="flex flex-col flex-1 mt-10">
         {user.attributes.length > 0 && !retake ? (
           <div className="md:w-[600px] md:h-[200px] gap-5 p-5 bg-green-200 dark:bg-gray-500 flex flex-col items-center rounded-xl mx-auto my-auto">
             <p>You've already taken the questionnaire.</p>
@@ -74,7 +74,7 @@ const Questionnaire = ({ user }: { user: User }) => {
               Click below to take it again, or navigate to your profile to view
               your results.
             </p>
-            <div>
+            <div className="flex flex-col items-center gap-5 md:flex-row">
               <button
                 type="button"
                 className="btn"
