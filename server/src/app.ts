@@ -30,12 +30,11 @@ db.on('error', console.error.bind(console, 'mongo connection error'));
 
 const app: Application = express();
 
-// const corsOptions = {
-//   origin: 'https://envs-matcher.web.app',
-// };
+const corsOptions = {
+  origin: 'https://envs-matcher.web.app',
+};
 
-// app.use(cors(corsOptions));
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 app.use('/careers', careers);
