@@ -36,7 +36,9 @@ const Sidebar = () => {
     const token = localStorage.getItem('token');
     if (token) {
       axios
-        .post('/api/users/info', { token: token })
+        .post(`${import.meta.env.VITE_API}/users/info` || '/api/users/info', {
+          token: token
+        })
         .then((response) => {
           setCurrentUser(response.data);
         })

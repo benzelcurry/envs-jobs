@@ -13,7 +13,7 @@ const CareersList = () => {
 
   useEffect(() => {
     axios
-      .get('/api/careers')
+      .get(`${import.meta.env.VITE_API}/careers` || '/api/careers')
       .then((response) => {
         setCareers(response.data);
       })

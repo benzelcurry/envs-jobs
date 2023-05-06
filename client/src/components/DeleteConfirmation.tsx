@@ -16,9 +16,13 @@ const DeleteConfirmation = ({ props }: { props: Props }) => {
     const token = localStorage.getItem('token');
     if (props.item === 'career') {
       axios
-        .delete(`/api/careers/${props.id}`, {
-          headers: { Authorization: token }
-        })
+        .delete(
+          `${import.meta.env.VITE_API}/careers/${props.id}` ||
+            `/api/careers/${props.id}`,
+          {
+            headers: { Authorization: token }
+          }
+        )
         .then(() => {
           navigate(0);
         })
@@ -27,9 +31,13 @@ const DeleteConfirmation = ({ props }: { props: Props }) => {
         });
     } else if (props.item === 'question') {
       axios
-        .delete(`/api/questions/${props.id}`, {
-          headers: { Authorization: token }
-        })
+        .delete(
+          `${import.meta.env.VITE_API}/questions/${props.id}` ||
+            `/api/questions/${props.id}`,
+          {
+            headers: { Authorization: token }
+          }
+        )
         .then(() => {
           navigate(0);
         })

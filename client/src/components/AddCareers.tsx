@@ -34,7 +34,7 @@ const AddCareers = ({ user }: { user: User }) => {
   // Pulls careers from DB and stores them in state
   useEffect(() => {
     axios
-      .get('/api/careers')
+      .get(`${import.meta.env.VITE_API}/careers` || '/api/careers')
       .then((response) => {
         setCareers(response.data);
       })
@@ -215,7 +215,7 @@ const NewCareerForm = () => {
     if (careerPhoto) body.append('job_photo', careerPhoto);
     if (bioQuote) body.append('quote', bioQuote);
     axios
-      .post('/api/careers', body)
+      .post(`${import.meta.env.VITE_API}/careers` || '/api/careers', body)
       .then(() => {
         navigate(0);
       })

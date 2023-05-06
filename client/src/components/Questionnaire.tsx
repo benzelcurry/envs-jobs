@@ -22,7 +22,7 @@ const Questionnaire = ({ user }: { user: User }) => {
   // Pulls list of question from database
   useEffect(() => {
     axios
-      .get('/api/questions')
+      .get(`${import.meta.env.VITE_API}/questions` || '/api/questions')
       .then((response) => {
         setQuestions(response.data);
         setShowQ(response.data.map((item: Question) => item._id));
@@ -38,7 +38,10 @@ const Questionnaire = ({ user }: { user: User }) => {
       const token = localStorage.getItem('token');
       if (token) {
         axios
-          .put('/api/users/', { token, attributes })
+          .put(`${import.meta.env.VITE_API}/users/` || '/api/users/', {
+            token,
+            attributes
+          })
           .then(() => {
             navigate('/profile');
             navigate(0);

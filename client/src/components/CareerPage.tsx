@@ -11,9 +11,6 @@ interface RouteParams extends Params {
   id: string;
 }
 
-// TODO:
-//   1. Begin making this page look nice
-//     1.1 Mobile, desktop, AND light/dark
 const CareerPage = () => {
   const { id } = useParams<RouteParams>();
 
@@ -21,7 +18,7 @@ const CareerPage = () => {
 
   useEffect(() => {
     axios
-      .get(`/api/careers/${id}`)
+      .get(`${import.meta.env.VITE_API}/careers/${id}` || `/api/careers/${id}`)
       .then((response) => {
         setCareer(response.data);
       })
@@ -41,10 +38,17 @@ const CareerPage = () => {
           <img src={`${import.meta.env.VITE_IMAGES}/${career?.job_photo}`} />
         ) : null}
         <p
-          className="mr-auto"
+          className="w-[350px] md:w-[600px] lg:w-[750px] flex flex-col gap-7"
           dangerouslySetInnerHTML={{ __html: career?.description as string }}
         />
-        <div className="md:grid md:grid-cols-2">
+        <div
+          // MIGHT NEED TO COME BACK AND CHANGE THIS ONCE PICS GET ADDED
+          className={
+            career?.bio_photo && career?.bio_quote
+              ? 'md:grid md:grid-cols-2 mx-[20px]'
+              : ''
+          }
+        >
           <div>
             <div className="flex flex-col">
               <h2 className="text-3xl">
@@ -57,8 +61,8 @@ const CareerPage = () => {
               </ul>
             </div>
             <div className="flex flex-col">
-              <h2 className="text-3xl">
-                <span className="border-b-2 pb-2">Helpful Certifications</span>
+              <h2 className="text-3xl border-b-2 pb-2">
+                <span>Helpful Certifications & Experience</span>
               </h2>
               <ul className="m-4 list-disc">
                 {career?.certifications?.map((cert) => (

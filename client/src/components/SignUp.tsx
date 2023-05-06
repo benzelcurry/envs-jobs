@@ -53,13 +53,16 @@ const SignUp = ({ user }: { user: User }) => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     axios
-      .post('/api/users', body)
-      .then((response) => {
+      .post(`${import.meta.env.VITE_API}/users` || '/api/users', body)
+      .then(() => {
         axios
-          .post('/api/users/login', {
-            username: body.username,
-            password: body.password
-          })
+          .post(
+            `${import.meta.env.VITE_API}/users/login` || '/api/users/login',
+            {
+              username: body.username,
+              password: body.password
+            }
+          )
           .then((response) => {
             if (response.data.message === 'Successful') {
               window.localStorage.setItem('token', response.data.token);

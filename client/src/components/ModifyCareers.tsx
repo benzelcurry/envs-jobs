@@ -12,12 +12,6 @@ import { AiOutlinePlusCircle } from 'react-icons/ai';
 import { RxCross1 } from 'react-icons/rx';
 import { User, Career } from '../types';
 
-// TODO:
-// 1. Make career description textarea increase to fit contents
-// 2. Pull bio pic and job pic and bio quote when displaying current details
-// 3. Allow user to modify fields mentioned in TODO #3
-//  3.1 Might need to modify the above interface
-
 const ModifyCareers = ({ user }: { user: User }) => {
   const navigate = useNavigate();
 
@@ -37,7 +31,7 @@ const ModifyCareers = ({ user }: { user: User }) => {
   // Pulls info about current careers in database and stores in careers state variable
   useEffect(() => {
     axios
-      .get('/api/careers')
+      .get(`${import.meta.env.VITE_API}/careers` || '/api/careers')
       .then((response) => {
         setCareers(response.data);
       })
@@ -196,7 +190,7 @@ const ModificationForm = ({ career }: { career: Career }) => {
     if (careerPhoto) body.append('job_photo', careerPhoto);
     if (bioQuote) body.append('quote', bioQuote);
     axios
-      .put('/api/careers', body)
+      .put(`${import.meta.env.VITE_API}/careers` || '/api/careers', body)
       .then(() => {
         navigate(0);
       })

@@ -18,7 +18,7 @@ const AddQuestions = ({ user }: { user: User }) => {
 
   useEffect(() => {
     axios
-      .get('/api/questions')
+      .get(`${import.meta.env.VITE_API}/questions` || '/api/questions')
       .then((response) => {
         setQuestions(response.data);
       })
@@ -151,7 +151,10 @@ const NewQuestionForm = () => {
   const handleUpdate = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     axios
-      .post('/api/questions', newQuestion)
+      .post(
+        `${import.meta.env.VITE_API}/questions` || '/api/questions',
+        newQuestion
+      )
       .then(() => {
         navigate(0);
       })
@@ -221,7 +224,7 @@ const NewQuestionForm = () => {
         </p>
       ) : null}
       <button type="submit" className="btn col-span-2 w-[50%] mx-auto">
-        Add Career
+        Add Question
       </button>
     </form>
   );

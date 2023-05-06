@@ -14,7 +14,7 @@ const ModifyQuestions = ({ user }: { user: User }) => {
 
   useEffect(() => {
     axios
-      .get('/api/questions')
+      .get(`${import.meta.env.VITE_API}/questions` || '/api/questions')
       .then((response) => {
         setQuestions(response.data);
       })
@@ -34,7 +34,7 @@ const ModifyQuestions = ({ user }: { user: User }) => {
         <div className="flex flex-col flex-1 mt-10 p-10">
           <div>
             <h2 className="text-3xl border-b-2 border-green-500 inline-block text-green-500">
-              Current Careers:
+              Current Questions:
             </h2>
             <ul className="list-disc mt-2">
               {questions?.map((question) => (
@@ -92,7 +92,10 @@ const ModificationForm = ({ question }: { question: Question }) => {
   const handleUpdate = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     axios
-      .put('/api/questions', newQuestion)
+      .put(
+        `${import.meta.env.VITE_API}/questions` || '/api/questions',
+        newQuestion
+      )
       .then(() => {
         navigate(0);
       })
