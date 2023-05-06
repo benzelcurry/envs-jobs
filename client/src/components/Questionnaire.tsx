@@ -56,9 +56,16 @@ const Questionnaire = ({ user }: { user: User }) => {
   }, [iterator]);
 
   // Displays the next question and assigns attributes upon answers
-  const handleNextQuestion = (attribute: string) => {
+  const handleNextQuestion = (attribute: string | string[]) => {
     const updatedAttributes = [...attributes];
-    updatedAttributes.push(attribute);
+    if (!Array.isArray(attribute)) {
+      if (attribute !== '') updatedAttributes.push(attribute);
+    } else {
+      const attributes = attribute.filter((item) => item !== '');
+      for (const item of attributes) {
+        updatedAttributes.push(item);
+      };
+    };
     setAttributes(updatedAttributes);
     setIterator(iterator + 1);
   };
