@@ -52,6 +52,7 @@ export const add_question = [
       'Answer two may only contain letters, numbers, spaces, hyphens, quotation marks, and apostrophes'
     ),
   body('attributeTwo')
+    .optional({ checkFalsy: true })
     .trim()
     .isLength({ min: 2 })
     .withMessage('Attribute two must be at least two characters long')
@@ -83,7 +84,7 @@ export const add_question = [
         const question = new Question({
           prompt: req.body.prompt,
           answer_one: [req.body.answerOne, req.body.attributeOne],
-          answer_two: [req.body.answerTwo, req.body.attributeTwo]
+          answer_two: [req.body.answerTwo, req.body.attributeTwo || '']
         });
 
         question.save();
@@ -131,6 +132,7 @@ export const update_question = [
       'Answer two may only contain letters, numbers, spaces, hyphens, quotation marks, and apostrophes'
     ),
   body('attributeTwo')
+    .optional({ checkFalsy: true })
     .trim()
     .isLength({ min: 2 })
     .withMessage('Attribute two must be at least two characters long')
@@ -153,7 +155,7 @@ export const update_question = [
             $set: {
               prompt: req.body.prompt,
               answer_one: [req.body.answerOne, req.body.attributeOne],
-              answer_two: [req.body.answerTwo, req.body.attributeTwo]
+              answer_two: [req.body.answerTwo, req.body.attributeTwo || '']
             }
           },
           { new: true, upsert: true }
