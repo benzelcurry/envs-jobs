@@ -1,3 +1,10 @@
-# ENVS Matcher Server
+# ENVS Matcher back end server
+Back end Express app for ENVS Matcher.
 
-Server end of ENVS Matcher, built with Express.js and TypeScript.
+## Built with
+* Typescript
+* Express/Node.js
+* MongoDB/Mongoose
+* Multer
+* Cloudinary
+* JWT auth
