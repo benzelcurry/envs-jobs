@@ -40,11 +40,12 @@ const GuestResults = ({ results }: { results: string[] }) => {
         percentage: Number((tracker / results.length).toFixed(2))
       });
     }
+    tempMatches.sort((a, b) => b.percentage - a.percentage);
     setMatches(tempMatches);
   }, [careers]);
 
   return (
-    <div>
+    <div className="ml-10">
       <div className="flex gap-10">
         <div>
           <h3 className="text-xl font-bold border-b-2 border-green-500 inline-block text-green-500">
