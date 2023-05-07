@@ -1,29 +1,49 @@
 # ENVS Matcher
 
-ENVS Matcher is a career matcher intended for both prospective and current ENVS students looking for help 
-deciding on a career that matches them best. [NOTICE: This is a work in progress, and everything marked as WIP 
-is a feature/technology that is not yet implemented.]
+ENVS Matcher is a career matcher designed to assist both prospective and current ENVS students in determining the best career match for them. In addition to the student side of the websites, admins (professors) are also able to update site contents without needing to write any code.
 
-Live preview: coming soon...
+Live demo: https://envs-matcher.web.app/
 
-## Built with
-* TypeScript
-* Express.js
-* React
-* Vite
-* Tailwind
-* MongoDB and Mongoose (WIP)
-* JWT auth (WIP)
-* Railway server hosting (WIP)
-* Firebase client hosting (WIP)
+## Table of Contents
+
+- [Built With](#built-with)
+- [Features](#features)
+- [License](#license)
+
+## Built With
+
+ENVS Matcher is built with the following technologies:
+
+- TypeScript
+- Node.js and Express.js
+- React
+- Vite
+- Tailwind
+- MongoDB and Mongoose
+- Cloudinary
+- JWT auth
+- Railway server hosting
+- Firebase client hosting
 
 ## Features
-* Questionnaire that assesses what a student is looking for in a career (WIP)
-* Point-based system that ranks careers in order of how well they match to the student's responses (WIP)
-* Profile creation (WIP)
-  - Save results to profiles
-  - Allow users to re-take the questionnaire
-* Info pages for each career listed on website (WIP)
-  - Skills used at the job
-  - Links to recently-posted entry-level/internship listings on job boards
-* More to come as project development fleshes out
+
+ENVS Matcher has the following features:
+
+- Questionnaire that assesses what a student is looking for in a career
+- Percentagete-based system that compares the attributes a student desires in a career against a list of careers
+- Profile creation
+    - Save results to profiles
+    - Allow users to re-take the questionnaire
+- Info pages for each career listed on website
+    - Skills used at the job
+    - Description of the job
+    - Helpful certifications
+- Admins are able to modify site contents without having to write any code
+  - Can add/delete questions and their associated attributes
+  - Can add/delete careers and their associate properties
+    - Can upload and crop images for careers
+    - Can add career descriptions with separated paragraph formatting
+
+## License
+
+ENVS Matcher is open source software [licensed as MIT](https://github.com/username/ENVS-matcher/blob/main/LICENSE).
