@@ -41,9 +41,5 @@ ENVS Matcher has the following features:
 - Admins are able to modify site contents without having to write any code
   - Can add/delete questions and their associated attributes
   - Can add/delete careers and their associate properties
-    - Can upload and crop images for careers
-    - Can add career descriptions with separated paragraph formatting
-
-## License
-
-ENVS Matcher is open source software [licensed as MIT](https://github.com/username/ENVS-matcher/blob/main/LICENSE).
+   - Can upload and crop images for careers
+   - Can add career descriptions with separated paragraph formatting
