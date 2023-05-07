@@ -8,7 +8,6 @@ Live demo: https://envs-matcher.web.app/
 
 - [Built With](#built-with)
 - [Features](#features)
-- [License](#license)
 
 ## Built With
 
